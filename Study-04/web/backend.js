@@ -5,13 +5,18 @@
 
 class FridgeRecipeBackend {
     constructor() {
+        // 서버리스 함수 사용 - API 키는 서버에서 관리
+        this.useServerlessAPI = true;
+        this.serverlessUrl = '/api/recipe';
+
+        // 개발/로컬 테스트용 - 로컬에서는 직접 API 호출 가능
         this.apiKey = this.getApiKey();
         this.baseUrl = 'https://openrouter.ai/api/v1';
-        this.model = 'meta-llama/llama-4-maverick:free'; // 무료 비전 모델 사용
+        this.model = 'meta-llama/llama-4-maverick:free';
     }
 
     /**
-     * API 키 가져오기
+     * API 키 가져오기 (로컬 개발용)
      */
     getApiKey() {
         if (typeof localStorage !== 'undefined') {
@@ -20,12 +25,11 @@ class FridgeRecipeBackend {
                 return storedKey;
             }
         }
-        console.warn('API 키가 설정되지 않았습니다.');
         return null;
     }
 
     /**
-     * API 키 설정
+     * API 키 설정 (로컬 개발용)
      */
     setApiKey(apiKey) {
         if (typeof localStorage !== 'undefined') {
@@ -151,7 +155,64 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
     }
 
     /**
-     * OpenRouter API 호출
+     * API 호출 (서버리스 또는 직접)
+     */
+    async callAPI(prompt, imageBase64 = null) {
+        // 서버리스 API 사용
+        if (this.useServerlessAPI) {
+            return await this.callServerlessAPI(prompt, imageBase64);
+        }
+
+        // 직접 OpenRouter API 호출 (로컬 개발용)
+        return await this.callOpenRouterAPI(prompt, imageBase64);
+    }
+
+    /**
+     * 서버리스 함수 호출
+     */
+    async callServerlessAPI(prompt, imageBase64 = null) {
+        try {
+            const response = await fetch(this.serverlessUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    prompt: prompt,
+                    imageBase64: imageBase64
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('서버 API 오류:', errorData);
+                throw new Error(`서버 오류: ${response.status} - ${errorData.error || response.statusText}`);
+            }
+
+            const data = await response.json();
+
+            if (data.success && data.content) {
+                // OpenRouter 응답 형식으로 변환
+                return {
+                    choices: [
+                        {
+                            message: {
+                                content: data.content
+                            }
+                        }
+                    ]
+                };
+            } else {
+                throw new Error('서버 응답 형식이 올바르지 않습니다.');
+            }
+        } catch (error) {
+            console.error('서버리스 API 호출 실패:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * OpenRouter API 직접 호출 (로컬 개발용)
      */
     async callOpenRouterAPI(prompt, imageBase64 = null) {
         if (!this.apiKey) {
@@ -231,7 +292,7 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
 
         try {
             console.log('재료 인식 중...');
-            const response = await this.callOpenRouterAPI(prompt, imageBase64);
+            const response = await this.callAPI(prompt, imageBase64);
 
             if (response.choices && response.choices[0] && response.choices[0].message) {
                 const content = response.choices[0].message.content;
@@ -308,7 +369,7 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
 
         try {
             console.log('레시피 생성 중...', hasImage ? '(이미지 포함)' : '');
-            const response = await this.callOpenRouterAPI(prompt, imageBase64);
+            const response = await this.callAPI(prompt, imageBase64);
 
             if (response.choices && response.choices[0] && response.choices[0].message) {
                 const result = this.parseRecipeResponse(response.choices[0].message.content);
