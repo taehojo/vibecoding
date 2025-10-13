@@ -166,6 +166,10 @@ class FridgeRecipeApp {
             document.querySelector('.upload-placeholder')?.classList.add('hidden');
             document.getElementById('imagePreview')?.classList.remove('hidden');
 
+            // 새 이미지 업로드 시 재료 입력창 초기화
+            const ingredientsText = document.getElementById('ingredientsText');
+            ingredientsText.value = '';
+
             // 재료 인식 섹션 표시
             const recognizedSection = document.getElementById('recognizedIngredientsSection');
             recognizedSection?.classList.remove('hidden');
@@ -240,11 +244,9 @@ class FridgeRecipeApp {
                 `;
                 recognizedContent.innerHTML = html;
 
-                // 재료를 텍스트 입력창에 복사
+                // 재료를 텍스트 입력창에 업데이트 (항상 새로운 재료로 교체)
                 const ingredientsText = document.getElementById('ingredientsText');
-                if (ingredientsText.value.trim() === '') {
-                    ingredientsText.value = ingredients.join(', ');
-                }
+                ingredientsText.value = ingredients.join(', ');
 
                 this.showToast(`✅ ${ingredients.length}개의 재료를 인식했습니다!`, 'success');
             } else {
