@@ -91,14 +91,17 @@
 - **Study-03-advanced** (고급): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-advanced)
 
 ### Chapter 6: 냉장고를 부탁해 (레시피 앱)
-- **Study-04**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-04/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-04)
-  - ⚠️ OpenRouter API 키가 필요합니다 (데모에서 UI 확인 가능)
+- **Study-04**: [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-04)
+  - Python Flask 앱입니다. 다운로드 후 `run_step3.bat` 실행
+  - OpenRouter API 키가 필요합니다 (교재 참고)
   - **샘플 이미지**: [sample_fridge.jpg 다운로드](https://raw.githubusercontent.com/taehojo/vibecoding/master/Study-04/sample_fridge.jpg)
 
 ### Chapter 7: 공감 AI 다이어리 & PDF 문서 요약 AI
-- **Study-05** (다이어리): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-05/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-05)
-  - ⚠️ API 키가 필요합니다 (데모에서 UI 확인 가능)
+- **Study-05**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-05/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-05)
+  - ⚠️ API 키 설정이 필요합니다. 아래 가이드를 참고하세요:
+    1. 라이브 데모에서 ⚙️ 설정 버튼 클릭
+    2. [OpenRouter](https://openrouter.ai/)에서 무료 API 키 발급 (회원가입 후 Credits 메뉴)
+    3. 발급받은 API 키를 입력하고 저장
 
 ### Chapter 8: 쇼핑 리스트 앱 (데이터베이스 연동)
-- **Study-06**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-06/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-06)
-  - ⚠️ Supabase API 키가 필요합니다 (데모에서 UI 확인 가능)
+- **Study-06**: [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-06)

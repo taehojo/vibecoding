@@ -701,6 +701,86 @@ if (typeof window !== 'undefined') {
         }
     };
 
+    // 설정 모달 제어
+    window.initSettingsModal = () => {
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+        const cancelSettingsBtn = document.getElementById('cancelSettingsBtn');
+        const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
+        const apiKeyInput = document.getElementById('apiKeyInput');
+        const apiKeyStatus = document.getElementById('apiKeyStatus');
+        const modalBackdrop = settingsModal?.querySelector('.modal-backdrop');
+
+        // 저장된 API 키 확인
+        const savedApiKey = localStorage.getItem('openrouter_api_key');
+        if (savedApiKey) {
+            apiKeyInput.value = savedApiKey;
+        }
+
+        // 모달 열기
+        const openModal = () => {
+            settingsModal?.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        };
+
+        // 모달 닫기
+        const closeModal = () => {
+            settingsModal?.classList.add('hidden');
+            document.body.style.overflow = '';
+            apiKeyStatus?.classList.add('hidden');
+        };
+
+        // 이벤트 리스너
+        settingsBtn?.addEventListener('click', openModal);
+        closeSettingsBtn?.addEventListener('click', closeModal);
+        cancelSettingsBtn?.addEventListener('click', closeModal);
+        modalBackdrop?.addEventListener('click', closeModal);
+
+        // API 키 저장
+        saveApiKeyBtn?.addEventListener('click', () => {
+            const apiKey = apiKeyInput.value.trim();
+
+            if (!apiKey) {
+                apiKeyStatus.textContent = '❌ API 키를 입력해주세요.';
+                apiKeyStatus.style.color = '#ef4444';
+                apiKeyStatus.classList.remove('hidden');
+                return;
+            }
+
+            if (!apiKey.startsWith('sk-or-v1-')) {
+                apiKeyStatus.textContent = '❌ 올바른 OpenRouter API 키 형식이 아닙니다.';
+                apiKeyStatus.style.color = '#ef4444';
+                apiKeyStatus.classList.remove('hidden');
+                return;
+            }
+
+            // API 키 저장
+            window.setApiKey(apiKey);
+            apiKeyStatus.textContent = '✅ API 키가 저장되었습니다!';
+            apiKeyStatus.style.color = '#10b981';
+            apiKeyStatus.classList.remove('hidden');
+
+            setTimeout(() => {
+                closeModal();
+            }, 1500);
+        });
+
+        // Enter 키로 저장
+        apiKeyInput?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                saveApiKeyBtn?.click();
+            }
+        });
+    };
+
+    // 페이지 로드 시 설정 모달 초기화
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', window.initSettingsModal);
+    } else {
+        window.initSettingsModal();
+    }
+
     // 성능 모니터링
     window.getPerformanceInfo = () => {
         if (window.performance) {

@@ -39,12 +39,63 @@
     <div class="container">
         <!-- Header Section -->
         <header class="header">
-            <h1 class="app-title">
-                <span class="title-icon">📖</span>
-                공감 AI 다이어리
-            </h1>
-            <p class="app-subtitle">당신의 마음을 따뜻하게 이해하는 일기장</p>
+            <div class="header-top">
+                <div class="header-title-group">
+                    <h1 class="app-title">
+                        <span class="title-icon">📖</span>
+                        공감 AI 다이어리
+                    </h1>
+                    <p class="app-subtitle">당신의 마음을 따뜻하게 이해하는 일기장</p>
+                </div>
+                <button id="settingsBtn" class="btn-settings" aria-label="설정" title="API 키 설정">
+                    ⚙️
+                </button>
+            </div>
         </header>
+
+        <!-- API Key Settings Modal -->
+        <div id="settingsModal" class="modal hidden" role="dialog" aria-labelledby="settings-title" aria-modal="true">
+            <div class="modal-content settings-modal">
+                <div class="modal-header">
+                    <h3 id="settings-title" class="modal-title">⚙️ API 키 설정</h3>
+                    <button id="closeSettingsBtn" class="btn-close" aria-label="닫기">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-info">
+                        <p>🔑 AI 감정 분석을 사용하려면 OpenRouter API 키가 필요합니다.</p>
+                        <p class="settings-help">
+                            <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">
+                                OpenRouter에서 무료 API 키 받기 →
+                            </a>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label for="apiKeyInput" class="form-label">API 키</label>
+                        <input
+                            type="password"
+                            id="apiKeyInput"
+                            class="form-input"
+                            placeholder="sk-or-v1-..."
+                            aria-describedby="api-key-help"
+                        />
+                        <small id="api-key-help" class="form-help">
+                            API 키는 브라우저에만 저장되며 외부로 전송되지 않습니다.
+                        </small>
+                    </div>
+                    <div id="apiKeyStatus" class="api-status hidden"></div>
+                </div>
+                <div class="modal-actions">
+                    <button id="saveApiKeyBtn" class="btn btn-primary">
+                        <span class="btn-icon">💾</span>
+                        저장
+                    </button>
+                    <button id="cancelSettingsBtn" class="btn btn-secondary">
+                        취소
+                    </button>
+                </div>
+            </div>
+            <div class="modal-backdrop"></div>
+        </div>
 
         <!-- Main Content -->
         <main class="main-content">
