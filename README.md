@@ -79,7 +79,7 @@
 각 Chapter의 완성된 실습 프로젝트입니다. 🎯 라이브 데모를 클릭하여 바로 실행해보세요!
 
 ### Chapter 3: 손글씨 인식 프로그램
-- **Study-01** (웹 버전): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-01/web_version/templates/)
+- **Study-01** (웹 버전): Flask 앱 - 로컬 실행 필요 (`run_web.bat`)
 
 ### Chapter 4: 할 일 관리 앱
 - **Study-02**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-02/)
