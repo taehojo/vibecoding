@@ -105,6 +105,14 @@ class FridgeRecipeApp {
             imageInput?.click();
         });
 
+        // 샘플 이미지 버튼들
+        document.querySelectorAll('.sample-image-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const sampleName = btn.dataset.sample;
+                this.loadSampleImage(sampleName);
+            });
+        });
+
         // 파일 선택 시
         imageInput?.addEventListener('change', (e) => {
             const file = e.target.files[0];
@@ -147,6 +155,46 @@ class FridgeRecipeApp {
         ingredientsText?.addEventListener('input', () => {
             this.updateGenerateButton();
         });
+    }
+
+    /**
+     * 샘플 이미지 로드
+     */
+    async loadSampleImage(sampleName) {
+        try {
+            const response = await fetch(`samples/${sampleName}`);
+            const blob = await response.blob();
+
+            // Blob을 base64로 변환
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                this.currentImage = e.target.result;
+                this.recognizedIngredients = [];
+
+                const previewImage = document.getElementById('previewImage');
+                previewImage.src = this.currentImage;
+                document.querySelector('.upload-placeholder')?.classList.add('hidden');
+                document.getElementById('imagePreview')?.classList.remove('hidden');
+
+                // 새 이미지 업로드 시 재료 입력창 초기화
+                const ingredientsText = document.getElementById('ingredientsText');
+                ingredientsText.value = '';
+
+                // 재료 인식 섹션 표시
+                const recognizedSection = document.getElementById('recognizedIngredientsSection');
+                recognizedSection?.classList.remove('hidden');
+
+                // 재료 인식 안내 표시
+                const recognizedContent = document.getElementById('recognizedIngredientsContent');
+                recognizedContent.innerHTML = '<p class="recognized-hint">📸 "재료 분석하기" 버튼을 눌러 이미지 속 재료를 인식하세요.</p>';
+
+                this.updateGenerateButton();
+            };
+            reader.readAsDataURL(blob);
+        } catch (error) {
+            console.error('샘플 이미지 로드 실패:', error);
+            this.showToast('샘플 이미지를 불러올 수 없습니다.', 'error');
+        }
     }
 
     /**
