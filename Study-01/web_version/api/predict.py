@@ -1,13 +1,9 @@
 from http.server import BaseHTTPRequestHandler
 import json
 import base64
-import numpy as np
 from PIL import Image
 import io
-
-# Simple MNIST prediction using a lightweight approach
-# For demonstration, we'll use a simple pattern matching approach
-# In production, you would load a pre-trained model
+import random
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
@@ -28,13 +24,14 @@ class handler(BaseHTTPRequestHandler):
             image = image.convert('L')
             image = image.resize((28, 28), Image.Resampling.LANCZOS)
 
-            # Convert to numpy array
-            img_array = np.array(image)
-            img_array = 255 - img_array  # Invert colors
+            # Get pixel data
+            pixels = list(image.getdata())
+
+            # Invert colors
+            pixels = [255 - p for p in pixels]
 
             # Simple prediction based on pixel density in regions
-            # This is a lightweight alternative for demo purposes
-            predictions = self.simple_predict(img_array)
+            predictions = self.simple_predict(pixels)
 
             # Return results
             self.send_response(200)
@@ -52,6 +49,7 @@ class handler(BaseHTTPRequestHandler):
         except Exception as e:
             self.send_response(500)
             self.send_header('Content-type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
 
             response = {
@@ -68,49 +66,70 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
 
-    def simple_predict(self, img_array):
+    def simple_predict(self, pixels):
         """
         Simple heuristic-based prediction for demonstration
-        In production, replace with actual model prediction
+        This is a lightweight demo - in production, use a real ML model
         """
-        # Normalize
-        img_norm = img_array.astype('float32') / 255.0
+        # Calculate region densities (28x28 image)
+        def get_region_density(pixels, rows, cols):
+            total = sum(pixels[r * 28 + c] for r in rows for c in cols)
+            return total / (len(rows) * len(cols) * 255.0)
 
-        # Calculate features
-        top_density = np.mean(img_norm[:10, :])
-        middle_density = np.mean(img_norm[9:19, :])
-        bottom_density = np.mean(img_norm[18:, :])
-        left_density = np.mean(img_norm[:, :10])
-        right_density = np.mean(img_norm[:, 18:])
-        center_density = np.mean(img_norm[9:19, 9:19])
+        top_density = get_region_density(pixels, range(0, 10), range(0, 28))
+        middle_density = get_region_density(pixels, range(9, 19), range(0, 28))
+        bottom_density = get_region_density(pixels, range(18, 28), range(0, 28))
+        left_density = get_region_density(pixels, range(0, 28), range(0, 10))
+        right_density = get_region_density(pixels, range(0, 28), range(18, 28))
+        center_density = get_region_density(pixels, range(9, 19), range(9, 19))
 
-        # Simple pattern matching
-        scores = np.zeros(10)
+        # Calculate total density
+        total_density = sum(pixels) / (28 * 28 * 255.0)
 
-        # These are rough heuristics - replace with actual model
-        if center_density > 0.3:
-            scores[0] = 0.7 + np.random.rand() * 0.2  # likely 0
-            scores[8] = 0.5 + np.random.rand() * 0.2  # could be 8
+        # Simple heuristic scoring
+        scores = [0.0] * 10
 
-        if top_density < 0.2 and bottom_density > 0.3:
-            scores[1] = 0.6 + np.random.rand() * 0.3  # likely 1
-            scores[7] = 0.4 + np.random.rand() * 0.2  # could be 7
+        # Pattern matching heuristics
+        if center_density > 0.3 and total_density > 0.2:
+            scores[0] = 0.6 + random.random() * 0.2  # Could be 0
+            scores[8] = 0.5 + random.random() * 0.15  # Could be 8
 
-        # Add some randomness for other digits
+        if top_density < 0.15 and bottom_density > 0.3 and left_density < right_density:
+            scores[1] = 0.7 + random.random() * 0.2  # Likely 1
+            scores[7] = 0.4 + random.random() * 0.1  # Could be 7
+
+        if top_density > 0.3 and bottom_density > 0.3:
+            scores[2] = 0.5 + random.random() * 0.2  # Could be 2
+            scores[3] = 0.4 + random.random() * 0.15  # Could be 3
+
+        if middle_density > 0.35:
+            scores[4] = 0.5 + random.random() * 0.15  # Could be 4
+            scores[5] = 0.45 + random.random() * 0.15  # Could be 5
+            scores[6] = 0.4 + random.random() * 0.1  # Could be 6
+
+        if top_density > 0.25:
+            scores[7] = max(scores[7], 0.4 + random.random() * 0.15)  # Could be 7
+            scores[9] = 0.45 + random.random() * 0.15  # Could be 9
+
+        # Add baseline randomness for unassigned scores
         for i in range(10):
-            if scores[i] == 0:
-                scores[i] = np.random.rand() * 0.3
+            if scores[i] < 0.1:
+                scores[i] = random.random() * 0.2
 
-        # Normalize scores to sum to ~1
-        scores = scores / scores.sum()
+        # Normalize scores
+        total = sum(scores)
+        if total > 0:
+            scores = [s / total for s in scores]
 
-        # Get top 3
-        top_indices = np.argsort(scores)[-3:][::-1]
+        # Get top 3 predictions
+        scored_digits = [(scores[i], i) for i in range(10)]
+        scored_digits.sort(reverse=True)
+
         results = []
-        for idx in top_indices:
+        for score, digit in scored_digits[:3]:
             results.append({
-                'digit': int(idx),
-                'confidence': float(scores[idx])
+                'digit': digit,
+                'confidence': score
             })
 
         return results
