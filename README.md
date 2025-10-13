@@ -8,24 +8,24 @@
     <tr>
       <td align="center">
         <a href="https://vibecoding-ch03.vercel.app/">
-          <img src="images/ch03.jpg" alt="3장 예제 손글씨 인식" width="250">
+          <img src="images/ch03.jpg" alt="3장 예제: 손글씨 인식" width="250">
         </a>
         <br>
-        <strong>3장 예제 손글씨 인식</strong>
+        <strong>3장 예제: 손글씨 인식</strong>
       </td>
       <td align="center">
         <a href="https://vibecoding-ch06.vercel.app/">
-          <img src="images/ch06.jpg" alt="6장 예제 냉장고를 부탁해" width="250">
+          <img src="images/ch06.jpg" alt="6장 예제: 냉장고를 부탁해" width="250">
         </a>
         <br>
-        <strong>6장 예제 냉장고를 부탁해</strong>
+        <strong>6장 예제: 냉장고를 부탁해</strong>
       </td>
       <td align="center">
         <a href="https://vibecoding-ch07.vercel.app/">
-          <img src="images/ch07.jpg" alt="7장 예제 공감 AI 다이어리" width="250">
+          <img src="images/ch07.jpg" alt="7장 예제: 공감 AI 다이어리" width="250">
         </a>
         <br>
-        <strong>7장 예제 공감 AI 다이어리</strong>
+        <strong>7장 예제: 공감 AI 다이어리</strong>
       </td>
     </tr>
   </table>
