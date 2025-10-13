@@ -91,9 +91,13 @@
 - **Study-03-advanced** (고급): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-advanced)
 
 ### Chapter 6: 냉장고를 부탁해 (레시피 앱)
-- **Study-04**: [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-04)
-  - Python Flask 앱입니다. 다운로드 후 `run_step3.bat` 실행
-  - OpenRouter API 키가 필요합니다 (교재 참고)
+- **Study-04 (웹 버전)**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-04/web/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-04)
+  - ⚠️ API 키 설정이 필요합니다. 아래 가이드를 참고하세요:
+    1. 라이브 데모에서 ⚙️ 설정 버튼 클릭
+    2. [OpenRouter](https://openrouter.ai/)에서 무료 API 키 발급
+    3. 발급받은 API 키를 입력하고 저장
+    4. 냉장고 사진을 업로드하거나 재료를 입력하세요
+  - **Python Flask 버전**: 다운로드 후 `run_step3.bat` 실행 (교재 참고)
   - **샘플 이미지**: [sample_fridge.jpg 다운로드](https://raw.githubusercontent.com/taehojo/vibecoding/master/Study-04/sample_fridge.jpg)
 
 ### Chapter 7: 공감 AI 다이어리 & PDF 문서 요약 AI
