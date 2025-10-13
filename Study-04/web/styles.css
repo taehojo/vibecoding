@@ -71,6 +71,27 @@ body {
     margin-bottom: var(--spacing-2xl);
 }
 
+.book-info {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 107, 53, 0.05) 100%);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+    border-left: 4px solid var(--color-primary);
+}
+
+.book-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xs);
+}
+
+.book-chapter {
+    font-size: var(--font-size-md);
+    color: var(--color-text-light);
+    font-weight: 500;
+}
+
 .header-top {
     display: flex;
     justify-content: center;
