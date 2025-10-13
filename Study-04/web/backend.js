@@ -7,7 +7,7 @@ class FridgeRecipeBackend {
     constructor() {
         this.apiKey = this.getApiKey();
         this.baseUrl = 'https://openrouter.ai/api/v1';
-        this.model = 'google/gemma-3-27b-it:free'; // 무료 모델 사용
+        this.model = 'meta-llama/llama-3.2-3b-instruct:free'; // 무료 모델 사용
     }
 
     /**
