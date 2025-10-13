@@ -197,9 +197,39 @@ class EmpathyDiaryBackend {
             console.warn(`텍스트가 너무 길어 ${maxLength}자로 제한되었습니다.`);
         }
 
+        // 먼저 Vercel 서버리스 API 시도 (배포 환경)
+        try {
+            console.log('Vercel 서버리스 API 호출 시도 중...');
+            const response = await fetch('/api/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ diaryText })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.success) {
+                    console.log('감정 분석 완료 (서버리스):', data);
+                    return {
+                        emotion: data.emotion,
+                        emotionKorean: data.emotionKorean,
+                        empathyMessage: data.empathyMessage,
+                        emotionScore: data.emotionScore
+                    };
+                }
+            } else {
+                console.warn('서버리스 API 호출 실패:', response.status);
+            }
+        } catch (error) {
+            console.warn('서버리스 API 호출 오류:', error.message);
+        }
+
+        // 로컬 개발 환경: 직접 OpenRouter API 호출
         const prompt = this.createEmotionAnalysisPrompt(diaryText);
 
-        // 먼저 직접 호출 시도
+        // 직접 호출 시도
         try {
             console.log('직접 API 호출 시도 중...');
             const response = await this.callOpenRouterAPI(prompt, false);
