@@ -807,6 +807,11 @@ body {
     color: var(--color-text-light);
 }
 
+.footer .book-info {
+    margin-top: var(--spacing-lg);
+    display: inline-block;
+}
+
 /* Recognized Ingredients Section */
 .recognized-section {
     background: linear-gradient(135deg, rgba(78, 205, 196, 0.1) 0%, rgba(78, 205, 196, 0.05) 100%);
