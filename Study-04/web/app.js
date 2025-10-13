@@ -7,17 +7,14 @@ class FridgeRecipeApp {
         this.currentImage = null;
         this.currentRecipe = null;
         this.recognizedIngredients = [];
-        this.savedRecipes = [];
         this.init();
     }
 
     init() {
-        this.loadSavedRecipes();
         this.initSettingsModal();
         this.initImageUpload();
         this.initIngredientRecognition();
         this.initRecipeGeneration();
-        this.initSavedRecipes();
         this.updateUI();
     }
 
@@ -275,7 +272,6 @@ class FridgeRecipeApp {
     initRecipeGeneration() {
         const generateRecipeBtn = document.getElementById('generateRecipeBtn');
         const newSearchBtn = document.getElementById('newSearchBtn');
-        const saveRecipeBtn = document.getElementById('saveRecipeBtn');
 
         generateRecipeBtn?.addEventListener('click', () => {
             this.generateRecipe();
@@ -283,10 +279,6 @@ class FridgeRecipeApp {
 
         newSearchBtn?.addEventListener('click', () => {
             this.resetSearch();
-        });
-
-        saveRecipeBtn?.addEventListener('click', () => {
-            this.saveCurrentRecipe();
         });
     }
 
@@ -402,135 +394,10 @@ class FridgeRecipeApp {
         document.querySelector('.upload-placeholder')?.classList.remove('hidden');
         document.getElementById('imagePreview')?.classList.add('hidden');
         document.getElementById('recipeResult')?.classList.add('hidden');
+        document.getElementById('recognizedIngredientsSection')?.classList.add('hidden');
 
         this.updateGenerateButton();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    /**
-     * 현재 레시피 저장
-     */
-    saveCurrentRecipe() {
-        if (!this.currentRecipe) return;
-
-        this.savedRecipes.unshift(this.currentRecipe);
-
-        // localStorage에 저장 (최대 10개)
-        const recipesToSave = this.savedRecipes.slice(0, 10);
-        localStorage.setItem('fridge_saved_recipes', JSON.stringify(recipesToSave));
-
-        this.updateSavedRecipesList();
-        this.showToast('레시피가 저장되었습니다!');
-    }
-
-    /**
-     * 저장된 레시피 불러오기
-     */
-    loadSavedRecipes() {
-        try {
-            const saved = localStorage.getItem('fridge_saved_recipes');
-            if (saved) {
-                this.savedRecipes = JSON.parse(saved);
-            }
-        } catch (error) {
-            console.error('레시피 불러오기 오류:', error);
-            this.savedRecipes = [];
-        }
-    }
-
-    /**
-     * 저장된 레시피 섹션 초기화
-     */
-    initSavedRecipes() {
-        const toggleSavedBtn = document.getElementById('toggleSavedBtn');
-        const savedRecipesList = document.getElementById('savedRecipesList');
-
-        toggleSavedBtn?.addEventListener('click', () => {
-            const isHidden = savedRecipesList?.classList.contains('hidden');
-
-            if (isHidden) {
-                savedRecipesList?.classList.remove('hidden');
-                document.getElementById('toggleSavedIcon').textContent = '📕';
-                document.getElementById('toggleSavedText').textContent = '접기';
-            } else {
-                savedRecipesList?.classList.add('hidden');
-                document.getElementById('toggleSavedIcon').textContent = '📖';
-                document.getElementById('toggleSavedText').textContent = '펼치기';
-            }
-        });
-
-        this.updateSavedRecipesList();
-    }
-
-    /**
-     * 저장된 레시피 목록 업데이트
-     */
-    updateSavedRecipesList() {
-        const savedRecipesContent = document.getElementById('savedRecipesContent');
-        const emptySavedState = document.getElementById('emptySavedState');
-
-        if (this.savedRecipes.length === 0) {
-            savedRecipesContent.innerHTML = '';
-            emptySavedState?.classList.remove('hidden');
-            return;
-        }
-
-        emptySavedState?.classList.add('hidden');
-
-        const html = this.savedRecipes.map((recipe, index) => `
-            <div class="saved-recipe-card">
-                <div class="saved-recipe-header">
-                    <h4 class="saved-recipe-title">${recipe.dishName}</h4>
-                    <button class="btn-remove-saved" data-index="${index}" aria-label="삭제">🗑️</button>
-                </div>
-                <div class="saved-recipe-meta">
-                    <span class="recipe-badge">⏱️ ${recipe.cookingTime}</span>
-                    <span class="recipe-badge">📊 ${recipe.difficulty}</span>
-                </div>
-                <p class="saved-recipe-date">${new Date(recipe.timestamp).toLocaleDateString('ko-KR')}</p>
-                <button class="btn btn-secondary btn-view-recipe" data-index="${index}">
-                    레시피 보기
-                </button>
-            </div>
-        `).join('');
-
-        savedRecipesContent.innerHTML = html;
-
-        // 이벤트 리스너 추가
-        document.querySelectorAll('.btn-remove-saved').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const index = parseInt(e.target.dataset.index);
-                this.deleteSavedRecipe(index);
-            });
-        });
-
-        document.querySelectorAll('.btn-view-recipe').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const index = parseInt(e.target.dataset.index);
-                this.viewSavedRecipe(index);
-            });
-        });
-    }
-
-    /**
-     * 저장된 레시피 삭제
-     */
-    deleteSavedRecipe(index) {
-        if (confirm('정말로 이 레시피를 삭제하시겠습니까?')) {
-            this.savedRecipes.splice(index, 1);
-            localStorage.setItem('fridge_saved_recipes', JSON.stringify(this.savedRecipes));
-            this.updateSavedRecipesList();
-            this.showToast('레시피가 삭제되었습니다.');
-        }
-    }
-
-    /**
-     * 저장된 레시피 보기
-     */
-    viewSavedRecipe(index) {
-        const recipe = this.savedRecipes[index];
-        this.currentRecipe = recipe;
-        this.displayRecipe(recipe);
     }
 
     /**
@@ -538,7 +405,6 @@ class FridgeRecipeApp {
      */
     updateUI() {
         this.updateGenerateButton();
-        this.updateSavedRecipesList();
     }
 
     /**
