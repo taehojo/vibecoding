@@ -52,6 +52,24 @@
             font-weight: 500;
         }
 
+        .progress-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto 0;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
         .canvas-container {
             display: flex;
             flex-direction: column;
@@ -205,7 +223,12 @@
     <div class="container">
         <h1>Handwritten Digit Recognition</h1>
         <p class="subtitle">Draw a digit (0-9) on the canvas below</p>
-        <div id="loading" class="loading">Loading model...</div>
+        <div id="loading" class="loading">
+            Loading model...
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+        </div>
 
         <div class="canvas-container" style="display:none;" id="app">
             <canvas id="canvas" width="280" height="280"></canvas>
@@ -224,15 +247,37 @@
     <script>
         let model = null;
 
+        // Simulate progress bar animation
+        function animateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                progressBar.style.width = progress + '%';
+            }, 100);
+            return interval;
+        }
+
         // Load TensorFlow.js model
         async function loadModel() {
+            const progressInterval = animateProgress();
+
             try {
                 // Use a pre-trained MNIST model from TensorFlow Hub
                 model = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mnist_transfer_cnn_v1/model.json');
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('app').style.display = 'flex';
+
+                clearInterval(progressInterval);
+                document.getElementById('progressBar').style.width = '100%';
+
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('app').style.display = 'flex';
+                }, 300);
+
                 console.log('Model loaded successfully');
             } catch (error) {
+                clearInterval(progressInterval);
                 document.getElementById('loading').textContent = 'Failed to load model. Using demo mode.';
                 console.error('Model load error:', error);
                 // Even if model fails, show the app
