@@ -120,8 +120,8 @@
 ### Chapter 6: 냉장고를 부탁해 (AI 레시피 추천)
 - **Study-04**: [🎯 라이브 데모](https://vibecoding-ch06.vercel.app)
 
-### Chapter 7: 공감 AI 다이어리
-- **Study-05**: [🎯 라이브 데모](https://vibecoding-ch07.vercel.app)
+### Chapter 7: 공감 AI 다이어리, PDF 문서 요약 AI
+- **Study-05**: [🎯 라이브 데모](https://vibecoding-ch07.vercel.app) (공감 AI 다이어리)
 
 ### Chapter 8: 쇼핑 리스트 앱 (데이터베이스 연동)
 - **Study-06**: [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app)
