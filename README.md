@@ -1,5 +1,33 @@
 # Vibe Coding
 
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://vibecoding-ch03.vercel.app/">
+          <img src="images/ch03.png" alt="3장 예제 손글씨 인식" width="250">
+        </a>
+        <br>
+        <strong>3장 예제 손글씨 인식</strong>
+      </td>
+      <td align="center">
+        <a href="https://vibecoding-ch06.vercel.app/">
+          <img src="images/ch06.png" alt="6장 예제 냉장고를 부탁해" width="250">
+        </a>
+        <br>
+        <strong>6장 예제 냉장고를 부탁해</strong>
+      </td>
+      <td align="center">
+        <a href="https://vibecoding-ch07.vercel.app/">
+          <img src="images/ch07.png" alt="7장 예제 공감 AI 다이어리" width="250">
+        </a>
+        <br>
+        <strong>7장 예제 공감 AI 다이어리</strong>
+      </td>
+    </tr>
+  </table>
+</div>
+
 실습 프로젝트 소스코드
 
 📝 **[전체 프롬프트 모음 보기](PROMPTS.md)** - 교재의 모든 프롬프트를 복사하여 바로 사용하세요.
