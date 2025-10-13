@@ -51,7 +51,7 @@
 - **Study-02**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-02)
 
 ### Chapter 5: 퀴즈 게임
-- **Study-03-basic** (기본): [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic) *5장 학습시 다운 받으세요.
+- **Study-03-basic** (기본): [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic) *5장 학습시 참조하세요.
 - **Study-03-advanced** (고급): [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-advanced)
 
 ### Chapter 6: 냉장고를 부탁해 (레시피 앱)
