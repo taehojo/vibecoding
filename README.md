@@ -76,26 +76,29 @@
 
 ---
 
-## 📦 프로젝트 다운로드
+## 📦 프로젝트
 
-각 Chapter의 완성된 실습 프로젝트입니다.
+각 Chapter의 완성된 실습 프로젝트입니다. 🎯 라이브 데모를 클릭하여 바로 실행해보세요!
 
 ### Chapter 3: 손글씨 인식 프로그램
-- **Study-01**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-01)
+- **Study-01** (웹 버전): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-01/web_version/templates/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-01)
 
 ### Chapter 4: 할 일 관리 앱
-- **Study-02**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-02)
+- **Study-02**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-02/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-02)
 
 ### Chapter 5: 상식 퀴즈 게임
-- **Study-03-basic** (기본): [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic) *5장 학습시 참조하세요.
-- **Study-03-advanced** (고급): [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-advanced)
+- **Study-03-basic** (기본): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-basic/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic) *5장 학습시 참조하세요.
+- **Study-03-advanced** (고급): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-advanced)
 
 ### Chapter 6: 냉장고를 부탁해 (레시피 앱)
-- **Study-04**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-04)
-- **샘플 이미지**: [sample_fridge.jpg 다운로드](https://raw.githubusercontent.com/taehojo/vibecoding/master/Study-04/sample_fridge.jpg)
+- **Study-04**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-04/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-04)
+  - ⚠️ OpenRouter API 키가 필요합니다 (데모에서 UI 확인 가능)
+  - **샘플 이미지**: [sample_fridge.jpg 다운로드](https://raw.githubusercontent.com/taehojo/vibecoding/master/Study-04/sample_fridge.jpg)
 
 ### Chapter 7: 공감 AI 다이어리 & PDF 문서 요약 AI
-- **Study-05**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-05)
+- **Study-05** (다이어리): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-05/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-05)
+  - ⚠️ API 키가 필요합니다 (데모에서 UI 확인 가능)
 
 ### Chapter 8: 쇼핑 리스트 앱 (데이터베이스 연동)
-- **Study-06**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-06)
+- **Study-06**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-06/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-06)
+  - ⚠️ Supabase API 키가 필요합니다 (데모에서 UI 확인 가능)
