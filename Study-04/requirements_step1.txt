@@ -1,0 +1,6 @@
+# Step 1 Requirements
+streamlit==1.29.0
+python-dotenv==1.0.0
+requests==2.31.0
+Pillow==10.1.0
+pandas==2.1.4

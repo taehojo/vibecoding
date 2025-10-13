@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 문서 요약 - OpenRouter & DeepSeek V3.1</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --border-color: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .settings-section {
+            margin-bottom: 25px;
+        }
+
+        .settings-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-control:disabled {
+            background-color: #f1f5f9;
+            cursor: not-allowed;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #475569;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .file-upload {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: #fafbfc;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-color);
+            background: #f0f9ff;
+        }
+
+        .file-upload.dragover {
+            border-color: var(--primary-color);
+            background: #dbeafe;
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .file-upload-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .mode-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .mode-option {
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .mode-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .mode-option.active {
+            border-color: var(--primary-color);
+            background: #eff6ff;
+        }
+
+        .mode-option .mode-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .mode-option .mode-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .progress-container {
+            margin: 20px 0;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .result-container {
+            grid-column: 1 / -1;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .summary-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .summary-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .summary-content .summary-text {
+            line-height: 1.8;
+            font-size: 15px;
+            color: var(--text-primary);
+        }
+
+        .summary-content .summary-text h2,
+        .summary-content .summary-text h3 {
+            color: var(--primary-color);
+            margin: 20px 0 10px 0;
+        }
+
+        .summary-content .summary-text ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .summary-content .summary-text li {
+            margin: 8px 0;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            color: #d97706;
+            border: 1px solid #fed7aa;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-card .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .security-note {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #92400e;
+        }
+
+        .security-note strong {
+            color: #78350f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 PDF 문서 요약</h1>
+            <p>OpenRouter API와 DeepSeek V3.1으로 구동되는 지능형 문서 요약 시스템</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Settings Panel -->
+            <div class="card">
+                <h2>⚙️ 설정</h2>
+
+                <div class="security-note">
+                    <strong>보안 알림:</strong> API 키는 브라우저에서 직접 사용됩니다. 프로덕션 환경에서는 서버 사이드 구현을 권장합니다.
+                </div>
+
+                <div class="settings-section">
+                    <h3>API 설정</h3>
+                    <div class="form-group">
+                        <label for="apiKey">OpenRouter API 키</label>
+                        <input
+                            type="password"
+                            id="apiKey"
+                            class="form-control"
+                            placeholder="sk-or-v1-..."
+                            value="[OpenRouter API 키]"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="model">모델 선택</label>
+                        <select id="model" class="form-control">
+                            <option value="deepseek/deepseek-chat">DeepSeek V3.1 (추천)</option>
+                            <option value="deepseek/deepseek-coder">DeepSeek Coder</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>요약 모드</h3>
+                    <div class="mode-selector">
+                        <div class="mode-option active" data-mode="brief">
+                            <div class="mode-title">간단히</div>
+                            <div class="mode-desc">핵심만 빠르게</div>
+                        </div>
+                        <div class="mode-option" data-mode="standard">
+                            <div class="mode-title">보통</div>
+                            <div class="mode-desc">균형있게 요약</div>
+                        </div>
+                        <div class="mode-option" data-mode="detailed">
+                            <div class="mode-title">자세히</div>
+                            <div class="mode-desc">상세한 내용 포함</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>고급 옵션</h3>
+                    <div class="form-group">
+                        <label for="domain">문서 유형</label>
+                        <select id="domain" class="form-control">
+                            <option value="">일반 문서</option>
+                            <option value="academic">학술 논문</option>
+                            <option value="business">비즈니스 문서</option>
+                            <option value="legal">법률 문서</option>
+                            <option value="news">뉴스 기사</option>
+                            <option value="technology">기술 문서</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="streaming">
+                            <input type="checkbox" id="streaming" style="margin-right: 8px;">
+                            실시간 스트리밍 응답
+                        </label>
+                    </div>
+                </div>
+
+                <button id="testConnection" class="btn btn-secondary">
+                    <span>🔗</span>
+                    연결 테스트
+                </button>
+            </div>
+
+            <!-- File Upload Panel -->
+            <div class="card">
+                <h2>📁 파일 업로드</h2>
+
+                <div class="file-upload" id="fileUpload">
+                    <div class="file-upload-icon">📄</div>
+                    <p><strong>PDF 파일을 선택하거나 드래그하세요</strong></p>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">
+                        최대 50MB, PDF 형식만 지원
+                    </p>
+                    <input type="file" id="fileInput" accept=".pdf">
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                    <label for="textInput">또는 텍스트 직접 입력</label>
+                    <textarea
+                        id="textInput"
+                        class="form-control"
+                        rows="8"
+                        placeholder="요약할 텍스트를 여기에 입력하세요..."
+                    ></textarea>
+                </div>
+
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">처리 중...</div>
+                </div>
+
+                <button id="summarizeBtn" class="btn btn-primary" disabled>
+                    <span>✨</span>
+                    요약 생성
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="result-container card" id="resultContainer">
+            <h2>📊 요약 결과</h2>
+
+            <div class="stats-grid" id="statsGrid">
+                <!-- Stats will be populated by JavaScript -->
+            </div>
+
+            <div class="summary-content" id="summaryContent">
+                <!-- Summary will be populated by JavaScript -->
+            </div>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <button id="copyBtn" class="btn btn-secondary">
+                    <span>📋</span>
+                    복사
+                </button>
+                <button id="downloadBtn" class="btn btn-secondary">
+                    <span>💾</span>
+                    다운로드
+                </button>
+                <button id="newSummaryBtn" class="btn btn-primary">
+                    <span>🔄</span>
+                    새로운 요약
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load the modules -->
+    <script src="openrouter-client.js"></script>
+    <script src="text-summarization-service.js"></script>
+    <script src="prompt-templates.js"></script>
+    <script src="error-handler.js"></script>
+    <script src="token-manager.js"></script>
+
+    <!-- PDF.js for PDF parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <script>
+        class PDFSummarizerApp {
+            constructor() {
+                this.apiClient = null;
+                this.summarizationService = null;
+                this.promptTemplates = null;
+                this.errorHandler = null;
+                this.tokenManager = null;
+
+                this.currentMode = 'brief';
+                this.currentFile = null;
+                this.currentText = '';
+
+                this.initializeComponents();
+                this.bindEvents();
+                this.loadSavedSettings();
+            }
+
+            initializeComponents() {
+                // Initialize error handler
+                this.errorHandler = new ErrorHandler({
+                    maxRetries: 3,
+                    baseDelay: 1000,
+                    circuitBreakerThreshold: 5
+                });
+
+                // Initialize prompt templates
+                this.promptTemplates = new PromptTemplates({
+                    language: 'korean'
+                });
+
+                // Initialize token manager
+                this.tokenManager = new TokenManager({
+                    model: 'deepseek/deepseek-chat',
+                    maxTokensPerRequest: 4000,
+                    costPerToken: 0.000001
+                });
+            }
+
+            initializeAPIClient(apiKey) {
+                if (!apiKey) {
+                    throw new Error('API 키가 필요합니다.');
+                }
+
+                this.apiClient = new OpenRouterClient({
+                    apiKey: apiKey,
+                    model: document.getElementById('model').value,
+                    maxRetries: 3,
+                    requestTimeout: 60000
+                });
+
+                this.summarizationService = new TextSummarizationService(this.apiClient, {
+                    language: 'korean',
+                    includeKeyPoints: true,
+                    structuredOutput: true
+                });
+            }
+
+            bindEvents() {
+                // API settings
+                document.getElementById('testConnection').addEventListener('click', () => this.testConnection());
+
+                // Mode selection
+                document.querySelectorAll('.mode-option').forEach(option => {
+                    option.addEventListener('click', () => this.selectMode(option.dataset.mode));
+                });
+
+                // File upload
+                const fileUpload = document.getElementById('fileUpload');
+                const fileInput = document.getElementById('fileInput');
+
+                fileUpload.addEventListener('click', () => fileInput.click());
+                fileUpload.addEventListener('dragover', (e) => this.handleDragOver(e));
+                fileUpload.addEventListener('drop', (e) => this.handleFileDrop(e));
+                fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
+
+                // Text input
+                document.getElementById('textInput').addEventListener('input', () => this.updateSummarizeButton());
+
+                // Summarization
+                document.getElementById('summarizeBtn').addEventListener('click', () => this.summarizeContent());
+
+                // Result actions
+                document.getElementById('copyBtn').addEventListener('click', () => this.copyResult());
+                document.getElementById('downloadBtn').addEventListener('click', () => this.downloadResult());
+                document.getElementById('newSummaryBtn').addEventListener('click', () => this.resetApp());
+
+                // Save settings on change
+                document.getElementById('apiKey').addEventListener('change', () => this.saveSettings());
+                document.getElementById('model').addEventListener('change', () => this.saveSettings());
+            }
+
+            loadSavedSettings() {
+                try {
+                    const saved = localStorage.getItem('pdfSummarizerSettings');
+                    if (saved) {
+                        const settings = JSON.parse(saved);
+                        if (settings.model) {
+                            document.getElementById('model').value = settings.model;
+                        }
+                        // Don't auto-load API key for security
+                    }
+                } catch (error) {
+                    console.log('No saved settings found');
+                }
+            }
+
+            saveSettings() {
+                try {
+                    const settings = {
+                        model: document.getElementById('model').value
+                        // Don't save API key for security
+                    };
+                    localStorage.setItem('pdfSummarizerSettings', JSON.stringify(settings));
+                } catch (error) {
+                    console.error('Failed to save settings:', error);
+                }
+            }
+
+            selectMode(mode) {
+                this.currentMode = mode;
+                document.querySelectorAll('.mode-option').forEach(option => {
+                    option.classList.remove('active');
+                });
+                document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+            }
+
+            async testConnection() {
+                const apiKey = document.getElementById('apiKey').value.trim();
+                const button = document.getElementById('testConnection');
+
+                if (!apiKey) {
+                    this.showAlert('API 키를 입력해주세요.', 'error');
+                    return;
+                }
+
+                try {
+                    button.disabled = true;
+                    button.innerHTML = '<span class="spinner"></span> 테스트 중...';
+
+                    this.initializeAPIClient(apiKey);
+                    const result = await this.apiClient.testConnection();
+
+                    if (result.success) {
+                        this.showAlert('연결 성공! API가 정상적으로 작동합니다.', 'success');
+                    } else {
+                        this.showAlert(`연결 실패: ${result.error}`, 'error');
+                    }
+                } catch (error) {
+                    this.showAlert(`연결 테스트 실패: ${error.message}`, 'error');
+                } finally {
+                    button.disabled = false;
+                    button.innerHTML = '<span>🔗</span> 연결 테스트';
+                }
+            }
+
+            handleDragOver(e) {
+                e.preventDefault();
+                document.getElementById('fileUpload').classList.add('dragover');
+            }
+
+            handleFileDrop(e) {
+                e.preventDefault();
+                document.getElementById('fileUpload').classList.remove('dragover');
+
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    this.processFile(files[0]);
+                }
+            }
+
+            handleFileSelect(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    this.processFile(file);
+                }
+            }
+
+            async processFile(file) {
+                if (file.type !== 'application/pdf') {
+                    this.showAlert('PDF 파일만 지원됩니다.', 'error');
+                    return;
+                }
+
+                if (file.size > 50 * 1024 * 1024) { // 50MB limit
+                    this.showAlert('파일 크기는 50MB 이하여야 합니다.', 'error');
+                    return;
+                }
+
+                try {
+                    this.showProgress('PDF 파일 처리 중...', 20);
+
+                    const text = await this.extractTextFromPDF(file);
+
+                    if (!text || text.trim().length === 0) {
+                        this.showAlert('PDF에서 텍스트를 추출할 수 없습니다.', 'error');
+                        this.hideProgress();
+                        return;
+                    }
+
+                    this.currentFile = file;
+                    this.currentText = text;
+                    document.getElementById('textInput').value = text.substring(0, 1000) + (text.length > 1000 ? '...' : '');
+
+                    this.showProgress('처리 완료', 100);
+                    setTimeout(() => this.hideProgress(), 1000);
+
+                    this.updateSummarizeButton();
+                    this.showAlert(`PDF 파일이 성공적으로 로드되었습니다. (${text.length.toLocaleString()}자)`, 'success');
+
+                } catch (error) {
+                    this.hideProgress();
+                    this.showAlert(`PDF 처리 실패: ${error.message}`, 'error');
+                }
+            }
+
+            async extractTextFromPDF(file) {
+                return new Promise((resolve, reject) => {
+                    const fileReader = new FileReader();
+
+                    fileReader.onload = async function() {
+                        try {
+                            const typedarray = new Uint8Array(this.result);
+                            const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                            let fullText = '';
+
+                            for (let i = 1; i <= pdf.numPages; i++) {
+                                const page = await pdf.getPage(i);
+                                const textContent = await page.getTextContent();
+                                const pageText = textContent.items.map(item => item.str).join(' ');
+                                fullText += pageText + '\n\n';
+                            }
+
+                            resolve(fullText.trim());
+                        } catch (error) {
+                            reject(error);
+                        }
+                    };
+
+                    fileReader.onerror = () => reject(new Error('파일 읽기 실패'));
+                    fileReader.readAsArrayBuffer(file);
+                });
+            }
+
+            updateSummarizeButton() {
+                const button = document.getElementById('summarizeBtn');
+                const hasContent = this.currentText || document.getElementById('textInput').value.trim();
+
+                button.disabled = !hasContent;
+            }
+
+            async summarizeContent() {
+                const apiKey = document.getElementById('apiKey').value.trim();
+                const textInput = document.getElementById('textInput').value.trim();
+                const text = this.currentText || textInput;
+
+                if (!apiKey) {
+                    this.showAlert('API 키를 입력해주세요.', 'error');
+                    return;
+                }
+
+                if (!text) {
+                    this.showAlert('요약할 텍스트를 입력하거나 PDF 파일을 업로드해주세요.', 'error');
+                    return;
+                }
+
+                try {
+                    // Initialize API client if not done
+                    if (!this.apiClient) {
+                        this.initializeAPIClient(apiKey);
+                    }
+
+                    const button = document.getElementById('summarizeBtn');
+                    button.disabled = true;
+                    button.innerHTML = '<span class="spinner"></span> 요약 생성 중...';
+
+                    // Show progress
+                    this.showProgress('요약 생성 중...', 0);
+
+                    // Get domain and streaming settings
+                    const domain = document.getElementById('domain').value || null;
+                    const streaming = document.getElementById('streaming').checked;
+
+                    // Estimate cost
+                    const costEstimate = this.tokenManager.estimateProcessingCost(text, this.currentMode);
+                    console.log('Cost estimate:', costEstimate);
+
+                    let result;
+
+                    if (streaming) {
+                        // Streaming summarization
+                        const summaryContainer = document.getElementById('summaryContent');
+                        summaryContainer.innerHTML = '<div class="summary-text"></div>';
+                        const summaryDiv = summaryContainer.querySelector('.summary-text');
+
+                        this.showResult();
+                        this.updateProgress(30);
+
+                        result = await this.summarizationService.summarizeStream(
+                            text,
+                            this.currentMode,
+                            (chunk) => {
+                                summaryDiv.innerHTML += chunk;
+                                summaryDiv.scrollTop = summaryDiv.scrollHeight;
+                            },
+                            { domain }
+                        );
+
+                        this.updateProgress(100);
+
+                    } else {
+                        // Regular summarization with progress updates
+                        result = await this.summarizationService.summarize(text, this.currentMode, {
+                            domain,
+                            onProgress: (progress) => {
+                                if (progress.phase === 'chunking') {
+                                    this.updateProgress(20, `텍스트를 ${progress.chunks}개 청크로 분할...`);
+                                } else if (progress.phase === 'summarizing') {
+                                    const percent = 20 + ((progress.current / progress.total) * 60);
+                                    this.updateProgress(percent, `요약 생성 중... (${progress.current}/${progress.total})`);
+                                } else if (progress.phase === 'combining') {
+                                    this.updateProgress(85, '요약 결과 통합 중...');
+                                }
+                            }
+                        });
+
+                        this.updateProgress(100, '요약 완료!');
+                        this.displayResult(result);
+                    }
+
+                    // Record usage
+                    if (result.usage) {
+                        this.tokenManager.recordUsage(result.usage.total_tokens);
+                    }
+
+                    setTimeout(() => this.hideProgress(), 1000);
+
+                } catch (error) {
+                    this.hideProgress();
+                    const userMessage = this.errorHandler.generateUserMessage(error);
+                    this.showAlert(userMessage, 'error');
+                    console.error('Summarization error:', error);
+                } finally {
+                    const button = document.getElementById('summarizeBtn');
+                    button.disabled = false;
+                    button.innerHTML = '<span>✨</span> 요약 생성';
+                }
+            }
+
+            displayResult(result) {
+                // Show result container
+                this.showResult();
+
+                // Display summary
+                const summaryContent = document.getElementById('summaryContent');
+                summaryContent.innerHTML = `
+                    <h3>📋 요약 결과</h3>
+                    <div class="summary-text">${this.formatSummary(result.summary)}</div>
+                `;
+
+                // Display statistics
+                this.displayStats(result);
+            }
+
+            formatSummary(summary) {
+                // Convert markdown-like formatting to HTML
+                return summary
+                    .replace(/## (.*?)$/gm, '<h2>$1</h2>')
+                    .replace(/### (.*?)$/gm, '<h3>$1</h3>')
+                    .replace(/• (.*?)$/gm, '<li>$1</li>')
+                    .replace(/\n\n/g, '</p><p>')
+                    .replace(/^/, '<p>')
+                    .replace(/$/, '</p>')
+                    .replace(/<p><li>/g, '<ul><li>')
+                    .replace(/<\/li><\/p>/g, '</li></ul>');
+            }
+
+            displayStats(result) {
+                const stats = [
+                    {
+                        value: result.metadata?.originalLength?.toLocaleString() || 'N/A',
+                        label: '원본 길이 (문자)'
+                    },
+                    {
+                        value: result.metadata?.summaryLength?.toLocaleString() || 'N/A',
+                        label: '요약 길이 (문자)'
+                    },
+                    {
+                        value: result.metadata?.compressionRatio ?
+                            Math.round(result.metadata.compressionRatio * 100) + '%' : 'N/A',
+                        label: '압축률'
+                    },
+                    {
+                        value: result.metadata?.processingTime ?
+                            Math.round(result.metadata.processingTime / 1000) + 's' : 'N/A',
+                        label: '처리 시간'
+                    },
+                    {
+                        value: result.metadata?.chunks || 1,
+                        label: '처리 청크'
+                    },
+                    {
+                        value: this.tokenManager.getUsageStats().totalCost,
+                        label: '예상 비용 ($)'
+                    }
+                ];
+
+                const statsGrid = document.getElementById('statsGrid');
+                statsGrid.innerHTML = stats.map(stat => `
+                    <div class="stat-card">
+                        <span class="stat-value">${stat.value}</span>
+                        <div class="stat-label">${stat.label}</div>
+                    </div>
+                `).join('');
+            }
+
+            showResult() {
+                const container = document.getElementById('resultContainer');
+                container.style.display = 'block';
+                container.classList.add('fade-in');
+                container.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            showProgress(text, percent = 0) {
+                const container = document.getElementById('progressContainer');
+                container.style.display = 'block';
+                this.updateProgress(percent, text);
+            }
+
+            updateProgress(percent, text = null) {
+                document.getElementById('progressFill').style.width = percent + '%';
+                if (text) {
+                    document.getElementById('progressText').textContent = text;
+                }
+            }
+
+            hideProgress() {
+                document.getElementById('progressContainer').style.display = 'none';
+            }
+
+            showAlert(message, type) {
+                // Remove existing alerts
+                document.querySelectorAll('.alert').forEach(alert => alert.remove());
+
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.textContent = message;
+
+                // Insert at the top of the main content
+                const mainContent = document.querySelector('.main-content');
+                mainContent.insertBefore(alert, mainContent.firstChild);
+
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (alert.parentNode) {
+                        alert.remove();
+                    }
+                }, 5000);
+            }
+
+            async copyResult() {
+                try {
+                    const summaryText = document.querySelector('.summary-text').textContent;
+                    await navigator.clipboard.writeText(summaryText);
+                    this.showAlert('요약 결과가 클립보드에 복사되었습니다.', 'success');
+                } catch (error) {
+                    this.showAlert('복사에 실패했습니다.', 'error');
+                }
+            }
+
+            downloadResult() {
+                try {
+                    const summaryText = document.querySelector('.summary-text').textContent;
+                    const blob = new Blob([summaryText], { type: 'text/plain;charset=utf-8' });
+                    const url = URL.createObjectURL(blob);
+
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `요약결과_${new Date().toISOString().slice(0, 10)}.txt`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+
+                    this.showAlert('요약 결과가 다운로드되었습니다.', 'success');
+                } catch (error) {
+                    this.showAlert('다운로드에 실패했습니다.', 'error');
+                }
+            }
+
+            resetApp() {
+                // Reset form
+                document.getElementById('fileInput').value = '';
+                document.getElementById('textInput').value = '';
+
+                // Reset state
+                this.currentFile = null;
+                this.currentText = '';
+
+                // Hide result
+                document.getElementById('resultContainer').style.display = 'none';
+
+                // Update button
+                this.updateSummarizeButton();
+
+                // Clear alerts
+                document.querySelectorAll('.alert').forEach(alert => alert.remove());
+            }
+        }
+
+        // Initialize app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.pdfSummarizerApp = new PDFSummarizerApp();
+        });
+
+        // Set PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+</body>
+</html>

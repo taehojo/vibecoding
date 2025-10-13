@@ -1,0 +1,4742 @@
+[
+  {
+    "id": "STU009",
+    "name": "임하윤",
+    "class": "2반",
+    "quizHistory": [
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 442,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 442,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 532,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 725,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 789,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 642,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 763,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 520,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      }
+    ],
+    "averageScore": 78,
+    "grade": "A"
+  },
+  {
+    "id": "STU005",
+    "name": "최예진",
+    "class": "1반",
+    "quizHistory": [
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 549,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 359,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 437,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 396,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 702,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      }
+    ],
+    "averageScore": 76,
+    "grade": "A"
+  },
+  {
+    "id": "STU020",
+    "name": "문서영",
+    "class": "4반",
+    "quizHistory": [
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 492,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 309,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 866,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 709,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 811,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      }
+    ],
+    "averageScore": 76,
+    "grade": "A"
+  },
+  {
+    "id": "STU015",
+    "name": "신하은",
+    "class": "3반",
+    "quizHistory": [
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 640,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 641,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 402,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 319,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 397,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 486,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      }
+    ],
+    "averageScore": 75,
+    "grade": "A"
+  },
+  {
+    "id": "STU007",
+    "name": "조은서",
+    "class": "2반",
+    "quizHistory": [
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 312,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 553,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 369,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 619,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 504,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 557,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 436,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      }
+    ],
+    "averageScore": 73,
+    "grade": "B"
+  },
+  {
+    "id": "STU011",
+    "name": "권지우",
+    "class": "3반",
+    "quizHistory": [
+      {
+        "date": "2025-08-13",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 304,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 731,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 488,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 786,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 895,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 662,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 343,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 813,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 736,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      }
+    ],
+    "averageScore": 72,
+    "grade": "B"
+  },
+  {
+    "id": "STU013",
+    "name": "오유진",
+    "class": "3반",
+    "quizHistory": [
+      {
+        "date": "2025-08-13",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 336,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 534,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 326,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 859,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 806,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 501,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 806,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 612,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 718,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      }
+    ],
+    "averageScore": 72,
+    "grade": "B"
+  },
+  {
+    "id": "STU008",
+    "name": "윤도현",
+    "class": "2반",
+    "quizHistory": [
+      {
+        "date": "2025-08-13",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 838,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 626,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 306,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 568,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 757,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 806,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 777,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 867,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 563,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      }
+    ],
+    "averageScore": 71,
+    "grade": "B"
+  },
+  {
+    "id": "STU012",
+    "name": "한승민",
+    "class": "3반",
+    "quizHistory": [
+      {
+        "date": "2025-08-11",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 346,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-13",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 669,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 378,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 840,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 494,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 328,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 493,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 531,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 706,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 896,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      }
+    ],
+    "averageScore": 68,
+    "grade": "C"
+  },
+  {
+    "id": "STU016",
+    "name": "배준서",
+    "class": "4반",
+    "quizHistory": [
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 712,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 342,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 319,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 546,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 772,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 486,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      }
+    ],
+    "averageScore": 67,
+    "grade": "C"
+  },
+  {
+    "id": "STU002",
+    "name": "이서연",
+    "class": "1반",
+    "quizHistory": [
+      {
+        "date": "2025-08-13",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 742,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 488,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 658,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 425,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 594,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 716,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 714,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 851,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 328,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      }
+    ],
+    "averageScore": 66,
+    "grade": "C"
+  },
+  {
+    "id": "STU003",
+    "name": "박지호",
+    "class": "1반",
+    "quizHistory": [
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 601,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 398,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 557,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 868,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 746,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 896,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 395,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      }
+    ],
+    "averageScore": 64,
+    "grade": "C"
+  },
+  {
+    "id": "STU017",
+    "name": "송다은",
+    "class": "4반",
+    "quizHistory": [
+      {
+        "date": "2025-08-13",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 870,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 10,
+        "score": 100,
+        "timeSpent": 759,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 882,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 460,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 881,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 826,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 854,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 791,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 836,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      }
+    ],
+    "averageScore": 63,
+    "grade": "C"
+  },
+  {
+    "id": "STU006",
+    "name": "강현우",
+    "class": "2반",
+    "quizHistory": [
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 503,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 897,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 885,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 712,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 721,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      }
+    ],
+    "averageScore": 62,
+    "grade": "C"
+  },
+  {
+    "id": "STU019",
+    "name": "홍지민",
+    "class": "4반",
+    "quizHistory": [
+      {
+        "date": "2025-08-13",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 659,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 653,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 723,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 622,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 447,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 663,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 482,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 492,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 573,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      }
+    ],
+    "averageScore": 62,
+    "grade": "D"
+  },
+  {
+    "id": "STU004",
+    "name": "정수민",
+    "class": "1반",
+    "quizHistory": [
+      {
+        "date": "2025-08-11",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 729,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-13",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 414,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 760,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 696,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 411,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 593,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 513,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 350,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 474,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 601,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      }
+    ],
+    "averageScore": 61,
+    "grade": "D"
+  },
+  {
+    "id": "STU010",
+    "name": "장서준",
+    "class": "2반",
+    "quizHistory": [
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 377,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 842,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 468,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 311,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 846,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 643,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 522,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 521,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      }
+    ],
+    "averageScore": 59,
+    "grade": "D"
+  },
+  {
+    "id": "STU001",
+    "name": "김민준",
+    "class": "1반",
+    "quizHistory": [
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 505,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 655,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 801,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 685,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 357,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 9,
+        "score": 90,
+        "timeSpent": 617,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      }
+    ],
+    "averageScore": 52,
+    "grade": "D"
+  },
+  {
+    "id": "STU014",
+    "name": "서민재",
+    "class": "3반",
+    "quizHistory": [
+      {
+        "date": "2025-08-15",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 516,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 686,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 434,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 481,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 5,
+        "score": 50,
+        "timeSpent": 488,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 633,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 670,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 6,
+        "score": 60,
+        "timeSpent": 387,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      }
+    ],
+    "averageScore": 51,
+    "grade": "D"
+  },
+  {
+    "id": "STU018",
+    "name": "양현서",
+    "class": "4반",
+    "quizHistory": [
+      {
+        "date": "2025-08-17",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 720,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-19",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 354,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-21",
+        "totalQuestions": 10,
+        "correctAnswers": 7,
+        "score": 70,
+        "timeSpent": 562,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "easy"
+      },
+      {
+        "date": "2025-08-23",
+        "totalQuestions": 10,
+        "correctAnswers": 4,
+        "score": 40,
+        "timeSpent": 680,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          }
+        },
+        "difficulty": "medium"
+      },
+      {
+        "date": "2025-08-25",
+        "totalQuestions": 10,
+        "correctAnswers": 8,
+        "score": 80,
+        "timeSpent": 402,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 0,
+            "percentage": 0
+          },
+          "과학": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-27",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 353,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      },
+      {
+        "date": "2025-08-29",
+        "totalQuestions": 10,
+        "correctAnswers": 3,
+        "score": 30,
+        "timeSpent": 849,
+        "categoryScores": {
+          "한국사": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "세계지리": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "과학": {
+            "total": 2,
+            "correct": 1,
+            "percentage": 50
+          },
+          "예술과 문화": {
+            "total": 2,
+            "correct": 2,
+            "percentage": 100
+          }
+        },
+        "difficulty": "hard"
+      }
+    ],
+    "averageScore": 51,
+    "grade": "D"
+  }
+]

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI가 당신의 감정을 분석하고 공감해주는 디지털 다이어리. 안전하고 따뜻한 감정 기록 서비스.">
+    <meta name="keywords" content="다이어리, 감정분석, AI, 공감, 일기, 감정기록">
+    <meta name="author" content="Empathy Diary App">
+    <meta name="theme-color" content="#d4a574">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="공감 AI 다이어리">
+    <meta property="og:description" content="AI가 당신의 감정을 분석하고 공감해주는 디지털 다이어리">
+    <meta property="og:image" content="/favicon-192.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="공감 AI 다이어리">
+    <meta property="twitter:description" content="AI가 당신의 감정을 분석하고 공감해주는 디지털 다이어리">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+
+    <title>공감 AI 다이어리</title>
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://openrouter.ai">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="app-title">
+                <span class="title-icon">📖</span>
+                공감 AI 다이어리
+            </h1>
+            <p class="app-subtitle">당신의 마음을 따뜻하게 이해하는 일기장</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Today's Date -->
+            <div class="date-section">
+                <div class="today-date" id="todayDate"></div>
+            </div>
+
+            <!-- Diary Input Section -->
+            <section class="diary-input-section">
+                <div class="input-container">
+                    <label for="diaryInput" class="input-label">
+                        <span class="label-icon">✍️</span>
+                        오늘 하루는 어떠셨나요?
+                    </label>
+                    <textarea
+                        id="diaryInput"
+                        class="diary-input"
+                        placeholder="마음 속 이야기를 자유롭게 적어보세요..."
+                        rows="3"
+                        aria-describedby="input-help"
+                        aria-label="일기 내용 입력"
+                    ></textarea>
+                    <div id="input-help" class="visually-hidden">
+                        Ctrl+Enter를 누르면 감정 분석을 시작합니다
+                    </div>
+                    <div class="input-actions">
+                        <button id="analyzeBtn" class="btn btn-primary" aria-describedby="analyze-help">
+                            <span class="btn-icon" aria-hidden="true">🔍</span>
+                            감정 분석하기
+                        </button>
+                        <div id="analyze-help" class="visually-hidden">
+                            일기 내용을 AI가 분석하여 감정을 파악하고 공감 메시지를 제공합니다
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Loading -->
+            <div id="loadingSection" class="loading-section hidden" role="status" aria-live="polite">
+                <div class="loading-spinner" aria-hidden="true"></div>
+                <p class="loading-text">마음을 분석하는 중...</p>
+            </div>
+
+            <!-- Analysis Result Section -->
+            <section id="analysisResult" class="analysis-result hidden" role="region" aria-labelledby="result-title" aria-live="polite">
+                <div class="result-container">
+                    <h3 id="result-title" class="result-title">감정 분석 결과</h3>
+
+                    <div class="emotion-display">
+                        <div class="emotion-icon-container">
+                            <span id="emotionIcon" class="emotion-icon"></span>
+                        </div>
+                        <div class="emotion-info">
+                            <div id="emotionName" class="emotion-name"></div>
+                            <div class="emotion-intensity">
+                                <span class="intensity-label">감정 강도:</span>
+                                <div class="intensity-bar">
+                                    <div id="intensityFill" class="intensity-fill"></div>
+                                </div>
+                                <span id="intensityValue" class="intensity-value"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="empathy-message-container">
+                        <h4 class="empathy-title">
+                            <span class="empathy-icon">💙</span>
+                            공감 메시지
+                        </h4>
+                        <div id="empathyMessage" class="empathy-message"></div>
+                    </div>
+
+                    <div class="result-actions">
+                        <button id="saveBtn" class="btn btn-secondary" aria-describedby="save-help">
+                            <span class="btn-icon" aria-hidden="true">💾</span>
+                            일기 저장하기
+                        </button>
+                        <div id="save-help" class="visually-hidden">
+                            분석 결과와 함께 일기를 브라우저에 저장합니다
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Diary List Section -->
+        <section class="diary-list-section">
+            <div class="list-header">
+                <h2 id="list-title" class="list-title">
+                    <span class="title-icon" aria-hidden="true">📚</span>
+                    지난 일기들
+                </h2>
+                <button id="toggleListBtn" class="btn btn-text" aria-expanded="false" aria-controls="diaryList">
+                    <span id="toggleIcon" aria-hidden="true">📖</span>
+                    <span id="toggleText">펼치기</span>
+                </button>
+            </div>
+
+            <div id="diaryList" class="diary-list hidden" role="region" aria-labelledby="list-title">
+                <div id="diaryListContent" class="diary-list-content">
+                    <!-- Diary entries will be inserted here -->
+                </div>
+                <div id="emptyState" class="empty-state">
+                    <span class="empty-icon">📝</span>
+                    <p class="empty-text">아직 저장된 일기가 없어요.<br>첫 번째 일기를 작성해보세요!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">당신의 모든 감정이 소중합니다 ✨</p>
+        </footer>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal hidden" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title" class="modal-title">일기 삭제</h3>
+            </div>
+            <div class="modal-body">
+                <p>정말로 이 일기를 삭제하시겠어요?</p>
+                <p class="modal-warning">삭제된 일기는 복구할 수 없습니다.</p>
+            </div>
+            <div class="modal-actions">
+                <button id="confirmDeleteBtn" class="btn btn-danger" aria-describedby="modal-title">
+                    삭제
+                </button>
+                <button id="cancelDeleteBtn" class="btn btn-secondary" aria-describedby="modal-title">
+                    취소
+                </button>
+            </div>
+        </div>
+        <div class="modal-backdrop"></div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="successToast" class="toast hidden">
+        <span class="toast-icon">✅</span>
+        <span class="toast-message"></span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="backend.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

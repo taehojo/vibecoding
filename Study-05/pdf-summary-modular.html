@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 문서 요약 애플리케이션 (모듈화 버전)</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-gray: #ecf0f1;
+            --dark-gray: #95a5a6;
+            --border-radius: 8px;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--primary-color);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .header p {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+        }
+
+        .main-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+
+        .section-content {
+            padding: 20px;
+        }
+
+        .upload-area {
+            border: 3px dashed var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: #fafafa;
+        }
+
+        .upload-area:hover {
+            border-color: var(--secondary-color);
+            background: #f0f8ff;
+        }
+
+        .upload-area.drag-over {
+            border-color: var(--secondary-color);
+            background: #e3f2fd;
+            transform: scale(1.02);
+        }
+
+        .upload-area.processing {
+            border-color: var(--success-color);
+            background: #e8f5e8;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .upload-subtext {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn:disabled {
+            background: var(--dark-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background: #219a52;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-color), #2ecc71);
+            width: 0%;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            text-align: center;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .message {
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .error-message {
+            background: #ffeaea;
+            color: var(--danger-color);
+            border: 1px solid #ffcdd2;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: var(--success-color);
+            border: 1px solid #c8e6c9;
+        }
+
+        .warning-message {
+            background: #fff8e1;
+            color: var(--warning-color);
+            border: 1px solid #ffecb3;
+        }
+
+        .file-info {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .file-info h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .info-value {
+            color: var(--dark-gray);
+        }
+
+        .results-container {
+            margin-top: 20px;
+        }
+
+        .text-preview {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            margin: 20px 0;
+        }
+
+        .chunks-section {
+            margin-top: 25px;
+        }
+
+        .chunks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .chunk-quality {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .quality-excellent { background: #e8f5e8; color: var(--success-color); }
+        .quality-good { background: #e3f2fd; color: var(--secondary-color); }
+        .quality-fair { background: #fff8e1; color: var(--warning-color); }
+        .quality-poor { background: #ffeaea; color: var(--danger-color); }
+
+        .chunks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .chunk-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .chunk-item:hover {
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .chunk-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .chunk-title {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .chunk-meta {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+        }
+
+        .chunk-preview {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .actions-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            margin-top: 5px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .chunks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-section {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📄 PDF 문서 요약 애플리케이션</h1>
+            <p>고급 백엔드 아키텍처로 구동되는 PDF 텍스트 추출 및 AI 요약 서비스</p>
+        </div>
+
+        <!-- File Upload Section -->
+        <div class="main-section">
+            <div class="section-header">
+                <span>📁 파일 업로드</span>
+            </div>
+            <div class="section-content">
+                <div class="upload-area" id="uploadArea">
+                    <span class="upload-icon">📄</span>
+                    <div class="upload-text">PDF 파일을 드래그하여 놓거나 클릭하여 선택하세요</div>
+                    <div class="upload-subtext">지원 형식: PDF | 최대 크기: 50MB</div>
+                    <input type="file" id="fileInput" class="file-input" accept=".pdf" />
+                    <button class="btn" id="selectFileBtn">
+                        <span>📁</span>
+                        파일 선택
+                    </button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container hidden" id="progressContainer">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">처리 중...</div>
+                </div>
+
+                <!-- Messages -->
+                <div class="message error-message" id="errorMessage"></div>
+                <div class="message success-message" id="successMessage"></div>
+                <div class="message warning-message" id="warningMessage"></div>
+            </div>
+        </div>
+
+        <!-- File Information Section -->
+        <div class="main-section hidden" id="fileInfoSection">
+            <div class="section-header">
+                <span>📊 파일 정보</span>
+            </div>
+            <div class="section-content">
+                <div class="file-info">
+                    <h3>
+                        <span>📄</span>
+                        문서 정보
+                    </h3>
+                    <div class="info-grid" id="fileInfoGrid">
+                        <!-- File info will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Stats will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="main-section hidden" id="resultsSection">
+            <div class="section-header">
+                <span>📝 추출 결과</span>
+            </div>
+            <div class="section-content">
+                <!-- Text Preview -->
+                <div>
+                    <h4 style="margin-bottom: 10px;">📃 추출된 텍스트 미리보기</h4>
+                    <div class="text-preview" id="textPreview"></div>
+                </div>
+
+                <!-- Chunks Section -->
+                <div class="chunks-section" id="chunksSection">
+                    <div class="chunks-header">
+                        <h4>🧩 텍스트 청크 분석</h4>
+                        <div class="chunk-quality" id="chunkQuality"></div>
+                    </div>
+                    <p style="color: var(--dark-gray); margin-bottom: 15px;">AI API 전송을 위해 텍스트가 최적화된 청크로 분할되었습니다.</p>
+                    <div class="chunks-grid" id="chunksGrid">
+                        <!-- Chunks will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="actions-section">
+                    <button class="btn btn-success" id="processWithAI">
+                        <span>🤖</span>
+                        AI로 요약하기
+                    </button>
+                    <button class="btn btn-warning" id="downloadData">
+                        <span>💾</span>
+                        데이터 다운로드
+                    </button>
+                    <button class="btn" id="resetApp">
+                        <span>🔄</span>
+                        새로 시작
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Status Section -->
+        <div class="main-section" id="statusSection">
+            <div class="section-header">
+                <span>⚙️ 시스템 상태</span>
+            </div>
+            <div class="section-content">
+                <div class="stats-grid" id="systemStats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="memoryUsage">-</span>
+                        <div class="stat-label">메모리 사용량</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="processingTime">-</span>
+                        <div class="stat-label">처리 시간</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="errorCount">0</span>
+                        <div class="stat-label">에러 수</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- Backend Services -->
+    <script src="pdf-backend-services.js"></script>
+
+    <script>
+        // 모듈화된 PDF 요약 애플리케이션
+        class ModularPDFSummaryApp {
+            constructor() {
+                this.serviceManager = new PDFBackendServices.PDFBackendServiceManager({
+                    chunking: {
+                        maxChunkSize: 4000,
+                        overlapSize: 200,
+                        preserveContext: true
+                    },
+                    ai: {
+                        apiEndpoint: '/api/summarize',
+                        timeout: 30000,
+                        retryAttempts: 3
+                    },
+                    autoCleanup: true,
+                    cleanupInterval: 60000
+                });
+
+                this.currentProcessingResult = null;
+                this.startTime = null;
+
+                this.initializeElements();
+                this.bindEvents();
+                this.updateSystemStatus();
+
+                // 주기적으로 시스템 상태 업데이트
+                setInterval(() => this.updateSystemStatus(), 5000);
+            }
+
+            initializeElements() {
+                // Upload elements
+                this.uploadArea = document.getElementById('uploadArea');
+                this.fileInput = document.getElementById('fileInput');
+                this.selectFileBtn = document.getElementById('selectFileBtn');
+
+                // Progress elements
+                this.progressContainer = document.getElementById('progressContainer');
+                this.progressFill = document.getElementById('progressFill');
+                this.progressText = document.getElementById('progressText');
+
+                // Message elements
+                this.errorMessage = document.getElementById('errorMessage');
+                this.successMessage = document.getElementById('successMessage');
+                this.warningMessage = document.getElementById('warningMessage');
+
+                // Content sections
+                this.fileInfoSection = document.getElementById('fileInfoSection');
+                this.resultsSection = document.getElementById('resultsSection');
+
+                // Content containers
+                this.fileInfoGrid = document.getElementById('fileInfoGrid');
+                this.statsGrid = document.getElementById('statsGrid');
+                this.textPreview = document.getElementById('textPreview');
+                this.chunksSection = document.getElementById('chunksSection');
+                this.chunkQuality = document.getElementById('chunkQuality');
+                this.chunksGrid = document.getElementById('chunksGrid');
+
+                // Action buttons
+                this.processWithAI = document.getElementById('processWithAI');
+                this.downloadData = document.getElementById('downloadData');
+                this.resetApp = document.getElementById('resetApp');
+
+                // System status
+                this.memoryUsage = document.getElementById('memoryUsage');
+                this.processingTime = document.getElementById('processingTime');
+                this.errorCount = document.getElementById('errorCount');
+            }
+
+            bindEvents() {
+                // File selection events
+                this.selectFileBtn.addEventListener('click', () => this.fileInput.click());
+                this.fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
+
+                // Drag and drop events
+                this.uploadArea.addEventListener('click', () => this.fileInput.click());
+                this.uploadArea.addEventListener('dragover', (e) => this.handleDragOver(e));
+                this.uploadArea.addEventListener('dragleave', () => this.handleDragLeave());
+                this.uploadArea.addEventListener('drop', (e) => this.handleDrop(e));
+
+                // Action button events
+                this.processWithAI.addEventListener('click', () => this.handleAIProcessing());
+                this.downloadData.addEventListener('click', () => this.handleDataDownload());
+                this.resetApp.addEventListener('click', () => this.handleReset());
+            }
+
+            // Event Handlers
+            handleFileSelect(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    this.processFile(file);
+                }
+            }
+
+            handleDragOver(event) {
+                event.preventDefault();
+                this.uploadArea.classList.add('drag-over');
+            }
+
+            handleDragLeave() {
+                this.uploadArea.classList.remove('drag-over');
+            }
+
+            handleDrop(event) {
+                event.preventDefault();
+                this.uploadArea.classList.remove('drag-over');
+
+                const files = event.dataTransfer.files;
+                if (files.length > 0) {
+                    this.processFile(files[0]);
+                }
+            }
+
+            // File Processing
+            async processFile(file) {
+                this.startTime = Date.now();
+                this.hideAllMessages();
+                this.hideAllSections();
+                this.showProgress();
+
+                try {
+                    const result = await this.serviceManager.processPDF(
+                        file,
+                        (progress, message) => this.updateProgress(progress, message),
+                        { startTime: this.startTime }
+                    );
+
+                    this.currentProcessingResult = result;
+                    this.hideProgress();
+                    this.displayResults(result);
+                    this.showSuccess('PDF 처리가 완료되었습니다!');
+
+                    // 경고 메시지 표시
+                    if (result.validation.warnings.length > 0) {
+                        this.showWarning(result.validation.warnings.join(', '));
+                    }
+
+                } catch (error) {
+                    console.error('PDF 처리 실패:', error);
+                    this.hideProgress();
+                    this.showError(error.message);
+                    this.updateErrorCount();
+                }
+            }
+
+            async handleAIProcessing() {
+                if (!this.currentProcessingResult) {
+                    this.showError('먼저 PDF 파일을 업로드해주세요.');
+                    return;
+                }
+
+                try {
+                    this.processWithAI.disabled = true;
+                    this.processWithAI.innerHTML = '<span class="loading-spinner"></span>AI 처리 중...';
+
+                    // 실제 구현에서는 여기서 AI API를 호출
+                    console.log('AI API로 전송할 데이터:', this.currentProcessingResult.aiData);
+
+                    // 데모용 지연
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+
+                    this.showSuccess('AI 요약 요청이 완료되었습니다. (콘솔을 확인하세요)');
+
+                } catch (error) {
+                    this.showError('AI 처리 중 오류가 발생했습니다: ' + error.message);
+                    this.updateErrorCount();
+                } finally {
+                    this.processWithAI.disabled = false;
+                    this.processWithAI.innerHTML = '<span>🤖</span>AI로 요약하기';
+                }
+            }
+
+            handleDataDownload() {
+                if (!this.currentProcessingResult) {
+                    this.showError('다운로드할 데이터가 없습니다.');
+                    return;
+                }
+
+                try {
+                    const dataToDownload = {
+                        ...this.currentProcessingResult,
+                        downloadedAt: new Date().toISOString()
+                    };
+
+                    const blob = new Blob([JSON.stringify(dataToDownload, null, 2)], {
+                        type: 'application/json'
+                    });
+
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `pdf-analysis-${Date.now()}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+
+                    this.showSuccess('데이터가 다운로드되었습니다.');
+
+                } catch (error) {
+                    this.showError('데이터 다운로드 중 오류가 발생했습니다.');
+                    this.updateErrorCount();
+                }
+            }
+
+            handleReset() {
+                this.currentProcessingResult = null;
+                this.startTime = null;
+                this.fileInput.value = '';
+                this.hideAllMessages();
+                this.hideAllSections();
+                this.serviceManager.cleanup();
+                this.showSuccess('애플리케이션이 초기화되었습니다.');
+            }
+
+            // UI Methods
+            updateProgress(percent, message) {
+                this.progressFill.style.width = percent + '%';
+                this.progressText.textContent = message;
+            }
+
+            showProgress() {
+                this.progressContainer.classList.remove('hidden');
+                this.uploadArea.classList.add('processing');
+            }
+
+            hideProgress() {
+                this.progressContainer.classList.add('hidden');
+                this.uploadArea.classList.remove('processing');
+            }
+
+            showError(message) {
+                this.hideAllMessages();
+                this.errorMessage.textContent = message;
+                this.errorMessage.classList.add('show');
+            }
+
+            showSuccess(message) {
+                this.hideAllMessages();
+                this.successMessage.textContent = message;
+                this.successMessage.classList.add('show');
+            }
+
+            showWarning(message) {
+                this.warningMessage.textContent = message;
+                this.warningMessage.classList.add('show');
+            }
+
+            hideAllMessages() {
+                [this.errorMessage, this.successMessage, this.warningMessage]
+                    .forEach(el => el.classList.remove('show'));
+            }
+
+            hideAllSections() {
+                [this.fileInfoSection, this.resultsSection]
+                    .forEach(section => section.classList.add('hidden'));
+            }
+
+            displayResults(result) {
+                this.displayFileInfo(result);
+                this.displayTextPreview(result.extraction);
+                this.displayChunks(result.chunks);
+                this.displayStats(result);
+
+                this.fileInfoSection.classList.remove('hidden');
+                this.resultsSection.classList.remove('hidden');
+            }
+
+            displayFileInfo(result) {
+                const fileInfo = result.validation.fileInfo;
+                const metadata = result.extraction.metadata;
+
+                this.fileInfoGrid.innerHTML = `
+                    <div class="info-item">
+                        <span class="info-label">파일명:</span>
+                        <span class="info-value">${fileInfo.name}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">파일 크기:</span>
+                        <span class="info-value">${this.formatFileSize(fileInfo.size)}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">페이지 수:</span>
+                        <span class="info-value">${result.extraction.totalPages}페이지</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">추출 시간:</span>
+                        <span class="info-value">${new Date(metadata.extractedAt).toLocaleString()}</span>
+                    </div>
+                `;
+            }
+
+            displayStats(result) {
+                const textLength = result.extraction.cleanedText.length;
+                const wordCount = result.extraction.cleanedText.split(/\s+/).length;
+                const chunkCount = result.chunks.items.length;
+                const avgChunkSize = Math.round(textLength / chunkCount);
+
+                this.statsGrid.innerHTML = `
+                    <div class="stat-item">
+                        <span class="stat-value">${textLength.toLocaleString()}</span>
+                        <div class="stat-label">총 문자 수</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${wordCount.toLocaleString()}</span>
+                        <div class="stat-label">단어 수</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${chunkCount}</span>
+                        <div class="stat-label">청크 수</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${avgChunkSize}</span>
+                        <div class="stat-label">평균 청크 크기</div>
+                    </div>
+                `;
+            }
+
+            displayTextPreview(extraction) {
+                const preview = extraction.cleanedText.length > 2000
+                    ? extraction.cleanedText.substring(0, 2000) + '\n\n... (텍스트가 길어서 일부만 표시됩니다)'
+                    : extraction.cleanedText;
+
+                this.textPreview.textContent = preview;
+            }
+
+            displayChunks(chunksData) {
+                const { items: chunks, quality } = chunksData;
+
+                // 품질 표시
+                this.chunkQuality.textContent = quality.quality;
+                this.chunkQuality.className = `chunk-quality quality-${quality.quality}`;
+
+                // 청크 표시
+                if (chunks.length <= 1) {
+                    this.chunksSection.classList.add('hidden');
+                    return;
+                }
+
+                this.chunksGrid.innerHTML = '';
+                chunks.forEach(chunk => {
+                    const chunkElement = document.createElement('div');
+                    chunkElement.className = 'chunk-item';
+
+                    const preview = chunk.text.length > 200
+                        ? chunk.text.substring(0, 200) + '...'
+                        : chunk.text;
+
+                    chunkElement.innerHTML = `
+                        <div class="chunk-header">
+                            <div class="chunk-title">청크 #${chunk.id}</div>
+                            <div class="chunk-meta">${chunk.length}자 | ${chunk.wordCount}단어</div>
+                        </div>
+                        <div class="chunk-preview">${preview}</div>
+                    `;
+
+                    this.chunksGrid.appendChild(chunkElement);
+                });
+
+                this.chunksSection.classList.remove('hidden');
+            }
+
+            updateSystemStatus() {
+                const status = this.serviceManager.getStatus();
+
+                // 메모리 사용량
+                if (status.memory.used) {
+                    this.memoryUsage.textContent = this.formatFileSize(status.memory.used);
+                }
+
+                // 처리 시간
+                if (this.startTime) {
+                    const elapsed = Date.now() - this.startTime;
+                    this.processingTime.textContent = this.formatTime(elapsed);
+                } else {
+                    this.processingTime.textContent = '-';
+                }
+
+                // 에러 수
+                this.errorCount.textContent = status.errors.total;
+            }
+
+            updateErrorCount() {
+                const status = this.serviceManager.getStatus();
+                this.errorCount.textContent = status.errors.total;
+            }
+
+            // Utility Methods
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            formatTime(ms) {
+                if (ms < 1000) return ms + 'ms';
+                const seconds = Math.floor(ms / 1000);
+                if (seconds < 60) return seconds + 's';
+                const minutes = Math.floor(seconds / 60);
+                return minutes + 'm ' + (seconds % 60) + 's';
+            }
+
+            // Cleanup
+            destroy() {
+                this.serviceManager.cleanup();
+            }
+        }
+
+        // 애플리케이션 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            window.pdfApp = new ModularPDFSummaryApp();
+        });
+
+        // 페이지 언로드 시 정리
+        window.addEventListener('beforeunload', () => {
+            if (window.pdfApp) {
+                window.pdfApp.destroy();
+            }
+        });
+    </script>
+</body>
+</html>
