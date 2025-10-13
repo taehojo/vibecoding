@@ -6,6 +6,7 @@ class FridgeRecipeApp {
     constructor() {
         this.currentImage = null;
         this.currentRecipe = null;
+        this.recognizedIngredients = [];
         this.savedRecipes = [];
         this.init();
     }
@@ -14,6 +15,7 @@ class FridgeRecipeApp {
         this.loadSavedRecipes();
         this.initSettingsModal();
         this.initImageUpload();
+        this.initIngredientRecognition();
         this.initRecipeGeneration();
         this.initSavedRecipes();
         this.updateUI();
@@ -136,9 +138,11 @@ class FridgeRecipeApp {
         // 이미지 제거
         removeImageBtn?.addEventListener('click', () => {
             this.currentImage = null;
+            this.recognizedIngredients = [];
             imageInput.value = '';
             document.querySelector('.upload-placeholder')?.classList.remove('hidden');
             imagePreview?.classList.add('hidden');
+            document.getElementById('recognizedIngredientsSection')?.classList.add('hidden');
             this.updateGenerateButton();
         });
 
@@ -155,16 +159,20 @@ class FridgeRecipeApp {
         const reader = new FileReader();
         reader.onload = (e) => {
             this.currentImage = e.target.result;
+            this.recognizedIngredients = [];
+
             const previewImage = document.getElementById('previewImage');
             previewImage.src = this.currentImage;
             document.querySelector('.upload-placeholder')?.classList.add('hidden');
             document.getElementById('imagePreview')?.classList.remove('hidden');
 
-            // 이미지가 업로드되면 재료 입력에 힌트 추가
-            const ingredientsText = document.getElementById('ingredientsText');
-            if (ingredientsText.value.trim() === '') {
-                ingredientsText.placeholder = '이미지를 업로드했습니다! 추가 재료가 있다면 입력하세요. 또는 바로 레시피를 생성하세요.';
-            }
+            // 재료 인식 섹션 표시
+            const recognizedSection = document.getElementById('recognizedIngredientsSection');
+            recognizedSection?.classList.remove('hidden');
+
+            // 재료 인식 안내 표시
+            const recognizedContent = document.getElementById('recognizedIngredientsContent');
+            recognizedContent.innerHTML = '<p class="recognized-hint">📸 "재료 분석하기" 버튼을 눌러 이미지 속 재료를 인식하세요.</p>';
 
             this.updateGenerateButton();
         };
@@ -180,8 +188,83 @@ class FridgeRecipeApp {
 
         const hasImage = this.currentImage !== null;
         const hasText = ingredientsText?.value.trim().length > 0;
+        const hasRecognized = this.recognizedIngredients.length > 0;
 
-        generateRecipeBtn.disabled = !(hasImage || hasText);
+        generateRecipeBtn.disabled = !(hasImage || hasText || hasRecognized);
+    }
+
+    /**
+     * 재료 인식 초기화
+     */
+    initIngredientRecognition() {
+        const analyzeImageBtn = document.getElementById('analyzeImageBtn');
+
+        analyzeImageBtn?.addEventListener('click', () => {
+            this.analyzeImage();
+        });
+    }
+
+    /**
+     * 이미지 분석 및 재료 인식
+     */
+    async analyzeImage() {
+        if (!this.currentImage) {
+            this.showToast('이미지를 먼저 업로드해주세요.', 'error');
+            return;
+        }
+
+        const analyzeBtn = document.getElementById('analyzeImageBtn');
+        const recognizedContent = document.getElementById('recognizedIngredientsContent');
+
+        // 분석 중 표시
+        analyzeBtn.disabled = true;
+        analyzeBtn.innerHTML = '<span class="btn-icon">⏳</span> 분석 중...';
+        recognizedContent.innerHTML = '<div class="loading-mini"><div class="loading-spinner-small"></div><p>재료를 인식하는 중...</p></div>';
+
+        try {
+            const ingredients = await window.fridgeRecipeBackend.recognizeIngredients(this.currentImage);
+            this.recognizedIngredients = ingredients;
+
+            if (ingredients.length > 0) {
+                // 인식된 재료 표시
+                const html = `
+                    <div class="recognized-list">
+                        ${ingredients.map((ing, index) => `
+                            <div class="recognized-item">
+                                <span class="recognized-number">${index + 1}</span>
+                                <span class="recognized-name">${ing}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <p class="recognized-note">💡 이 재료들로 레시피를 추천받거나, 아래에 추가 재료를 입력하세요.</p>
+                `;
+                recognizedContent.innerHTML = html;
+
+                // 재료를 텍스트 입력창에 복사
+                const ingredientsText = document.getElementById('ingredientsText');
+                if (ingredientsText.value.trim() === '') {
+                    ingredientsText.value = ingredients.join(', ');
+                }
+
+                this.showToast(`✅ ${ingredients.length}개의 재료를 인식했습니다!`, 'success');
+            } else {
+                recognizedContent.innerHTML = '<p class="recognized-error">❌ 재료를 인식하지 못했습니다. 다른 사진을 시도해보세요.</p>';
+                this.showToast('재료를 인식하지 못했습니다.', 'error');
+            }
+        } catch (error) {
+            console.error('재료 인식 오류:', error);
+            recognizedContent.innerHTML = '<p class="recognized-error">❌ 재료 인식에 실패했습니다. API 키를 확인하거나 다시 시도해주세요.</p>';
+
+            if (error.message.includes('API 키')) {
+                this.showToast('⚠️ API 키를 설정해주세요.', 'warning');
+            } else {
+                this.showToast('재료 인식에 실패했습니다.', 'error');
+            }
+        } finally {
+            analyzeBtn.disabled = false;
+            analyzeBtn.innerHTML = '<span class="btn-icon">🔍</span> 재료 분석하기';
+            this.updateGenerateButton();
+        }
     }
 
     /**

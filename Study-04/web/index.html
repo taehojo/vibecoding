@@ -98,6 +98,25 @@
                         </div>
                     </div>
 
+                    <!-- 이미지에서 인식된 재료 섹션 -->
+                    <div id="recognizedIngredientsSection" class="recognized-section hidden">
+                        <div class="recognized-header">
+                            <h3 class="recognized-title">
+                                <span class="recognized-icon">🔍</span>
+                                인식된 재료
+                            </h3>
+                        </div>
+                        <div id="recognizedIngredientsContent" class="recognized-content">
+                            <!-- 인식된 재료가 여기에 표시됩니다 -->
+                        </div>
+                        <div class="recognized-actions">
+                            <button id="analyzeImageBtn" class="btn btn-primary">
+                                <span class="btn-icon">🔍</span>
+                                재료 분석하기
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="divider">
                         <span>또는</span>
                     </div>
@@ -105,7 +124,7 @@
                     <div class="ingredients-input">
                         <label for="ingredientsText" class="input-label">
                             <span class="label-icon">🥬</span>
-                            재료 직접 입력
+                            재료 직접 입력 (또는 추가 재료)
                         </label>
                         <textarea
                             id="ingredientsText"

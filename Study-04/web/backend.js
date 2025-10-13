@@ -213,6 +213,59 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
     }
 
     /**
+     * 이미지에서 재료 인식
+     */
+    async recognizeIngredients(imageBase64) {
+        if (!imageBase64) {
+            throw new Error('이미지가 필요합니다.');
+        }
+
+        const prompt = `이 냉장고 사진을 분석하여 보이는 모든 식재료를 정확히 나열해주세요.
+
+다음 형식으로만 응답해주세요:
+
+재료목록:
+- [재료1]
+- [재료2]
+- [재료3]
+
+응답 규칙:
+1. 보이는 재료만 정확하게 나열하세요
+2. 명확하지 않은 재료는 제외하세요
+3. 한국어 식재료명을 사용하세요
+4. 다른 설명 없이 재료 목록만 작성하세요`;
+
+        try {
+            console.log('재료 인식 중...');
+            const response = await this.callOpenRouterAPI(prompt, imageBase64);
+
+            if (response.choices && response.choices[0] && response.choices[0].message) {
+                const content = response.choices[0].message.content;
+
+                // 재료 목록 파싱
+                const ingredientsMatch = content.match(/재료목록:\s*([\s\S]+?)(?=$|[^\-\n])/);
+                let ingredientsList = [];
+
+                if (ingredientsMatch) {
+                    ingredientsList = ingredientsMatch[1]
+                        .split('\n')
+                        .filter(line => line.trim().startsWith('-'))
+                        .map(line => line.trim().substring(1).trim())
+                        .filter(ing => ing.length > 0);
+                }
+
+                console.log('재료 인식 완료:', ingredientsList);
+                return ingredientsList;
+            } else {
+                throw new Error('API 응답 형식이 올바르지 않습니다.');
+            }
+        } catch (error) {
+            console.error('재료 인식 실패:', error);
+            throw error;
+        }
+    }
+
+    /**
      * 레시피 생성 메인 함수
      */
     async generateRecipe(ingredients, imageBase64 = null) {
