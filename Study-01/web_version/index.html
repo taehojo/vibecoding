@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Handwritten Digit Recognition</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0"></script>
     <style>
         * {
             margin: 0;
@@ -44,6 +45,13 @@
             font-size: 1.1em;
         }
 
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+            font-weight: 500;
+        }
+
         .canvas-container {
             display: flex;
             flex-direction: column;
@@ -77,12 +85,17 @@
             letter-spacing: 0.5px;
         }
 
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .btn-clear {
             background: #f44336;
             color: white;
         }
 
-        .btn-clear:hover {
+        .btn-clear:hover:not(:disabled) {
             background: #da190b;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
@@ -93,7 +106,7 @@
             color: white;
         }
 
-        .btn-predict:hover {
+        .btn-predict:hover:not(:disabled) {
             background: #45a049;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
@@ -192,8 +205,9 @@
     <div class="container">
         <h1>Handwritten Digit Recognition</h1>
         <p class="subtitle">Draw a digit (0-9) on the canvas below</p>
+        <div id="loading" class="loading">Loading model...</div>
 
-        <div class="canvas-container">
+        <div class="canvas-container" style="display:none;" id="app">
             <canvas id="canvas" width="280" height="280"></canvas>
             <div class="controls">
                 <button id="clearBtn" class="btn btn-clear">Clear</button>
@@ -208,6 +222,27 @@
     </div>
 
     <script>
+        let model = null;
+
+        // Load TensorFlow.js model
+        async function loadModel() {
+            try {
+                // Use a pre-trained MNIST model from TensorFlow Hub
+                model = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mnist_transfer_cnn_v1/model.json');
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('app').style.display = 'flex';
+                console.log('Model loaded successfully');
+            } catch (error) {
+                document.getElementById('loading').textContent = 'Failed to load model. Using demo mode.';
+                console.error('Model load error:', error);
+                // Even if model fails, show the app
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('app').style.display = 'flex';
+                }, 2000);
+            }
+        }
+
         class DrawingApp {
             constructor() {
                 this.canvas = document.getElementById('canvas');
@@ -221,11 +256,8 @@
             }
 
             setupCanvas() {
-                // Set white background
                 this.ctx.fillStyle = 'white';
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-                // Set drawing style
                 this.ctx.strokeStyle = 'black';
                 this.ctx.lineJoin = 'round';
                 this.ctx.lineCap = 'round';
@@ -233,18 +265,14 @@
             }
 
             attachEventListeners() {
-                // Mouse events
                 this.canvas.addEventListener('mousedown', this.startDrawing.bind(this));
                 this.canvas.addEventListener('mousemove', this.draw.bind(this));
                 this.canvas.addEventListener('mouseup', this.stopDrawing.bind(this));
                 this.canvas.addEventListener('mouseout', this.stopDrawing.bind(this));
-
-                // Touch events for mobile
                 this.canvas.addEventListener('touchstart', this.handleTouch.bind(this));
                 this.canvas.addEventListener('touchmove', this.handleTouch.bind(this));
                 this.canvas.addEventListener('touchend', this.stopDrawing.bind(this));
 
-                // Button events
                 document.getElementById('clearBtn').addEventListener('click', this.clearCanvas.bind(this));
                 document.getElementById('predictBtn').addEventListener('click', this.predict.bind(this));
             }
@@ -294,27 +322,41 @@
             }
 
             async predict() {
-                // Get canvas image as base64
-                const imageData = this.canvas.toDataURL('image/png');
+                if (!model) {
+                    alert('Model not loaded yet. Please wait...');
+                    return;
+                }
 
                 try {
-                    const response = await fetch('/api/predict', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ image: imageData })
+                    // Preprocess canvas image
+                    const tensor = tf.tidy(() => {
+                        // Get image data from canvas
+                        const img = tf.browser.fromPixels(this.canvas, 1);
+                        // Resize to 28x28
+                        const resized = tf.image.resizeBilinear(img, [28, 28]);
+                        // Normalize to 0-1
+                        const normalized = resized.div(255.0);
+                        // Invert colors (MNIST expects white on black)
+                        const inverted = tf.scalar(1).sub(normalized);
+                        // Add batch dimension
+                        return inverted.expandDims(0);
                     });
 
-                    const data = await response.json();
+                    // Make prediction
+                    const predictions = await model.predict(tensor).data();
+                    tensor.dispose();
 
-                    if (data.success) {
-                        this.displayResults(data.predictions);
-                    } else {
-                        alert('Error: ' + data.error);
-                    }
+                    // Get top 3 predictions
+                    const predArray = Array.from(predictions);
+                    const top3 = predArray
+                        .map((conf, digit) => ({ digit, confidence: conf }))
+                        .sort((a, b) => b.confidence - a.confidence)
+                        .slice(0, 3);
+
+                    this.displayResults(top3);
                 } catch (error) {
-                    alert('Failed to connect to server: ' + error.message);
+                    console.error('Prediction error:', error);
+                    alert('Prediction failed: ' + error.message);
                 }
             }
 
@@ -325,7 +367,7 @@
                 resultsDiv.classList.remove('hidden');
                 predictionsDiv.innerHTML = '';
 
-                predictions.forEach((pred, index) => {
+                predictions.forEach((pred) => {
                     const confidence = (pred.confidence * 100).toFixed(1);
 
                     const predItem = document.createElement('div');
@@ -345,8 +387,8 @@
             }
         }
 
-        // Initialize app when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
+        // Load model and initialize app
+        loadModel().then(() => {
             new DrawingApp();
         });
     </script>
