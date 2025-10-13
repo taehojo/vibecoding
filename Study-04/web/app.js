@@ -253,6 +253,15 @@ class FridgeRecipeApp {
         const recipeContent = document.getElementById('recipeContent');
         const recipeResult = document.getElementById('recipeResult');
 
+        // ingredients와 steps를 배열로 변환
+        const ingredients = Array.isArray(recipe.ingredients)
+            ? recipe.ingredients
+            : [recipe.ingredients];
+
+        const steps = Array.isArray(recipe.steps)
+            ? recipe.steps
+            : [recipe.steps];
+
         const html = `
             <div class="recipe-header">
                 <h3 class="recipe-dish-name">${recipe.dishName}</h3>
@@ -267,7 +276,7 @@ class FridgeRecipeApp {
                     <span>🥬</span> 재료
                 </h4>
                 <ul class="recipe-ingredients-list">
-                    ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                    ${ingredients.map(ing => `<li>${ing}</li>`).join('')}
                 </ul>
             </div>
 
@@ -276,7 +285,7 @@ class FridgeRecipeApp {
                     <span>👨‍🍳</span> 조리법
                 </h4>
                 <ol class="recipe-steps-list">
-                    ${recipe.steps.map(step => `<li>${step}</li>`).join('')}
+                    ${steps.map(step => `<li>${step}</li>`).join('')}
                 </ol>
             </div>
 
