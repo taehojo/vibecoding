@@ -235,7 +235,9 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
 
             if (response.choices && response.choices[0] && response.choices[0].message) {
                 const content = response.choices[0].message.content;
-                console.log('AI 응답:', content);
+                console.log('=== AI 원본 응답 ===');
+                console.log(content);
+                console.log('===================');
 
                 // 여러 방식으로 파싱 시도
                 let ingredientsList = [];
@@ -243,10 +245,12 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
                 // 방법 1: 쉼표로 구분된 형식
                 if (content.includes(',')) {
                     ingredientsList = content
-                        .split(/[,\n]/)
+                        .split(',')
                         .map(item => item.trim())
-                        .filter(item => item.length > 0 && item.length < 30)
-                        .filter(item => !item.includes(':') && !item.includes('응답') && !item.includes('예시'));
+                        .map(item => item.replace(/^[-•*]\s*/, '')) // 앞의 기호 제거
+                        .map(item => item.replace(/\d+\.\s*/, '')) // 숫자. 제거
+                        .filter(item => item.length > 0 && item.length < 50)
+                        .filter(item => !item.match(/^(예시|응답|규칙|식재료|보이는|다음|형식)/));
                 }
 
                 // 방법 2: - 로 시작하는 목록 형식
@@ -255,7 +259,7 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
                         .split('\n')
                         .filter(line => line.trim().startsWith('-'))
                         .map(line => line.trim().substring(1).trim())
-                        .filter(ing => ing.length > 0);
+                        .filter(ing => ing.length > 0 && ing.length < 50);
                 }
 
                 // 방법 3: 숫자. 로 시작하는 목록 형식
@@ -264,13 +268,23 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
                         .split('\n')
                         .filter(line => /^\d+\./.test(line.trim()))
                         .map(line => line.replace(/^\d+\.\s*/, '').trim())
-                        .filter(ing => ing.length > 0);
+                        .filter(ing => ing.length > 0 && ing.length < 50);
+                }
+
+                // 방법 4: 줄바꿈으로만 구분된 경우 (아무 형식 없이)
+                if (ingredientsList.length === 0) {
+                    ingredientsList = content
+                        .split('\n')
+                        .map(item => item.trim())
+                        .filter(item => item.length > 2 && item.length < 50)
+                        .filter(item => !item.match(/^(예시|응답|규칙|식재료|보이는|다음|형식|:|！)/));
                 }
 
                 // 중복 제거
                 ingredientsList = [...new Set(ingredientsList)];
 
-                console.log('재료 인식 완료:', ingredientsList);
+                console.log('파싱된 재료 목록:', ingredientsList);
+                console.log('재료 개수:', ingredientsList.length);
                 return ingredientsList;
             } else {
                 throw new Error('API 응답 형식이 올바르지 않습니다.');
