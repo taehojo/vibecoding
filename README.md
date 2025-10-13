@@ -13,7 +13,7 @@
 - **Study-02**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-02/)
 
 ### Chapter 5: 상식 퀴즈 게임
-- **Study-03-basic** (기본): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-basic/) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic)
+- **Study-03-basic** (기본): [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic) (실습 참조용)
 - **Study-03-advanced** (고급): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/)
 
 ### Chapter 6: 냉장고를 부탁해 (레시피 앱)
