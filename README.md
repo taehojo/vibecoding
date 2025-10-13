@@ -42,7 +42,7 @@
 
 ## 📦 프로젝트 다운로드
 
-각 Chapter의 실습 프로젝트를 다운로드하여 학습하세요.
+각 Chapter의 완성된 실습 프로젝트입니다.
 
 ### Chapter 3: 계산기 앱
 - **Study-01**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-01)
@@ -51,7 +51,7 @@
 - **Study-02**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-02)
 
 ### Chapter 5: 퀴즈 게임
-- **Study-03-basic** (기본): [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic)
+- **Study-03-basic** (기본): [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic) *5장 학습시 다운 받으세요.
 - **Study-03-advanced** (고급): [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-advanced)
 
 ### Chapter 6: 냉장고를 부탁해 (레시피 앱)
@@ -97,15 +97,6 @@ vibecoding/
 ├── Study-05/          # Chapter 7: PDF 요약 AI
 └── Study-06/          # Chapter 7: 공감 AI 다이어리
 ```
-
----
-
-## 💡 학습 포인트
-
-- **효과적인 프롬프트 작성**: 5W1H와 단계별 접근법
-- **클로드 코드 명령어**: `/init`, `/memory`, `/context`, 커스텀 명령어
-- **AI 할루시네이션 대응**: 검증 가이드라인과 메모리 활용
-- **실전 개발 워크플로우**: PRD 작성, 단계별 구현, 테스트, 배포
 
 ---
 
