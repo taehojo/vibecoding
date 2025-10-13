@@ -90,10 +90,10 @@
 ### Chapter 6: 냉장고를 부탁해 (레시피 앱)
 - **Study-04**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-04)
 
-### Chapter 7: PDF 문서 요약 AI
+### Chapter 7: 공감 AI 다이어리 & PDF 문서 요약 AI
 - **Study-05**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-05)
 
-### Chapter 7: 공감 AI 다이어리
+### Chapter 8: 쇼핑 리스트 앱 (데이터베이스 연동)
 - **Study-06**: [다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-06)
 
 ---
@@ -127,8 +127,8 @@ vibecoding/
 │   ├── Study-03-basic/
 │   └── Study-03-advanced/
 ├── Study-04/          # Chapter 6: 냉장고를 부탁해 (레시피 앱)
-├── Study-05/          # Chapter 7: PDF 문서 요약 AI
-└── Study-06/          # Chapter 7: 공감 AI 다이어리
+├── Study-05/          # Chapter 7: 공감 AI 다이어리 & PDF 문서 요약 AI
+└── Study-06/          # Chapter 8: 쇼핑 리스트 앱 (데이터베이스 연동)
 ```
 
 ---
