@@ -210,14 +210,18 @@ class FridgeRecipeApp {
      */
     async generateRecipe() {
         const ingredientsText = document.getElementById('ingredientsText');
-        const ingredients = ingredientsText?.value.trim() || '냉장고에 있는 재료';
+        const ingredients = ingredientsText?.value.trim() || '';
 
         // UI 업데이트
         document.getElementById('loadingSection')?.classList.remove('hidden');
         document.getElementById('recipeResult')?.classList.add('hidden');
 
         try {
-            const recipe = await window.fridgeRecipeBackend.generateRecipe(ingredients);
+            // 이미지가 있으면 이미지와 함께 전송
+            const recipe = await window.fridgeRecipeBackend.generateRecipe(
+                ingredients,
+                this.currentImage
+            );
             this.currentRecipe = {
                 ...recipe,
                 ingredients: ingredientsText?.value.trim() || '냉장고 재료',
@@ -231,10 +235,10 @@ class FridgeRecipeApp {
             if (error.message.includes('API 키')) {
                 this.showToast('⚠️ API 키를 설정해주세요. 설정 버튼을 클릭하세요.', 'warning');
                 // 대체 레시피 표시
-                const fallbackRecipe = window.fridgeRecipeBackend.getFallbackRecipe(ingredients);
+                const fallbackRecipe = window.fridgeRecipeBackend.getFallbackRecipe(ingredients || '냉장고 재료');
                 this.currentRecipe = {
                     ...fallbackRecipe,
-                    ingredients: ingredients,
+                    ingredients: ingredients || '냉장고 재료',
                     timestamp: new Date().toISOString()
                 };
                 this.displayRecipe(this.currentRecipe);

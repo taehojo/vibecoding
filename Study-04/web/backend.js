@@ -7,7 +7,7 @@ class FridgeRecipeBackend {
     constructor() {
         this.apiKey = this.getApiKey();
         this.baseUrl = 'https://openrouter.ai/api/v1';
-        this.model = 'meta-llama/llama-3.2-3b-instruct:free'; // 무료 모델 사용
+        this.model = 'google/gemini-flash-1.5-8b:free'; // 무료 비전 모델 사용
     }
 
     /**
@@ -38,8 +38,36 @@ class FridgeRecipeBackend {
     /**
      * 레시피 생성 프롬프트 작성
      */
-    createRecipePrompt(ingredients) {
-        return `당신은 전문 요리사입니다. 다음 재료들을 사용하여 맛있는 레시피를 추천해주세요.
+    createRecipePrompt(ingredients, hasImage) {
+        if (hasImage) {
+            return `당신은 전문 요리사입니다. 이미지에서 보이는 냉장고 재료들을 분석하고, 맛있는 레시피를 추천해주세요.
+
+${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
+
+다음 형식으로 정확히 응답해주세요:
+
+요리명: [요리 이름]
+난이도: [쉬움/보통/어려움]
+조리시간: [예: 30분]
+재료:
+- [재료1]
+- [재료2]
+- [재료3]
+
+조리법:
+1. [단계 1]
+2. [단계 2]
+3. [단계 3]
+
+팁: [요리 팁]
+
+응답 규칙:
+1. 이미지에서 보이는 재료를 최대한 활용하세요
+2. 실용적이고 만들기 쉬운 레시피를 추천하세요
+3. 한국인의 입맛에 맞는 요리를 추천하세요
+4. 조리법은 명확하고 구체적으로 작성하세요`;
+        } else {
+            return `당신은 전문 요리사입니다. 다음 재료들을 사용하여 맛있는 레시피를 추천해주세요.
 
 재료: ${ingredients}
 
@@ -66,6 +94,7 @@ class FridgeRecipeBackend {
 3. 한국인의 입맛에 맞는 요리를 추천하세요
 4. 조리법은 명확하고 구체적으로 작성하세요
 5. 추가 재료가 필요하면 일반적으로 가정에 있는 것들만 사용하세요`;
+        }
     }
 
     /**
@@ -124,9 +153,28 @@ class FridgeRecipeBackend {
     /**
      * OpenRouter API 호출
      */
-    async callOpenRouterAPI(prompt) {
+    async callOpenRouterAPI(prompt, imageBase64 = null) {
         if (!this.apiKey) {
             throw new Error('API 키가 설정되지 않았습니다. 설정 버튼을 눌러 API 키를 입력해주세요.');
+        }
+
+        // 이미지가 있으면 content를 배열로 구성
+        let content;
+        if (imageBase64) {
+            content = [
+                {
+                    type: "text",
+                    text: prompt
+                },
+                {
+                    type: "image_url",
+                    image_url: {
+                        url: imageBase64
+                    }
+                }
+            ];
+        } else {
+            content = prompt;
         }
 
         const requestBody = {
@@ -134,7 +182,7 @@ class FridgeRecipeBackend {
             messages: [
                 {
                     role: "user",
-                    content: prompt
+                    content: content
                 }
             ],
             max_tokens: 1500,
@@ -167,16 +215,17 @@ class FridgeRecipeBackend {
     /**
      * 레시피 생성 메인 함수
      */
-    async generateRecipe(ingredients) {
-        if (!ingredients || ingredients.trim().length === 0) {
-            throw new Error('재료를 입력해주세요.');
+    async generateRecipe(ingredients, imageBase64 = null) {
+        if (!ingredients && !imageBase64) {
+            throw new Error('재료를 입력하거나 이미지를 업로드해주세요.');
         }
 
-        const prompt = this.createRecipePrompt(ingredients);
+        const hasImage = !!imageBase64;
+        const prompt = this.createRecipePrompt(ingredients || '', hasImage);
 
         try {
-            console.log('레시피 생성 중...');
-            const response = await this.callOpenRouterAPI(prompt);
+            console.log('레시피 생성 중...', hasImage ? '(이미지 포함)' : '');
+            const response = await this.callOpenRouterAPI(prompt, imageBase64);
 
             if (response.choices && response.choices[0] && response.choices[0].message) {
                 const result = this.parseRecipeResponse(response.choices[0].message.content);
