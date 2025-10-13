@@ -1,6 +1,9 @@
 # Vibe Coding
 
 <div align="center">
+  <h3>📱 실습 예제 일부 미리보기</h3>
+  <p><em>이미지를 클릭하면 라이브 데모를 바로 실행할 수 있습니다</em></p>
+
   <table>
     <tr>
       <td align="center">
