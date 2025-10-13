@@ -79,20 +79,20 @@
 각 Chapter의 완성된 실습 프로젝트입니다. 🎯 라이브 데모를 클릭하여 바로 실행해보세요!
 
 ### Chapter 3: 손글씨 인식 프로그램
-- **Study-01** (웹 버전): Flask 앱 - 로컬 실행 필요 (`run_web.bat`)
+- **Study-01**: [🎯 라이브 데모](https://vibecoding-ch03.vercel.app) - TensorFlow.js로 구현한 MNIST 손글씨 숫자 인식 웹 앱
 
 ### Chapter 4: 할 일 관리 앱
-- **Study-02**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-02/)
+- **Study-02**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-02/) - 로컬 저장소 기반 할 일 관리 앱
 
 ### Chapter 5: 상식 퀴즈 게임
 - **Study-03-basic** (기본): [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic) (실습 참조용)
-- **Study-03-advanced** (고급): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/)
+- **Study-03-advanced** (고급): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/) - 카테고리별 퀴즈 및 리더보드 기능
 
-### Chapter 6: 냉장고를 부탁해 (레시피 앱)
-- **Study-04**: [🎯 라이브 데모](https://vibecoding-study-04.vercel.app/)
+### Chapter 6: 냉장고를 부탁해 (AI 레시피 추천)
+- **Study-04**: [🎯 라이브 데모](https://vibecoding-ch06.vercel.app) - 냉장고 사진으로 재료 인식 후 AI 레시피 추천 (OpenRouter API 연동)
 
-### Chapter 7: 공감 AI 다이어리 & PDF 문서 요약 AI
-- **Study-05**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-05/)
+### Chapter 7: 공감 AI 다이어리
+- **Study-05**: [🎯 라이브 데모](https://vibecoding-ch07.vercel.app) - 일기 감정 분석 및 공감 메시지 생성 (OpenRouter API 연동)
 
 ### Chapter 8: 쇼핑 리스트 앱 (데이터베이스 연동)
-- **Study-06**: [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app)
+- **Study-06**: [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app) - Supabase 실시간 데이터베이스 연동 쇼핑 리스트
