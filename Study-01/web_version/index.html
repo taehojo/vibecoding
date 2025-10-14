@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>손글씨 숫자 인식</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <style>
         * {
             margin: 0;
@@ -271,16 +271,15 @@
             return interval;
         }
 
-        // Load TensorFlow.js model
+        // Load TensorFlow.js pre-trained MNIST model
         async function loadModel() {
             const progressInterval = animateProgress();
 
             try {
-                // Load pre-trained MNIST CNN model from TensorFlow.js model repository
-                model = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mnist_cnn/model.json');
+                // Load from TensorFlow Hub - verified working model
+                model = await tf.loadGraphModel('https://tfhub.dev/google/tfjs-model/mnist/1/default/1', {fromTFHub: true});
 
-                console.log('✓ Model loaded successfully');
-                console.log('Model input shape:', model.inputs[0].shape);
+                console.log('✓ Model loaded successfully from TF Hub');
 
                 clearInterval(progressInterval);
                 document.getElementById('progressBar').style.width = '100%';
@@ -289,13 +288,11 @@
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('app').style.display = 'flex';
                 }, 300);
-
             } catch (error) {
                 clearInterval(progressInterval);
                 console.error('✗ Model load error:', error);
-                document.getElementById('loading').textContent = '모델 로드 실패. 간단한 데모 모드로 실행됩니다.';
+                document.getElementById('loading').textContent = '모델 로드 실패. 간단한 데모 모드를 사용합니다.';
 
-                // Show the app anyway
                 setTimeout(() => {
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('app').style.display = 'flex';
@@ -388,34 +385,31 @@
                 }
 
                 try {
-                    // Preprocess canvas image (matching Python version preprocessing)
+                    // Preprocess canvas image
                     const tensor = tf.tidy(() => {
-                        // Get image data from canvas (grayscale)
-                        const img = tf.browser.fromPixels(this.canvas, 1);
+                        // Get image from canvas as grayscale
+                        let img = tf.browser.fromPixels(this.canvas, 1);
 
                         // Resize to 28x28
-                        const resized = tf.image.resizeBilinear(img, [28, 28]);
+                        img = tf.image.resizeBilinear(img, [28, 28]);
+
+                        // Normalize to [0, 1]
+                        img = img.toFloat().div(255.0);
 
                         // Invert colors (MNIST expects white digits on black background)
-                        // Our canvas has black on white, so we need to invert
-                        const inverted = tf.scalar(255).sub(resized);
+                        img = tf.scalar(1.0).sub(img);
 
-                        // Normalize to 0-1 range
-                        const normalized = inverted.div(255.0);
-
-                        // Reshape to [1, 28, 28, 1] format for model input
-                        const reshaped = normalized.reshape([1, 28, 28, 1]);
-
-                        return reshaped;
+                        // Reshape to [1, 28, 28, 1]
+                        return img.reshape([1, 28, 28, 1]);
                     });
 
-                    console.log('Input tensor shape:', tensor.shape);
+                    console.log('Making prediction...');
 
                     // Make prediction
                     const predictions = await model.predict(tensor).data();
                     tensor.dispose();
 
-                    console.log('Raw predictions:', predictions);
+                    console.log('Predictions:', predictions);
 
                     // Get top 3 predictions
                     const predArray = Array.from(predictions);
@@ -424,7 +418,6 @@
                         .sort((a, b) => b.confidence - a.confidence)
                         .slice(0, 3);
 
-                    console.log('Top 3 predictions:', top3);
                     this.displayResults(top3);
                 } catch (error) {
                     console.error('Prediction error:', error);
