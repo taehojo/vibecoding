@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Handwritten Digit Recognition</title>
+    <title>손글씨 숫자 인식</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.11.0"></script>
     <style>
         * {
@@ -221,10 +221,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Handwritten Digit Recognition</h1>
-        <p class="subtitle">Draw a digit (0-9) on the canvas below</p>
+        <h1>손글씨 숫자 인식</h1>
+        <p class="subtitle">캔버스에 0부터 9까지의 숫자를 그려보세요</p>
         <div id="loading" class="loading">
-            Loading model...
+            모델을 불러오는 중...
             <div class="progress-container">
                 <div id="progressBar" class="progress-bar"></div>
             </div>
@@ -233,13 +233,13 @@
         <div class="canvas-container" style="display:none;" id="app">
             <canvas id="canvas" width="280" height="280"></canvas>
             <div class="controls">
-                <button id="clearBtn" class="btn btn-clear">Clear</button>
-                <button id="predictBtn" class="btn btn-predict">Predict</button>
+                <button id="clearBtn" class="btn btn-clear">지우기</button>
+                <button id="predictBtn" class="btn btn-predict">예측하기</button>
             </div>
         </div>
 
         <div id="results" class="results hidden">
-            <h2>Predictions</h2>
+            <h2>예측 결과</h2>
             <div id="predictions"></div>
         </div>
 
@@ -290,7 +290,7 @@
                 console.log('Model loaded successfully');
             } catch (error) {
                 clearInterval(progressInterval);
-                document.getElementById('loading').textContent = 'Failed to load model. Using demo mode.';
+                document.getElementById('loading').textContent = '모델 로드 실패. 데모 모드를 사용합니다.';
                 console.error('Model load error:', error);
                 // Even if model fails, show the app
                 setTimeout(() => {
@@ -380,7 +380,7 @@
 
             async predict() {
                 if (!model) {
-                    alert('Model not loaded yet. Please wait...');
+                    alert('모델이 아직 로드되지 않았습니다. 잠시만 기다려주세요...');
                     return;
                 }
 
@@ -413,7 +413,7 @@
                     this.displayResults(top3);
                 } catch (error) {
                     console.error('Prediction error:', error);
-                    alert('Prediction failed: ' + error.message);
+                    alert('예측 실패: ' + error.message);
                 }
             }
 
