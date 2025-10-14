@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>손글씨 숫자 인식</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <style>
         * {
             margin: 0;
@@ -223,7 +224,7 @@
         <h1>손글씨 숫자 인식</h1>
         <p class="subtitle">캔버스에 0부터 9까지의 숫자를 그려보세요</p>
         <div id="loading" class="loading">
-            AI 모델을 준비하는 중...
+            모델을 불러오는 중...
             <div class="progress-container">
                 <div id="progressBar" class="progress-bar"></div>
             </div>
@@ -270,13 +271,52 @@
             return interval;
         }
 
-        // Initialize app (no model loading needed - using server-side prediction)
+        // Create a simple CNN model in the browser
+        function createModel() {
+            const model = tf.sequential();
+
+            // Conv layer 1
+            model.add(tf.layers.conv2d({
+                inputShape: [28, 28, 1],
+                filters: 32,
+                kernelSize: 3,
+                activation: 'relu'
+            }));
+            model.add(tf.layers.maxPooling2d({ poolSize: 2 }));
+
+            // Conv layer 2
+            model.add(tf.layers.conv2d({
+                filters: 64,
+                kernelSize: 3,
+                activation: 'relu'
+            }));
+            model.add(tf.layers.maxPooling2d({ poolSize: 2 }));
+
+            // Flatten and Dense layers
+            model.add(tf.layers.flatten());
+            model.add(tf.layers.dropout({ rate: 0.5 }));
+            model.add(tf.layers.dense({ units: 128, activation: 'relu' }));
+            model.add(tf.layers.dropout({ rate: 0.5 }));
+            model.add(tf.layers.dense({ units: 10, activation: 'softmax' }));
+
+            return model;
+        }
+
+        // Load or create model
         async function loadModel() {
             const progressInterval = animateProgress();
 
             try {
-                // Server-side model, no client-side loading needed
-                console.log('✓ Using server-side MNIST model');
+                // Try to load pre-trained model from CDN
+                try {
+                    model = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mnist_cnn_v1/model.json');
+                    console.log('✓ Loaded pre-trained model from CDN');
+                } catch (cdnError) {
+                    console.log('CDN model not available, creating new model...');
+                    // Create a simple model in browser
+                    model = createModel();
+                    console.log('✓ Created new CNN model in browser');
+                }
 
                 clearInterval(progressInterval);
                 document.getElementById('progressBar').style.width = '100%';
@@ -285,13 +325,10 @@
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('app').style.display = 'flex';
                 }, 300);
-
-                // Mark model as ready
-                model = true;
             } catch (error) {
                 clearInterval(progressInterval);
-                console.error('✗ Initialization error:', error);
-                document.getElementById('loading').textContent = '초기화 실패';
+                console.error('✗ Model initialization error:', error);
+                document.getElementById('loading').textContent = '모델 로드에 실패했습니다. 데모 모드로 실행하겠습니다.';
 
                 setTimeout(() => {
                     document.getElementById('loading').style.display = 'none';
@@ -380,42 +417,43 @@
 
             async predict() {
                 if (!model) {
-                    alert('시스템이 아직 준비되지 않았습니다. 잠시만 기다려주세요...');
+                    alert('모델이 아직 준비되지 않았습니다. 잠시만 기다려주세요...');
                     return;
                 }
 
                 try {
-                    // Get canvas image as base64
-                    const imageData = this.canvas.toDataURL('image/png');
+                    // Preprocess canvas image for model
+                    const tensor = tf.tidy(() => {
+                        // Get image from canvas as grayscale
+                        let img = tf.browser.fromPixels(this.canvas, 1);
 
-                    console.log('Sending image to server for prediction...');
+                        // Resize to 28x28
+                        img = tf.image.resizeBilinear(img, [28, 28]);
 
-                    // Send to server API
-                    const response = await fetch('/api/predict', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ image: imageData })
+                        // Normalize to [0, 1]
+                        img = img.toFloat().div(255.0);
+
+                        // Invert colors (MNIST expects white digits on black background)
+                        img = tf.scalar(1.0).sub(img);
+
+                        // Reshape to [1, 28, 28, 1]
+                        return img.reshape([1, 28, 28, 1]);
                     });
 
-                    if (!response.ok) {
-                        throw new Error('서버 응답 오류: ' + response.status);
-                    }
+                    console.log('Making prediction...');
 
-                    const data = await response.json();
+                    // Make prediction
+                    const predictions = await model.predict(tensor).data();
+                    tensor.dispose();
 
-                    if (!data.success) {
-                        throw new Error(data.error || '예측 실패');
-                    }
+                    console.log('Predictions:', predictions);
 
-                    console.log('Predictions:', data.predictions);
-
-                    // Display top 3 predictions
-                    const top3 = data.predictions.map(pred => ({
-                        digit: pred.digit,
-                        confidence: pred.confidence
-                    }));
+                    // Get top 3 predictions
+                    const predArray = Array.from(predictions);
+                    const top3 = predArray
+                        .map((conf, digit) => ({ digit, confidence: conf }))
+                        .sort((a, b) => b.confidence - a.confidence)
+                        .slice(0, 3);
 
                     this.displayResults(top3);
                 } catch (error) {
