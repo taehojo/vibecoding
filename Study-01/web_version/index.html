@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>손글씨 숫자 인식</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <style>
         * {
             margin: 0;
@@ -224,7 +223,7 @@
         <h1>손글씨 숫자 인식</h1>
         <p class="subtitle">캔버스에 0부터 9까지의 숫자를 그려보세요</p>
         <div id="loading" class="loading">
-            모델을 불러오는 중...
+            AI 모델을 준비하는 중...
             <div class="progress-container">
                 <div id="progressBar" class="progress-bar"></div>
             </div>
@@ -271,15 +270,13 @@
             return interval;
         }
 
-        // Load TensorFlow.js pre-trained MNIST model
+        // Initialize app (no model loading needed - using server-side prediction)
         async function loadModel() {
             const progressInterval = animateProgress();
 
             try {
-                // Load from TensorFlow Hub - verified working model
-                model = await tf.loadGraphModel('https://tfhub.dev/google/tfjs-model/mnist/1/default/1', {fromTFHub: true});
-
-                console.log('✓ Model loaded successfully from TF Hub');
+                // Server-side model, no client-side loading needed
+                console.log('✓ Using server-side MNIST model');
 
                 clearInterval(progressInterval);
                 document.getElementById('progressBar').style.width = '100%';
@@ -288,10 +285,13 @@
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('app').style.display = 'flex';
                 }, 300);
+
+                // Mark model as ready
+                model = true;
             } catch (error) {
                 clearInterval(progressInterval);
-                console.error('✗ Model load error:', error);
-                document.getElementById('loading').textContent = '모델 로드 실패. 간단한 데모 모드를 사용합니다.';
+                console.error('✗ Initialization error:', error);
+                document.getElementById('loading').textContent = '초기화 실패';
 
                 setTimeout(() => {
                     document.getElementById('loading').style.display = 'none';
@@ -380,43 +380,42 @@
 
             async predict() {
                 if (!model) {
-                    alert('모델이 아직 로드되지 않았습니다. 잠시만 기다려주세요...');
+                    alert('시스템이 아직 준비되지 않았습니다. 잠시만 기다려주세요...');
                     return;
                 }
 
                 try {
-                    // Preprocess canvas image
-                    const tensor = tf.tidy(() => {
-                        // Get image from canvas as grayscale
-                        let img = tf.browser.fromPixels(this.canvas, 1);
+                    // Get canvas image as base64
+                    const imageData = this.canvas.toDataURL('image/png');
 
-                        // Resize to 28x28
-                        img = tf.image.resizeBilinear(img, [28, 28]);
+                    console.log('Sending image to server for prediction...');
 
-                        // Normalize to [0, 1]
-                        img = img.toFloat().div(255.0);
-
-                        // Invert colors (MNIST expects white digits on black background)
-                        img = tf.scalar(1.0).sub(img);
-
-                        // Reshape to [1, 28, 28, 1]
-                        return img.reshape([1, 28, 28, 1]);
+                    // Send to server API
+                    const response = await fetch('/api/predict', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ image: imageData })
                     });
 
-                    console.log('Making prediction...');
+                    if (!response.ok) {
+                        throw new Error('서버 응답 오류: ' + response.status);
+                    }
 
-                    // Make prediction
-                    const predictions = await model.predict(tensor).data();
-                    tensor.dispose();
+                    const data = await response.json();
 
-                    console.log('Predictions:', predictions);
+                    if (!data.success) {
+                        throw new Error(data.error || '예측 실패');
+                    }
 
-                    // Get top 3 predictions
-                    const predArray = Array.from(predictions);
-                    const top3 = predArray
-                        .map((conf, digit) => ({ digit, confidence: conf }))
-                        .sort((a, b) => b.confidence - a.confidence)
-                        .slice(0, 3);
+                    console.log('Predictions:', data.predictions);
+
+                    // Display top 3 predictions
+                    const top3 = data.predictions.map(pred => ({
+                        digit: pred.digit,
+                        confidence: pred.confidence
+                    }));
 
                     this.displayResults(top3);
                 } catch (error) {
