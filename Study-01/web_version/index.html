@@ -307,16 +307,9 @@
             const progressInterval = animateProgress();
 
             try {
-                // Try to load pre-trained model from CDN
-                try {
-                    model = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mnist_cnn_v1/model.json');
-                    console.log('✓ Loaded pre-trained model from CDN');
-                } catch (cdnError) {
-                    console.log('CDN model not available, creating new model...');
-                    // Create a simple model in browser
-                    model = createModel();
-                    console.log('✓ Created new CNN model in browser');
-                }
+                // Create a simple CNN model in browser (no external dependencies)
+                model = createModel();
+                console.log('✓ Created CNN model in browser');
 
                 clearInterval(progressInterval);
                 document.getElementById('progressBar').style.width = '100%';
@@ -327,8 +320,8 @@
                 }, 300);
             } catch (error) {
                 clearInterval(progressInterval);
-                console.error('✗ Model initialization error:', error);
-                document.getElementById('loading').textContent = '모델 로드에 실패했습니다. 데모 모드로 실행하겠습니다.';
+                console.error('✗ Model creation error:', error);
+                document.getElementById('loading').textContent = '모델 생성에 실패했습니다.';
 
                 setTimeout(() => {
                     document.getElementById('loading').style.display = 'none';
