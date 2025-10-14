@@ -276,8 +276,8 @@
             const progressInterval = animateProgress();
 
             try {
-                // Use a pre-trained MNIST model from TensorFlow Hub
-                model = await tf.loadLayersModel('https://storage.googleapis.com/tfjs-models/tfjs/mnist_transfer_cnn_v1/model.json');
+                // Use a pre-trained MNIST model
+                model = await tf.loadLayersModel('https://raw.githubusercontent.com/manfreddiaz/mnist-tfjs/master/models/model.json');
 
                 clearInterval(progressInterval);
                 document.getElementById('progressBar').style.width = '100%';
@@ -395,13 +395,16 @@
                         const normalized = resized.div(255.0);
                         // Invert colors (MNIST expects white on black)
                         const inverted = tf.scalar(1).sub(normalized);
-                        // Add batch dimension
-                        return inverted.expandDims(0);
+                        // Reshape to [1, 28, 28, 1] format
+                        return inverted.reshape([1, 28, 28, 1]);
                     });
 
                     // Make prediction
                     const predictions = await model.predict(tensor).data();
                     tensor.dispose();
+
+                    // Debug log
+                    console.log('Predictions:', predictions);
 
                     // Get top 3 predictions
                     const predArray = Array.from(predictions);
@@ -410,6 +413,7 @@
                         .sort((a, b) => b.confidence - a.confidence)
                         .slice(0, 3);
 
+                    console.log('Top 3:', top3);
                     this.displayResults(top3);
                 } catch (error) {
                     console.error('Prediction error:', error);
