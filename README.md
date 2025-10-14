@@ -1,4 +1,4 @@
-# Vibe Coding
+# Vibe Coding (가제)
 
 <div align="center">
   <h3>📱 실습 예제 일부 미리보기</h3>
