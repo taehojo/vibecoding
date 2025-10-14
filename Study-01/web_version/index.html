@@ -271,45 +271,15 @@
             return interval;
         }
 
-        // Create a simple CNN model in the browser
-        function createModel() {
-            const model = tf.sequential();
-
-            // Conv layer 1
-            model.add(tf.layers.conv2d({
-                inputShape: [28, 28, 1],
-                filters: 32,
-                kernelSize: 3,
-                activation: 'relu'
-            }));
-            model.add(tf.layers.maxPooling2d({ poolSize: 2 }));
-
-            // Conv layer 2
-            model.add(tf.layers.conv2d({
-                filters: 64,
-                kernelSize: 3,
-                activation: 'relu'
-            }));
-            model.add(tf.layers.maxPooling2d({ poolSize: 2 }));
-
-            // Flatten and Dense layers
-            model.add(tf.layers.flatten());
-            model.add(tf.layers.dropout({ rate: 0.5 }));
-            model.add(tf.layers.dense({ units: 128, activation: 'relu' }));
-            model.add(tf.layers.dropout({ rate: 0.5 }));
-            model.add(tf.layers.dense({ units: 10, activation: 'softmax' }));
-
-            return model;
-        }
-
-        // Load or create model
+        // Load trained model
         async function loadModel() {
             const progressInterval = animateProgress();
 
             try {
-                // Create a simple CNN model in browser (no external dependencies)
-                model = createModel();
-                console.log('✓ Created CNN model in browser');
+                // Load pre-trained MNIST model (98-99% accuracy)
+                console.log('Loading trained MNIST model...');
+                model = await tf.loadLayersModel('./model/model.json');
+                console.log('✓ Trained model loaded successfully!');
 
                 clearInterval(progressInterval);
                 document.getElementById('progressBar').style.width = '100%';
@@ -320,8 +290,8 @@
                 }, 300);
             } catch (error) {
                 clearInterval(progressInterval);
-                console.error('✗ Model creation error:', error);
-                document.getElementById('loading').textContent = '모델 생성에 실패했습니다.';
+                console.error('✗ Model load error:', error);
+                document.getElementById('loading').textContent = '모델 로드 실패. 페이지를 새로고침하세요.';
 
                 setTimeout(() => {
                     document.getElementById('loading').style.display = 'none';
