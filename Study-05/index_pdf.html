@@ -1094,7 +1094,8 @@
                     },
                     body: JSON.stringify({
                         text: truncatedText,
-                        fileName: AppState.currentFile?.name || '제목 없음'
+                        fileName: AppState.currentFile?.name || '제목 없음',
+                        summaryMode: AppState.summaryMode
                     })
                 });
 

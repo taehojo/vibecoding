@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { text, fileName } = req.body;
+        const { text, fileName, summaryMode = 'normal' } = req.body;
 
         if (!text || text.trim().length === 0) {
             return res.status(400).json({ error: 'PDF 텍스트를 입력해주세요.' });
@@ -45,8 +45,17 @@ export default async function handler(req, res) {
             processedText = processedText.substring(0, maxLength) + '...';
         }
 
+        // 요약 모드에 따른 프롬프트 설정
+        const modeInstructions = {
+            brief: '다음 텍스트를 3-5줄로 아주 간단하게 요약해주세요. 핵심만 간단명료하게 정리하고, 핵심포인트는 3개만 작성해주세요.',
+            normal: '다음 텍스트를 적당한 길이로 요약해주세요. 주요 내용을 빠짐없이 포함하되 간결하게 정리하고, 핵심포인트는 5개 작성해주세요.',
+            detailed: '다음 텍스트를 상세하게 요약해주세요. 중요한 세부사항과 맥락을 포함하여 충분히 설명하고, 핵심포인트는 7개 이상 작성해주세요.'
+        };
+
+        const modeInstruction = modeInstructions[summaryMode] || modeInstructions.normal;
+
         // Create summarization prompt
-        const prompt = `당신은 전문적인 문서 요약 AI입니다. 다음 PDF 문서의 내용을 분석하고 요약해주세요.
+        const prompt = `당신은 전문적인 문서 요약 AI입니다. ${modeInstruction}
 
 문서 제목: ${fileName || '제목 없음'}
 
@@ -55,20 +64,18 @@ export default async function handler(req, res) {
 
 다음 형식으로 정확히 응답해주세요:
 
-주요내용: [문서의 핵심 내용을 3-5문장으로 요약]
+주요내용: [요약 내용]
 핵심포인트:
 - [핵심 포인트 1]
 - [핵심 포인트 2]
 - [핵심 포인트 3]
-- [핵심 포인트 4]
-- [핵심 포인트 5]
+${summaryMode === 'detailed' ? '- [핵심 포인트 4]\n- [핵심 포인트 5]\n- [핵심 포인트 6]\n- [핵심 포인트 7]' : summaryMode === 'normal' ? '- [핵심 포인트 4]\n- [핵심 포인트 5]' : ''}
 
 응답 규칙:
-1. 주요내용은 문서의 가장 중요한 정보를 간결하게 요약
-2. 핵심포인트는 5개 이내로 작성
-3. 명확하고 이해하기 쉬운 한국어로 작성
-4. 원문의 의미를 왜곡하지 말 것
-5. 객관적이고 사실적인 톤 유지`;
+1. 주요내용은 문서의 가장 중요한 정보를 ${summaryMode === 'brief' ? '아주 간단하게' : summaryMode === 'detailed' ? '상세하게' : '간결하게'} 요약
+2. 명확하고 이해하기 쉬운 한국어로 작성
+3. 원문의 의미를 왜곡하지 말 것
+4. 객관적이고 사실적인 톤 유지`;
 
         // Call OpenRouter API
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
