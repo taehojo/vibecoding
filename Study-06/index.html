@@ -176,17 +176,43 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Supabase 초기화
-        const SUPABASE_URL = '[Supabase URL]';
-        const SUPABASE_ANON_KEY = '[Supabase API 키]';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+        let supabase = null;
         const itemInput = document.getElementById('itemInput');
         const addBtn = document.getElementById('addBtn');
         const shoppingList = document.getElementById('shoppingList');
 
+        // Supabase 초기화
+        async function initSupabase() {
+            try {
+                const response = await fetch('/api/config');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch Supabase config');
+                }
+                const config = await response.json();
+
+                if (config.success) {
+                    supabase = window.supabase.createClient(
+                        config.supabaseUrl,
+                        config.supabaseAnonKey
+                    );
+                    console.log('Supabase initialized successfully');
+                    loadItems();
+                } else {
+                    throw new Error(config.error || 'Failed to initialize Supabase');
+                }
+            } catch (error) {
+                console.error('Supabase initialization error:', error);
+                alert('Supabase 연결에 실패했습니다. 환경 변수를 확인해주세요.');
+            }
+        }
+
         // Supabase에서 데이터 로드
         async function loadItems() {
+            if (!supabase) {
+                console.error('Supabase not initialized');
+                return;
+            }
+
             try {
                 const { data, error } = await supabase
                     .from('shopping_items')
@@ -237,6 +263,11 @@
 
         // 아이템 추가
         async function addItem() {
+            if (!supabase) {
+                alert('Supabase가 초기화되지 않았습니다.');
+                return;
+            }
+
             const text = itemInput.value.trim();
 
             if (text === '') {
@@ -302,7 +333,7 @@
         });
 
         // 초기 로드
-        loadItems();
+        initSupabase();
     </script>
 </body>
 </html>
