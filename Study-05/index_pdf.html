@@ -1081,48 +1081,36 @@
             const truncatedText = text.length > maxLength ?
                 text.substring(0, maxLength) + '...' : text;
 
-            // 요약 모드에 따른 프롬프트 설정
-            const prompts = {
-                brief: '다음 텍스트를 3-5줄로 아주 간단하게 요약해주세요. 핵심만 간단명료하게 정리해주세요.',
-                normal: '다음 텍스트를 적당한 길이로 요약해주세요. 주요 내용을 빠짐없이 포함하되, 간결하게 정리해주세요.',
-                detailed: '다음 텍스트를 상세하게 요약해주세요. 중요한 세부사항과 맥락을 포함하여 충분히 설명해주세요.'
-            };
-
-            const systemPrompt = prompts[AppState.summaryMode];
-
             try {
-                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                // 서버리스 함수 호출 (production)
+                const response = await fetch('/api/pdf-summarize', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${AppState.apiKey}`,
-                        'HTTP-Referer': window.location.href,
-                        'X-Title': 'PDF Summary App'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: AppState.selectedModel,
-                        messages: [
-                            {
-                                role: 'system',
-                                content: `${systemPrompt} 한국어로 답변해주세요. 요약 후에는 반드시 "핵심 포인트:" 섹션을 추가하여 3-5개의 주요 포인트를 나열해주세요.`
-                            },
-                            {
-                                role: 'user',
-                                content: truncatedText
-                            }
-                        ],
-                        temperature: 0.7,
-                        max_tokens: 2000
+                        text: truncatedText,
+                        fileName: AppState.currentFile?.name || '제목 없음'
                     })
                 });
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    throw new Error(errorData.error?.message || 'API 요청 실패');
+                    throw new Error(errorData.error || 'API 요청 실패');
                 }
 
                 const data = await response.json();
-                return data.choices[0].message.content;
+
+                if (data.success) {
+                    // 서버 응답을 기존 형식으로 변환
+                    let summary = `${data.mainContent}\n\n핵심 포인트:\n`;
+                    data.keyPoints.forEach(point => {
+                        summary += `• ${point}\n`;
+                    });
+                    return summary;
+                } else {
+                    throw new Error('요약 생성 실패');
+                }
 
             } catch (error) {
                 // 데모 모드 (API 실패 시)
