@@ -747,9 +747,12 @@
                     <input type="file" id="fileInput" class="file-input" accept=".pdf" aria-label="PDF 파일 선택">
                 </div>
                 <div style="text-align: center; margin-top: 15px;">
-                    <button id="loadSampleBtn" class="btn btn-secondary" style="padding: 8px 20px;">
-                        📄 샘플 PDF 불러오기 (한글맞춤법.pdf)
-                    </button>
+                    <a href="https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/한글맞춤법.pdf"
+                       download="한글맞춤법.pdf"
+                       class="btn btn-secondary"
+                       style="padding: 8px 20px; display: inline-block; text-decoration: none;">
+                        📄 샘플 PDF 다운로드 (한글맞춤법.pdf)
+                    </a>
                 </div>
 
                 <div id="fileInfo" class="file-info" aria-live="polite">
@@ -831,6 +834,14 @@
                 </div>
             </section>
         </main>
+        <footer style="text-align: center; padding: 40px 20px; color: var(--text-secondary); border-top: 1px solid var(--border); margin-top: 60px;">
+            <p style="margin-bottom: 10px; font-size: 0.95rem;">
+                💡 7장에서 만든 PDF 문서 요약 앱과 8장의 Vercel 배포편을 응용해 제작하였습니다.
+            </p>
+            <p style="font-size: 0.9rem;">
+                📚 <a href="https://github.com/taehojo/vibecoding" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">GitHub 저장소로 돌아가기</a>
+            </p>
+        </footer>
     </div>
 
     <div id="settingsModal" class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
