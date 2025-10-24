@@ -746,6 +746,11 @@
                     <p class="upload-hint">또는 클릭하여 파일을 선택하세요 (최대 50MB)</p>
                     <input type="file" id="fileInput" class="file-input" accept=".pdf" aria-label="PDF 파일 선택">
                 </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button id="loadSampleBtn" class="btn btn-secondary" style="padding: 8px 20px;">
+                        📄 샘플 PDF 불러오기 (한글맞춤법.pdf)
+                    </button>
+                </div>
 
                 <div id="fileInfo" class="file-info" aria-live="polite">
                     <h3>📄 선택된 파일</h3>
@@ -841,12 +846,10 @@
                 <p id="apiHint" class="form-hint">OpenRouter에서 발급받은 API 키를 입력하세요</p>
             </div>
 
-            <div class="form-group">
                 <label for="modelSelect" class="form-label">AI 모델 선택</label>
                 <select id="modelSelect" class="form-select">
                     <option value="deepseek/deepseek-chat">DeepSeek V3.1 (무료)</option>
                     <option value="google/gemini-2.0-flash-exp:free">Gemini 2.0 Flash (무료)</option>
-                    <option value="anthropic/claude-3-haiku">Claude 3 Haiku</option>
                 </select>
                 <p class="form-hint">사용할 AI 모델을 선택하세요</p>
             </div>
@@ -938,6 +941,7 @@
 
             // 키보드 단축키
             document.addEventListener('keydown', handleKeyboardShortcuts);
+// 샘플 PDF 불러오기            document.getElementById('loadSampleBtn').addEventListener('click', async () => {                try {                    showProgress('샘플 PDF 다운로드 중...', 10);                                        // GitHub raw URL에서 샘플 PDF 다운로드                    const response = await fetch('https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/한글맞춤법.pdf');                                        if (!response.ok) {                        throw new Error('샘플 PDF를 불러올 수 없습니다.');                    }                                        showProgress('샘플 PDF 로딩 중...', 50);                                        const blob = await response.blob();                    const file = new File([blob], '한글맞춤법.pdf', { type: 'application/pdf' });                                        // 파일 처리                    AppState.currentFile = file;                    displayFileInfo(file);                    showToast('샘플 PDF가 로드되었습니다', 'success');                    hideProgress();                                    } catch (error) {                    console.error('샘플 로드 실패:', error);                    showError('샘플 PDF를 불러오는데 실패했습니다: ' + error.message);                    hideProgress();                }            });
         }
 
         // 드래그 오버 처리
