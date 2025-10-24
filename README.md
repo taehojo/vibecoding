@@ -92,7 +92,7 @@
 - 오픈라우터를 통해 무료 AI 모델 활용
 - 단계별 실용적인 앱 개발
 
-> **예제**: 냉장고를 부탁해 앱 - 냉장고 사진 업로드 ([입력예제1](입력예제/냉장고.jpg), [입력예제2](입력예제/냉장고2.jpg)) → 재료 인식 (Llama 모델) → 레시피 추천 (DeepSeek 모델) → 사용자 프로필/저장 기능 (3단계 구현)
+> **예제**: 냉장고를 부탁해 앱 - 냉장고 사진 업로드 ([입력예제1](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/냉장고.jpg), [입력예제2](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/냉장고2.jpg)) → 재료 인식 (Llama 모델) → 레시피 추천 (DeepSeek 모델) → 사용자 프로필/저장 기능 (3단계 구현)
 
 **Chapter 7: 클로드 코드 AI 에이전트로 개발팀 구성하기**
 - 에이전트 개념과 생성 방법
@@ -101,7 +101,7 @@
 
 > **예제**:
 > - 공감 AI 다이어리 앱: 하루 일기 입력 → 감정 분석 → 공감 메시지 생성 (에이전트 협업: 백엔드, 프론트, QA)
-> - PDF 문서 요약 AI: PDF 업로드 ([입력예제](입력예제/한글맞춤법.pdf)) → 텍스트 추출 → 요약/분석 (5 에이전트 협업: 기획, 백엔드, AI 통합, 프론트, QA)
+> - PDF 문서 요약 AI: PDF 업로드 ([입력예제](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/한글맞춤법.pdf)) → 텍스트 추출 → 요약/분석 (5 에이전트 협업: 기획, 백엔드, AI 통합, 프론트, QA)
 
 **Chapter 8: MCP로 클로드 코드의 한계 넘어서기**
 - MCP 프로토콜의 개념과 AI 확장 가능성
