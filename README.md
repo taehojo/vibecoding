@@ -1,4 +1,4 @@
-# Vibe Coding (가제)
+# 혼자 공부하는 바이브코딩 with 클로드코드
 
 <div align="center">
   <h3>📱 실습 결과 일부 미리보기</h3>
@@ -137,3 +137,9 @@
 
 ### Chapter 8: 쇼핑 리스트 앱 (데이터베이스 연동)
 - **Study-06**: [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app)
+
+---
+
+## 📖 더 알아보기
+
+**[혼공 바이브코딩 집필 에피소드](https://www.hanbit.co.kr/channel/view.html?cmscode=CMS3592606738)**
