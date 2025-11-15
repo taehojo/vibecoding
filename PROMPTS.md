@@ -292,55 +292,250 @@ case-studies 섹션에 있는 [Before/After 지표]를 hero-introduction 섹션�
 코드에 상세한 주석을 달아줘.
 ```
 
-#### @ 멘션 활용
+#### 04-2
 
 ```
-@script.js 파일에서 다크모드 관련 함수를 찾아서 설명해줘.
-```
-
-```
-@web_version 폴더에 있는 파일들을 분석해서 PC 화면에 최적화가 잘 되었는지 확인해줘.
+현재 할 일 관리 앱에 키워드 기반 자동 카테고리 분류 기능을 추가해 줘.
 ```
 
 ```
-현재 프로젝트의 CLAUDE.md 내용을 확인해줘.
+[Image #1] 현재 디자인은 모바일에 최적화되어 있는 것 같아. 데스크톱 환경에서도 전체 화면에서 UI를 볼 수
+있도록 디자인을 수정해 줘. 수정한 디자인은 ‘web_version’이라는 새로운 폴더를 생성한 뒤, 그곳에 저장해 줘.
+```
+
+```
+@script.js 파일에서 다크 모드 관련 함수를 찾고 설명해 줘.
+```
+
+```
+@web_version 폴더에 있는 파일들을 분석해서 할 일 관리 앱이 데스크톱 환경에 최적화되었는지 확인해 줘.
 ```
 
 ---
 
 ### 05장: 미니 게임 제작으로 배우는 클로드 코드 고급 활용
 
+#### 05-1
+```
+상식 퀴즈 게임을 만들려고 해. PRD를 작성해 줘.
+게임 규칙:
+- 4지선다 객관식 퀴즈
+- 카테고리: 한국사, 과학, 지리, 일반상식 
+- 각 카테고리별 10문제씩 총 40문제
+- 정답/오답 즉시 피드백
+- 최종 점수 및 순위 기록
+```
+
+```
+상식 퀴즈 게임을 클로드 코드로 구현할 수 있도록 PRD를 바탕으로 3단계 프롬프트를 정리해 줘.
+```
+
 #### 1단계: 핵심 퀴즈 시스템 구축
 
 ```
-한국사, 과학, 지리, 일반상식 카테고리로 각 10문제씩 총 40문제의 4지선다 퀴즈 게임을 만들어줘.
-정답/오답 즉시 피드백을 보여주고, 게임 종료 시 총점을 표시해줘.
+1단계: 핵심 퀴즈 시스템 구축
+목표
+기본적인 퀴즈 플레이가 가능한 MVP(Minimum Viable Product) 구현
+구현 내용
+1.1 프로젝트 초기 설정
+- 프로젝트 구조 설정 (React 또는 Vanilla JS)
+- 기본 HTML/CSS 레이아웃 구성
+- 상태 관리 구조 설계
+1.2 문제 데이터 구조 및 관리
+javascript// 문제 데이터 구조 예시
+{
+  id: 1,
+  category: "한국사",
+  difficulty: "medium",
+  question: "조선을 건국한 왕은?",
+  options: ["이성계", "왕건", "이방원", "세종"],
+  correctAnswer: 0,
+  explanation: "이성계는 1392년 조선을 건국했습니다."
+}
+
+각 카테고리별 10문제씩 하드코딩 (총 40문제)
+문제 로딩 및 관리 시스템
+카테고리별 문제 필터링 기능
+
+1.3 게임 진행 로직
+javascript// 주요 구현 함수
+- initGame(): 게임 초기화
+- loadQuestion(): 문제 로드 및 표시
+- handleAnswer(): 답변 처리
+- showFeedback(): 정답/오답 피드백
+- nextQuestion(): 다음 문제로 이동
+- endGame(): 게임 종료 처리
+1.4 기본 UI 구현
+
+시작 화면 (게임 시작 버튼)
+퀴즈 화면 (문제, 4개 선택지, 진행률)
+즉시 피드백 UI (정답/오답 표시)
+간단한 결과 화면 (총점, 정답 개수)
+
+테스트 체크리스트
+
+ 40문제가 순차적으로 출제되는가?
+ 정답/오답 판정이 정확한가?
+ 피드백이 즉시 표시되는가?
+ 게임 완료 시 결과가 표시되는가?
 ```
 
 #### 2단계: 점수 시스템 및 게임 모드 확장
 
 ```
-기존 퀴즈 게임에 점수 시스템을 추가해줘. 연속 정답 보너스, 시간 보너스,
-힌트 기능(3회 제한)을 구현하고, 게임 모드를 선택할 수 있게 해줘.
-```
+ 2단계: 점수 시스템 및 게임 모드 확장
+목표
+다양한 게임 모드와 정교한 점수 시스템 구현
+구현 내용
+2.1 점수 시스템 구현
+javascript// 점수 계산 로직
+class ScoreManager {
+  calculateScore(isCorrect, timeSpent, consecutiveCorrect, hintUsed) {
+    let score = 0;
+    if (isCorrect) {
+      score += 10; // 기본 점수
+      if (timeSpent < 10) score += 3; // 시간 보너스
+      if (!hintUsed) score += 2; // 노힌트 보너스
+      score += this.getConsecutiveBonus(consecutiveCorrect);
+    }
+    return score;
+  }
+}
+2.2 게임 모드 구현
+javascript// 게임 모드 설정
+const gameModes = {
+  full: { questions: 40, timeLimit: null },
+  category: { questions: 10, timeLimit: null },
+  speed: { questions: 20, timeLimit: 15 } // 문제당 15초
+};
+
+전체 도전 모드 (40문제)
+카테고리별 도전 모드
+스피드 퀴즈 모드 (시간제한)
+
+2.3 고급 기능 추가
+
+힌트 시스템 (2개 오답 제거, 게임당 3회)
+일시정지 기능
+문제별 타이머
+연속 정답 콤보 시스템
+
+2.4 상세 결과 분석
+javascript// 결과 데이터 구조
+{
+  totalScore: 350,
+  correctAnswers: 32,
+  totalQuestions: 40,
+  accuracy: 80,
+  categoryStats: {
+    "한국사": { correct: 8, total: 10 },
+    "과학": { correct: 7, total: 10 },
+    // ...
+  },
+  averageResponseTime: 12.5,
+  longestStreak: 7
+}
+테스트 체크리스트
+
+ 점수 계산이 정확한가?
+ 각 게임 모드가 제대로 작동하는가?
+ 힌트 기능이 정상 작동하는가?
+ 타이머가 정확하게 작동하는가?
+ 결과 분석이 정확한가?```
 
 #### 3단계: 데이터 저장 및 순위 시스템
 
 ```
-localStorage를 사용해서 게임 기록을 저장하고, 리더보드를 표시해줘.
-개인 통계와 카테고리별 정답률을 보여주는 대시보드도 추가해줘.
+3단계: 데이터 저장 및 순위 시스템
+목표
+사용자 기록 저장 및 리더보드 기능 완성
+구현 내용
+3.1 로컬 스토리지 활용
+javascript// 로컬 데이터 관리
+class LocalDataManager {
+  saveGameResult(result) {
+    const history = this.getGameHistory();
+    history.push({
+      ...result,
+      timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('gameHistory', JSON.stringify(history));
+  }
+  
+  getBestScore() {
+    const history = this.getGameHistory();
+    return Math.max(...history.map(h => h.totalScore));
+  }
+}
+3.2 순위 시스템 구현
+javascript// 리더보드 구조
+const leaderboard = {
+  daily: [],
+  weekly: [],
+  allTime: [],
+  byCategory: {
+    "한국사": [],
+    "과학": [],
+    // ...
+  }
+};
+
+로컬 리더보드 (브라우저 내)
+순위 표시 (상위 10명)
+개인 최고 기록 관리
+
+3.3 통계 및 진행도
+
+플레이 횟수 추적
+카테고리별 정답률 통계
+성장 그래프 (시간별 점수 추이)
+개인 대시보드
+
+3.4 UI/UX 개선
+
+CSS 애니메이션 추가
+반응형 디자인 적용
+다크모드 지원
+모바일 최적화
+접근성 개선 (키보드 네비게이션)
+
+3.5 추가 기능
+
+문제 풀 확장 (각 카테고리 20문제 이상)
+난이도 조절 옵션
+사운드 효과 (선택사항)
+결과 공유 기능 (클립보드 복사)
+
+테스트 체크리스트
+
+ 게임 결과가 저장되는가?
+ 순위가 정확하게 계산되는가?
+ 통계가 올바르게 표시되는가?
+ 반응형 디자인이 작동하는가?
+ 브라우저 새로고침 후에도 데이터가 유지되는가?
 ```
 
 #### 퀴즈 검증 및 개선
-
+```
+현재 프로젝트의 CLAUDE.md 내용을 확인해줘. 
+```
 ```
 지금까지 만들어진 문제를 방금 저장한 가이드라인을 참고해서 점검해 줘. 가이드라인에 맞지 않은 퀴즈와 정답이 있다면 이에 맞게 수정해줘.
 ```
 
-#### 커스텀 명령어 만들기
+#### 05-2
+```
+현재 프로젝트에 커스텀 명령어 폴더를 만들어 줘.
+.claude/commands 디렉터리를 생성하고 구조를 보여줘.
+```
 
 ```
-.claude/commands/quiz-validate.md 파일을 만들어줘. 퀴즈 문제들 중에서 '가장', '최초', '최대' 같은 애매한 표현이 있는지 찾아서 목록으로 보여줘.
+.claude/commands/quiz-validate.md를 다음과 같이 수정해 줘.
+사용자가 카테고리를 지정하면 해당 카테고리의 문제만 검증하고,
+지정하지 않으면 전체 문제를 검증해 줘.
+$ARGUMENTS에 입력된 값을 카테고리로 사용하면 돼.
+검증할 때는 ‘가장’, ‘최초’, ‘최대’ 같은 모호한 표현이 있는지 찾아서
+어떤 기준을 명시해야 하는지 알려 줘.
 ```
 
 ```
@@ -348,49 +543,62 @@ localStorage를 사용해서 게임 기록을 저장하고, 리더보드를 표�
 ```
 
 ```
-.claude/commands/quiz-range.md를 생성해. $1번부터 $2번까지의 문제를 검토하는 기능을 만들어줘. 문제들의 난이도와 정답 분포를 확인하게 해줘.
+.claude/commands/quiz-range.md를 생성해.
+$1번부터 $2번까지의 문제를 검토하는 기능을 만들어 줘.
+문제의 난이도와 정답 분포를 확인하게 해 줘.
 ```
 
 ```
-.claude/commands/quiz-add.md를 생성해. 퀴즈에 새 문제를 추가하는 명령어를 만들어줘. $1은 카테고리, $2는 난이도로 받아서 처리해. 기존 문제들과 같은 형식으로 만들고, 검증 가이드라인을 꼭 지키게 해줘.
+.claude/commands/quiz-add.md를 생성해.
+새 퀴즈를 추가하는 명령어를 만들어 줘.
+$1은 카테고리, $2는 난이도로 받아서 처리해.
+기존 퀴즈들과 같은 형식으로 만들고, 검증 가이드라인을 꼭 지키게 해 줘.
+```
+
+#### 05-3
+
+```
+.claude/commands/quiz-check.md 를 생성해 줘.
+여기에는 모든 문제 정답의 정확성을 검증하는 기능을 수행하게 해.
+.claude/commands/quiz-stats.md 를 만들어 줘.
+퀴즈 게임의 통계를 관리하는 기능을 하게 해 줘.
+.claude/commands/quiz-leaderboard.md 를 만들어.
+순위 시스템을 관리하는 기능이 실행되게 해.
 ```
 
 ```
-/quiz-add 한국사 상급 && /quiz-validate 한국사
+.claude/commands/quiz-daily.md를 만들어서 다음 작업을 순서대로 수행하게 해 줘.
+1. 퀴즈가 담겨 있는 파일의 구조를 읽고 이해하기
+2. 현재 문제 개수와 분포 확인
+3. 각 카테고리별로 부족한 부분 파악
+4. 새 문제 추가 전 중복 체크
+5. 문제 추가 후 형식 검증
+6. 전체 데이터 백업
+7. 실행 결과 상세 보고
+각 단계별로 검증하고, 실패하면 즉시 중단한 뒤, 오류를 보고해.
 ```
 
 ```
-.claude/commands/quiz-check.md 를 생성해 줘. 여기에는 모든 문제 정답의 정확성을 검증하는 기능을 수행하게 해.
+이제 퀴즈를 푼 여러 학생들의 성적을 한눈에 보고 비교하는 선생님 모드를 만들고 싶어.
+이 기능에 필요한 커스텀 명령들을 직접 구상하고 만들어 줘.
+그리고 이 명령어를 하나로 모아서 실행하는 통합 명령어도 만들어 줘.
+모든 명령들은 ‘.claude/commands/’ 폴더 안에 각각 .md 확장자로 저장되어야 해.
+실행이 끝나면, 생성한 커스텀 명령어들과 그 기능을 나열해서 보고해.
 ```
 
 ```
-.claude/commands/quiz-stats.md 를 만들어 줘. 퀴즈 게임의 통계를 관리하는 기능을 하게 해줘.
+.claude/commands/create-report.md를 다음과 같이 수정해 줘.
+등급 표시를 상위 비율 기준 상대평가로 변경해서 다음과 같이 표시되게 해.
+- 상위 20%: A
+- 상위 40%: B
+- 상위 70%: C
+- 하위 30%: D
 ```
 
 ```
-.claude/commands/quiz-leaderboard.md 를 만들어. 순위 시스템을 관리하는 기능이 실행되게 해.
-```
-
-```
-/quiz-add 한국사 상급 && /quiz-check && /quiz-stats
-```
-
-```
-.claude/commands/quiz-daily.md를 만들어서 다음 작업을 순서대로 수행하게 해줘. (7단계 상세)
-```
-
-#### 선생님 모드 구현
-
-```
-이제 퀴즈를 푼 여러 학생들의 성적을 한눈에 보고 비교하는 선생님 모드를 만들고 싶어. 이 기능에 필요한 커스텀 명령들이 뭔지 구상하고 직접 만들어줘. 그리고 이 명령어를 하나로 모아서 실행하는 최종 명령어도 만들어줘.
-```
-
-```
-.claude/commands/create-report.md를 다음과 같이 수정해줘 (상대평가 변경 상세)
-```
-
-```
-.claude/commands/export-report.md 파일을 새로 만들어줘. teacher_report.html을 읽어서 CSV또는 PDF로 저장하게 해 주고, teacher-mode.md에 이 명령어를 추가해줘.
+.claude/commands/export-report.md 파일을 새로 만들어 줘.
+teacher_report.html을 읽어서 CSV 또는 PDF로 저장하고,
+teacher-dashboard.md에 이 명령어를 추가해.
 ```
 
 ---
