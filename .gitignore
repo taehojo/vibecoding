@@ -1,0 +1,8 @@
+# Back folder - local files only
+back/
+
+# Environment variables
+.env
+
+# Claude Code settings
+.claude/

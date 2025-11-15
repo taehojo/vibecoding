@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tasks</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="app-title">My Tasks</h1>
+            <!-- 다크 모드 토글 스위치 -->
+            <div class="theme-toggle">
+                <input type="checkbox" id="themeToggle" class="theme-checkbox" aria-label="다크 모드 전환">
+                <label for="themeToggle" class="theme-label">
+                    <span class="sun-icon" aria-hidden="true">☀️</span>
+                    <span class="moon-icon" aria-hidden="true">🌙</span>
+                    <span class="toggle-ball"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- 오늘의 격언 -->
+        <div class="quote-section" id="quoteSection">
+            <span class="quote-icon">💡</span>
+            <span class="quote-text" id="quoteText"></span>
+        </div>
+        
+        <!-- 진행률 대시보드 -->
+        <div class="progress-dashboard">
+            <div class="overall-progress">
+                <div class="progress-header">
+                    <span class="progress-title">전체 진행률</span>
+                    <span class="progress-text">
+                        <span id="progressCompleted">0</span>/<span id="progressTotal">0</span> 완료 
+                        (<span id="progressPercent">0</span>%)
+                    </span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="mainProgressBar"></div>
+                </div>
+            </div>
+            
+            <div class="category-progress">
+                <div class="category-progress-item work">
+                    <div class="category-progress-header">
+                        <span class="category-icon">💼</span>
+                        <span class="category-name">업무</span>
+                        <span class="category-count"><span id="workCompleted">0</span>/<span id="workTotal">0</span></span>
+                    </div>
+                    <div class="mini-progress-bar">
+                        <div class="mini-progress-fill" id="workProgress"></div>
+                    </div>
+                </div>
+                
+                <div class="category-progress-item personal">
+                    <div class="category-progress-header">
+                        <span class="category-icon">🏠</span>
+                        <span class="category-name">개인</span>
+                        <span class="category-count"><span id="personalCompleted">0</span>/<span id="personalTotal">0</span></span>
+                    </div>
+                    <div class="mini-progress-bar">
+                        <div class="mini-progress-fill" id="personalProgress"></div>
+                    </div>
+                </div>
+                
+                <div class="category-progress-item study">
+                    <div class="category-progress-header">
+                        <span class="category-icon">📚</span>
+                        <span class="category-name">공부</span>
+                        <span class="category-count"><span id="studyCompleted">0</span>/<span id="studyTotal">0</span></span>
+                    </div>
+                    <div class="mini-progress-bar">
+                        <div class="mini-progress-fill" id="studyProgress"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="today-stats">
+                <span class="today-icon">📅</span>
+                <span>오늘 추가된 할 일: <strong id="todayCount">0</strong>개</span>
+            </div>
+        </div>
+        
+        <!-- 검색 및 도구 섹션 -->
+        <div class="tools-section">
+            <div class="search-sort-row">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="🔍 할 일 검색..."
+                    autocomplete="off"
+                    aria-label="할 일 검색"
+                >
+                <select id="sortSelect" class="sort-select" aria-label="정렬 옵션">
+                    <option value="newest">최신순</option>
+                    <option value="oldest">오래된순</option>
+                    <option value="category">카테고리순</option>
+                    <option value="status">완료 상태순</option>
+                    <option value="manual">수동 정렬</option>
+                </select>
+            </div>
+            <div class="action-buttons">
+                <button id="exportBtn" class="action-btn export-btn" title="데이터 내보내기" aria-label="데이터 내보내기">
+                    📥 내보내기
+                </button>
+                <label for="importFile" class="action-btn import-btn" title="데이터 가져오기" aria-label="데이터 가져오기">
+                    📤 가져오기
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                </label>
+                <button id="undoBtn" class="action-btn undo-btn" disabled title="실행 취소" aria-label="마지막 삭제 취소">
+                    ↩️ 실행 취소
+                </button>
+                <button id="clearCompleted" class="clear-completed-btn" aria-label="완료된 항목 모두 삭제">
+                    완료 항목 삭제
+                    <span class="completed-badge" id="completedBadge">0</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 카테고리 필터 버튼 -->
+        <div class="filter-section" role="tablist" aria-label="카테고리 필터">
+            <button class="filter-button active" data-filter="all" role="tab" aria-selected="true" aria-controls="taskContainer">전체</button>
+            <button class="filter-button" data-filter="work" role="tab" aria-selected="false" aria-controls="taskContainer">업무</button>
+            <button class="filter-button" data-filter="personal" role="tab" aria-selected="false" aria-controls="taskContainer">개인</button>
+            <button class="filter-button" data-filter="study" role="tab" aria-selected="false" aria-controls="taskContainer">공부</button>
+        </div>
+        
+        <div class="input-section">
+            <input 
+                type="text" 
+                id="taskInput" 
+                class="task-input" 
+                placeholder="할 일을 입력하세요..."
+                autocomplete="off"
+                aria-label="새 할 일 입력"
+                aria-describedby="inputHelp"
+            >
+            <select id="categorySelect" class="category-select" aria-label="카테고리 선택">
+                <option value="work">업무</option>
+                <option value="personal">개인</option>
+                <option value="study">공부</option>
+            </select>
+            <button id="addButton" class="add-button" aria-label="할 일 추가">추가</button>
+            <span id="inputHelp" class="visually-hidden">할 일을 입력한 후 엔터 키를 누르거나 추가 버튼을 클릭하세요</span>
+        </div>
+
+        <div id="taskContainer" class="task-container" role="tabpanel" aria-live="polite" aria-label="할 일 목록">
+            <!-- 할 일 목록이 여기에 동적으로 추가됩니다 -->
+        </div>
+        
+        <!-- 응원 메시지 -->
+        <div class="motivation-message" id="motivationMessage" style="display: none;"></div>
+    </div>
+    
+    <!-- 키보드 단축키 안내 -->
+    <div class="shortcuts-hint" aria-label="키보드 단축키 안내">
+        <span title="Alt+N: 새 할 일 | Alt+1~4: 필터 | Alt+D: 다크모드 | Alt+S: 검색 | Alt+Z: 실행 취소">⌨️ 단축키</span>
+    </div>
+    
+    <!-- Sortable.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>

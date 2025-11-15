@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>손글씨 숫자 인식</title>
+    <!-- Force deployment -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .progress-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto 0;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        #canvas {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: crosshair;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-clear {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-clear:hover:not(:disabled) {
+            background: #da190b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+        }
+
+        .btn-predict {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-predict:hover:not(:disabled) {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .results {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .results.hidden {
+            display: none;
+        }
+
+        .results h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .prediction-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .prediction-digit {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-right: 20px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .prediction-bar {
+            flex-grow: 1;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .prediction-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+        }
+
+        .prediction-percentage {
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            #canvas {
+                width: 240px;
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>손글씨 숫자 인식</h1>
+        <p class="subtitle">캔버스에 0부터 9까지의 숫자를 그려보세요</p>
+        <div id="loading" class="loading">
+            모델을 불러오는 중...
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="canvas-container" style="display:none;" id="app">
+            <canvas id="canvas" width="280" height="280"></canvas>
+            <div class="controls">
+                <button id="clearBtn" class="btn btn-clear">지우기</button>
+                <button id="predictBtn" class="btn btn-predict">예측하기</button>
+            </div>
+        </div>
+
+        <div id="results" class="results hidden">
+            <h2>예측 결과</h2>
+            <div id="predictions"></div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border: 2px solid #e0e0e0;">
+            <p style="margin: 0 0 12px 0; text-align: center; font-size: 0.9em; color: #555; line-height: 1.6;">
+                💡 <strong>3장</strong>에서 만든 손글씨 인식 프로그램과<br>
+                <strong>8장의 Vercel 배포편</strong>을 응용해 제작하였습니다.
+            </p>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="https://github.com/taehojo/vibecoding" target="_blank" style="display: inline-block; padding: 10px 20px; background: #667eea; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
+                    📚 GitHub 저장소로 돌아가기
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let model = null;
+
+        // Simulate progress bar animation
+        function animateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                progressBar.style.width = progress + '%';
+            }, 100);
+            return interval;
+        }
+
+        // Load trained model
+        async function loadModel() {
+            const progressInterval = animateProgress();
+
+            try {
+                // Load pre-trained MNIST model (98-99% accuracy)
+                console.log('Loading trained MNIST model...');
+                model = await tf.loadLayersModel('./model/model.json');
+                console.log('✓ Trained model loaded successfully!');
+
+                clearInterval(progressInterval);
+                document.getElementById('progressBar').style.width = '100%';
+
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('app').style.display = 'flex';
+                }, 300);
+            } catch (error) {
+                clearInterval(progressInterval);
+                console.error('✗ Model load error:', error);
+                document.getElementById('loading').textContent = '모델 로드 실패. 페이지를 새로고침하세요.';
+
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('app').style.display = 'flex';
+                }, 2000);
+            }
+        }
+
+        class DrawingApp {
+            constructor() {
+                this.canvas = document.getElementById('canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.isDrawing = false;
+                this.lastX = 0;
+                this.lastY = 0;
+
+                this.setupCanvas();
+                this.attachEventListeners();
+            }
+
+            setupCanvas() {
+                this.ctx.fillStyle = 'white';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.strokeStyle = 'black';
+                this.ctx.lineJoin = 'round';
+                this.ctx.lineCap = 'round';
+                this.ctx.lineWidth = 15;
+            }
+
+            attachEventListeners() {
+                this.canvas.addEventListener('mousedown', this.startDrawing.bind(this));
+                this.canvas.addEventListener('mousemove', this.draw.bind(this));
+                this.canvas.addEventListener('mouseup', this.stopDrawing.bind(this));
+                this.canvas.addEventListener('mouseout', this.stopDrawing.bind(this));
+                this.canvas.addEventListener('touchstart', this.handleTouch.bind(this));
+                this.canvas.addEventListener('touchmove', this.handleTouch.bind(this));
+                this.canvas.addEventListener('touchend', this.stopDrawing.bind(this));
+
+                document.getElementById('clearBtn').addEventListener('click', this.clearCanvas.bind(this));
+                document.getElementById('predictBtn').addEventListener('click', this.predict.bind(this));
+            }
+
+            startDrawing(e) {
+                this.isDrawing = true;
+                const rect = this.canvas.getBoundingClientRect();
+                this.lastX = e.clientX - rect.left;
+                this.lastY = e.clientY - rect.top;
+            }
+
+            draw(e) {
+                if (!this.isDrawing) return;
+
+                const rect = this.canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.lastX, this.lastY);
+                this.ctx.lineTo(x, y);
+                this.ctx.stroke();
+
+                this.lastX = x;
+                this.lastY = y;
+            }
+
+            stopDrawing() {
+                this.isDrawing = false;
+            }
+
+            handleTouch(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' :
+                                                 e.type === 'touchmove' ? 'mousemove' : 'mouseup', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                this.canvas.dispatchEvent(mouseEvent);
+            }
+
+            clearCanvas() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.setupCanvas();
+                document.getElementById('results').classList.add('hidden');
+            }
+
+            async predict() {
+                if (!model) {
+                    alert('모델이 아직 준비되지 않았습니다. 잠시만 기다려주세요...');
+                    return;
+                }
+
+                try {
+                    // Preprocess canvas image for model
+                    const tensor = tf.tidy(() => {
+                        // Get image from canvas as grayscale
+                        let img = tf.browser.fromPixels(this.canvas, 1);
+
+                        // Resize to 28x28
+                        img = tf.image.resizeBilinear(img, [28, 28]);
+
+                        // Normalize to [0, 1]
+                        img = img.toFloat().div(255.0);
+
+                        // Invert colors (MNIST expects white digits on black background)
+                        img = tf.scalar(1.0).sub(img);
+
+                        // Reshape to [1, 28, 28, 1]
+                        return img.reshape([1, 28, 28, 1]);
+                    });
+
+                    console.log('Making prediction...');
+
+                    // Make prediction
+                    const predictions = await model.predict(tensor).data();
+                    tensor.dispose();
+
+                    console.log('Predictions:', predictions);
+
+                    // Get top 3 predictions
+                    const predArray = Array.from(predictions);
+                    const top3 = predArray
+                        .map((conf, digit) => ({ digit, confidence: conf }))
+                        .sort((a, b) => b.confidence - a.confidence)
+                        .slice(0, 3);
+
+                    this.displayResults(top3);
+                } catch (error) {
+                    console.error('Prediction error:', error);
+                    alert('예측 실패: ' + error.message);
+                }
+            }
+
+            displayResults(predictions) {
+                const resultsDiv = document.getElementById('results');
+                const predictionsDiv = document.getElementById('predictions');
+
+                resultsDiv.classList.remove('hidden');
+                predictionsDiv.innerHTML = '';
+
+                predictions.forEach((pred) => {
+                    const confidence = (pred.confidence * 100).toFixed(1);
+
+                    const predItem = document.createElement('div');
+                    predItem.className = 'prediction-item';
+
+                    predItem.innerHTML = `
+                        <div class="prediction-digit">${pred.digit}</div>
+                        <div class="prediction-bar">
+                            <div class="prediction-fill" style="width: ${confidence}%">
+                                <span class="prediction-percentage">${confidence}%</span>
+                            </div>
+                        </div>
+                    `;
+
+                    predictionsDiv.appendChild(predItem);
+                });
+            }
+        }
+
+        // Load model and initialize app
+        loadModel().then(() => {
+            new DrawingApp();
+        });
+    </script>
+</body>
+</html>

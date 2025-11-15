@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 문서 요약 서비스 - AI 기반 스마트 요약</title>
+    <meta name="description" content="AI가 PDF 문서의 핵심 내용을 빠르고 정확하게 요약해주는 서비스">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --primary-light: #dbeafe;
+            --accent-color: #10b981;
+            --accent-hover: #059669;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --success-color: #10b981;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --background: #ffffff;
+            --background-secondary: #f8fafc;
+            --surface: #ffffff;
+            --surface-elevated: #f1f5f9;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #60a5fa;
+            --primary-hover: #3b82f6;
+            --primary-light: #1e3a8a;
+            --accent-color: #34d399;
+            --accent-hover: #10b981;
+            --error-color: #f87171;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --background: #0f172a;
+            --background-secondary: #1e293b;
+            --surface: #1e293b;
+            --surface-elevated: #334155;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .main-content {
+            display: grid;
+            gap: 30px;
+        }
+
+        .upload-section {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .drop-zone {
+            border: 3px dashed var(--border);
+            border-radius: var(--border-radius);
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--background-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drop-zone:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .drop-zone.drag-over {
+            border-color: var(--accent-color);
+            background: var(--primary-light);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .upload-hint {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--background-secondary);
+            border-radius: var(--border-radius);
+            display: none;
+        }
+
+        .file-info.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .options-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: var(--surface);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border);
+        }
+
+        .option-group {
+            margin-bottom: 25px;
+        }
+
+        .option-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .summary-modes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .mode-btn {
+            padding: 15px 20px;
+            border: 2px solid var(--border);
+            border-radius: var(--border-radius);
+            background: var(--background);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .mode-btn:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .mode-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .mode-title {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .mode-desc {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--surface-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--border);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-container {
+            margin: 30px 0;
+            display: none;
+        }
+
+        .progress-container.active {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 50px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 0%;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--text-secondary);
+        }
+
+        .result-section {
+            background: var(--surface);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+            display: none;
+            border: 1px solid var(--border);
+        }
+
+        .result-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            background: var(--background);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .icon-btn:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .summary-content {
+            background: var(--background-secondary);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .key-points {
+            margin-top: 30px;
+        }
+
+        .key-points-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .key-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background: var(--background);
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .point-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 12px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg) scale(1.1);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message, .success-message {
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: slideDown 0.3s ease;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        [data-theme="dark"] .error-message {
+            background: #450a0a;
+            border: 1px solid #991b1b;
+            color: #fca5a5;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #14532d;
+        }
+
+        [data-theme="dark"] .success-message {
+            background: #052e16;
+            border: 1px solid #14532d;
+            color: #86efac;
+        }
+
+        .error-message.active, .success-message.active {
+            display: flex;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .settings-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: scaleIn 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+        }
+
+        .close-btn:hover {
+            color: var(--error-color);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            background: var(--background);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-hint {
+            margin-top: 5px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .settings-btn {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            padding: 12px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .settings-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .upload-section {
+                padding: 20px;
+            }
+
+            .drop-zone {
+                padding: 40px 20px;
+            }
+
+            .summary-modes {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .result-header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .modal-content {
+                padding: 25px;
+            }
+
+            .settings-btn, .theme-toggle {
+                position: static;
+                margin: 10px;
+                display: inline-block;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+        }
+
+        .skip-link:focus {
+            top: 10px;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">메인 컨텐츠로 건너뛰기</a>
+
+    <button class="settings-btn" aria-label="설정" title="API 설정">⚙️</button>
+    <button class="theme-toggle" aria-label="테마 변경" title="다크모드 전환">🌙</button>
+
+    <div class="container">
+        <header>
+            <h1>📄 PDF 문서 요약 서비스</h1>
+            <p class="subtitle">AI가 PDF 문서의 핵심을 빠르고 정확하게 요약해드립니다</p>
+        </header>
+
+        <main id="main" class="main-content">
+            <section class="upload-section" aria-label="파일 업로드">
+                <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="PDF 파일을 드래그하거나 클릭하여 업로드">
+                    <span class="upload-icon">📁</span>
+                    <p class="upload-text">PDF 파일을 여기에 드래그하세요</p>
+                    <p class="upload-hint">또는 클릭하여 파일을 선택하세요 (최대 50MB)</p>
+                    <input type="file" id="fileInput" class="file-input" accept=".pdf" aria-label="PDF 파일 선택">
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/한글맞춤법.pdf"
+                       download="한글맞춤법.pdf"
+                       class="btn btn-secondary"
+                       style="padding: 8px 20px; display: inline-block; text-decoration: none;">
+                        📄 샘플 PDF 다운로드 (한글맞춤법.pdf)
+                    </a>
+                </div>
+
+                <div id="fileInfo" class="file-info" aria-live="polite">
+                    <h3>📄 선택된 파일</h3>
+                    <p>파일명: <span id="fileName"></span></p>
+                    <p>크기: <span id="fileSize"></span></p>
+                    <p>상태: <span id="fileStatus"></span></p>
+                </div>
+
+                <div class="error-message" id="errorMessage" role="alert">
+                    <span>⚠️</span>
+                    <span id="errorText"></span>
+                </div>
+
+                <div class="success-message" id="successMessage" role="status">
+                    <span>✅</span>
+                    <span id="successText"></span>
+                </div>
+            </section>
+
+            <section class="options-section" aria-label="요약 옵션">
+                <div class="option-group">
+                    <label class="option-label">요약 모드를 선택하세요</label>
+                    <div class="summary-modes" role="radiogroup" aria-label="요약 모드 선택">
+                        <button class="mode-btn active" data-mode="normal" role="radio" aria-checked="true">
+                            <span class="mode-title">📝 일반 요약</span>
+                            <span class="mode-desc">적당한 길이의 균형잡힌 요약</span>
+                        </button>
+                        <button class="mode-btn" data-mode="brief" role="radio" aria-checked="false">
+                            <span class="mode-title">⚡ 간단 요약</span>
+                            <span class="mode-desc">핵심만 간단하게</span>
+                        </button>
+                        <button class="mode-btn" data-mode="detailed" role="radio" aria-checked="false">
+                            <span class="mode-title">📚 상세 요약</span>
+                            <span class="mode-desc">자세한 분석과 설명</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="summarizeBtn" class="btn btn-primary" disabled aria-label="요약 시작">
+                        요약 생성하기
+                    </button>
+                    <button id="resetBtn" class="btn btn-secondary" aria-label="초기화">
+                        초기화
+                    </button>
+                </div>
+
+                <div id="progressContainer" class="progress-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <p id="progressText" class="progress-text">처리 중...</p>
+                </div>
+            </section>
+
+            <section id="resultSection" class="result-section" aria-label="요약 결과">
+                <div class="result-header">
+                    <h2 class="result-title">📊 요약 결과</h2>
+                    <div class="result-actions">
+                        <button id="copyBtn" class="icon-btn" title="복사" aria-label="요약 복사">📋</button>
+                        <button id="downloadBtn" class="icon-btn" title="다운로드" aria-label="요약 다운로드">💾</button>
+                        <button id="shareBtn" class="icon-btn" title="공유" aria-label="요약 공유">🔗</button>
+                    </div>
+                </div>
+
+                <div id="summaryContent" class="summary-content">
+                    <!-- 요약 내용이 여기에 표시됩니다 -->
+                </div>
+
+                <div class="key-points">
+                    <h3 class="key-points-title">
+                        <span>⭐</span>
+                        <span>핵심 포인트</span>
+                    </h3>
+                    <div id="keyPointsList">
+                        <!-- 핵심 포인트가 여기에 표시됩니다 -->
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer style="text-align: center; padding: 40px 20px; color: var(--text-secondary); border-top: 1px solid var(--border); margin-top: 60px;">
+            <p style="margin-bottom: 10px; font-size: 0.95rem;">
+                💡 7장에서 만든 PDF 문서 요약 앱과 8장의 Vercel 배포편을 응용해 제작하였습니다.
+            </p>
+            <p style="font-size: 0.9rem;">
+                📚 <a href="https://github.com/taehojo/vibecoding" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">GitHub 저장소로 돌아가기</a>
+            </p>
+        </footer>
+    </div>
+
+    <div id="settingsModal" class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle" class="modal-title">⚙️ API 설정</h2>
+                <button class="close-btn" id="closeModal" aria-label="닫기">&times;</button>
+            </div>
+
+            <div class="form-group">
+                <label for="apiKey" class="form-label">OpenRouter API 키</label>
+                <input type="password" id="apiKey" class="form-input" placeholder="sk-or-v1-..." aria-describedby="apiHint">
+                <p id="apiHint" class="form-hint">OpenRouter에서 발급받은 API 키를 입력하세요</p>
+            </div>
+
+                <label for="modelSelect" class="form-label">AI 모델 선택</label>
+                <select id="modelSelect" class="form-select">
+                    <option value="deepseek/deepseek-chat">DeepSeek V3.1 (무료)</option>
+                    <option value="google/gemini-2.0-flash-exp:free">Gemini 2.0 Flash (무료)</option>
+                </select>
+                <p class="form-hint">사용할 AI 모델을 선택하세요</p>
+            </div>
+
+            <div class="action-buttons">
+                <button id="saveSettings" class="btn btn-primary">저장하기</button>
+                <button id="testConnection" class="btn btn-secondary">연결 테스트</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite">
+        <span id="toastIcon"></span>
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- PDF.js 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <script>
+        // PDF.js 워커 설정
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // 앱 상태 관리
+        const AppState = {
+            file: null,
+            extractedText: '',
+            summaryMode: 'normal',
+            isProcessing: false,
+            apiKey: localStorage.getItem('openrouter_api_key') || '[OpenRouter API 키]',
+            selectedModel: localStorage.getItem('selected_model') || 'deepseek/deepseek-chat',
+            theme: localStorage.getItem('theme') || 'light'
+        };
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeApp();
+            setupEventListeners();
+            applyTheme(AppState.theme);
+        });
+
+        // 앱 초기화
+        function initializeApp() {
+            const apiKeyInput = document.getElementById('apiKey');
+            const modelSelect = document.getElementById('modelSelect');
+
+            if (AppState.apiKey) {
+                apiKeyInput.value = AppState.apiKey;
+            }
+
+            if (AppState.selectedModel) {
+                modelSelect.value = AppState.selectedModel;
+            }
+        }
+
+        // 이벤트 리스너 설정
+        function setupEventListeners() {
+            // 드래그 앤 드롭
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+
+            dropZone.addEventListener('click', () => fileInput.click());
+            dropZone.addEventListener('dragover', handleDragOver);
+            dropZone.addEventListener('dragleave', handleDragLeave);
+            dropZone.addEventListener('drop', handleDrop);
+
+            fileInput.addEventListener('change', handleFileSelect);
+
+            // 요약 모드 선택
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.addEventListener('click', () => selectMode(btn));
+            });
+
+            // 버튼 이벤트
+            document.getElementById('summarizeBtn').addEventListener('click', handleSummarize);
+            document.getElementById('resetBtn').addEventListener('click', resetApp);
+            document.getElementById('copyBtn').addEventListener('click', copyResult);
+            document.getElementById('downloadBtn').addEventListener('click', downloadResult);
+            document.getElementById('shareBtn').addEventListener('click', shareResult);
+
+            // 테마 토글
+            document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
+
+            // 설정 모달
+            document.querySelector('.settings-btn').addEventListener('click', () => openModal());
+            document.getElementById('closeModal').addEventListener('click', () => closeModal());
+            document.getElementById('saveSettings').addEventListener('click', saveSettings);
+            document.getElementById('testConnection').addEventListener('click', testConnection);
+
+            // 키보드 단축키
+            document.addEventListener('keydown', handleKeyboardShortcuts);
+// 샘플 PDF 불러오기            document.getElementById('loadSampleBtn').addEventListener('click', async () => {                try {                    showProgress('샘플 PDF 다운로드 중...', 10);                                        // GitHub raw URL에서 샘플 PDF 다운로드                    const response = await fetch('https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/한글맞춤법.pdf');                                        if (!response.ok) {                        throw new Error('샘플 PDF를 불러올 수 없습니다.');                    }                                        showProgress('샘플 PDF 로딩 중...', 50);                                        const blob = await response.blob();                    const file = new File([blob], '한글맞춤법.pdf', { type: 'application/pdf' });                                        // 파일 처리                    AppState.currentFile = file;                    displayFileInfo(file);                    showToast('샘플 PDF가 로드되었습니다', 'success');                    hideProgress();                                    } catch (error) {                    console.error('샘플 로드 실패:', error);                    showError('샘플 PDF를 불러오는데 실패했습니다: ' + error.message);                    hideProgress();                }            });
+        }
+
+        // 드래그 오버 처리
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.currentTarget.classList.add('drag-over');
+        }
+
+        // 드래그 리브 처리
+        function handleDragLeave(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        // 드롭 처리
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.currentTarget.classList.remove('drag-over');
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        }
+
+        // 파일 선택 처리
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+
+        // 파일 처리
+        function handleFile(file) {
+            // 파일 유효성 검사
+            if (!file.type.match('application/pdf')) {
+                showError('PDF 파일만 업로드 가능합니다.');
+                return;
+            }
+
+            if (file.size > 50 * 1024 * 1024) {
+                showError('파일 크기는 50MB 이하여야 합니다.');
+                return;
+            }
+
+            AppState.file = file;
+            displayFileInfo(file);
+            document.getElementById('summarizeBtn').disabled = false;
+            showSuccess('파일이 성공적으로 업로드되었습니다.');
+        }
+
+        // 파일 정보 표시
+        function displayFileInfo(file) {
+            document.getElementById('fileInfo').classList.add('active');
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
+            document.getElementById('fileStatus').textContent = '✅ 준비 완료';
+        }
+
+        // 파일 크기 포맷
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        // 요약 모드 선택
+        function selectMode(btn) {
+            document.querySelectorAll('.mode-btn').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-checked', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-checked', 'true');
+            AppState.summaryMode = btn.dataset.mode;
+        }
+
+        // 요약 처리
+        async function handleSummarize() {
+            if (!AppState.file || AppState.isProcessing) return;
+
+            AppState.isProcessing = true;
+            showProgress('PDF 텍스트 추출 중...', 10);
+
+            try {
+                // PDF 텍스트 추출
+                const text = await extractTextFromPDF(AppState.file);
+
+                if (!text || text.trim().length < 100) {
+                    throw new Error('PDF에서 충분한 텍스트를 추출할 수 없습니다.');
+                }
+
+                AppState.extractedText = text;
+                showProgress('AI 요약 생성 중...', 50);
+
+                // AI 요약 생성
+                const summary = await generateSummary(text);
+
+                showProgress('완료!', 100);
+                displayResult(summary);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showError(`요약 생성 실패: ${error.message}`);
+            } finally {
+                AppState.isProcessing = false;
+                hideProgress();
+            }
+        }
+
+        // PDF 텍스트 추출
+        async function extractTextFromPDF(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+            let fullText = '';
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                const pageText = textContent.items.map(item => item.str).join(' ');
+                fullText += pageText + '\n';
+
+                // 진행률 업데이트
+                const progress = 10 + (i / pdf.numPages) * 40;
+                showProgress(`텍스트 추출 중... (${i}/${pdf.numPages} 페이지)`, progress);
+            }
+
+            return fullText.trim();
+        }
+
+        // AI 요약 생성
+        async function generateSummary(text) {
+            // 텍스트 길이 제한 (토큰 제한 고려)
+            const maxLength = 15000;
+            const truncatedText = text.length > maxLength ?
+                text.substring(0, maxLength) + '...' : text;
+
+            try {
+                // 서버리스 함수 호출 (production)
+                const response = await fetch('/api/pdf-summarize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        text: truncatedText,
+                        fileName: AppState.currentFile?.name || '제목 없음',
+                        summaryMode: AppState.summaryMode
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'API 요청 실패');
+                }
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // 서버 응답을 기존 형식으로 변환
+                    let summary = `${data.mainContent}\n\n핵심 포인트:\n`;
+                    data.keyPoints.forEach(point => {
+                        summary += `• ${point}\n`;
+                    });
+                    return summary;
+                } else {
+                    throw new Error('요약 생성 실패');
+                }
+
+            } catch (error) {
+                // 데모 모드 (API 실패 시)
+                console.warn('API 호출 실패, 데모 모드로 전환:', error);
+                return generateDemoSummary(truncatedText);
+            }
+        }
+
+        // 데모 요약 생성
+        function generateDemoSummary(text) {
+            const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
+            const sampleSentences = sentences.slice(0, 5).join(' ');
+
+            const demoSummary = `📋 요약 결과 (데모)
+
+이 문서는 ${sentences.length}개의 문장으로 구성되어 있습니다.
+주요 내용: ${sampleSentences.substring(0, 200)}...
+
+핵심 포인트:
+• 이것은 데모 요약입니다
+• 실제 AI 요약을 원하시면 API 키를 설정해주세요
+• 설정 버튼(⚙️)을 클릭하여 OpenRouter API 키를 입력하세요
+• DeepSeek V3.1 모델은 무료로 사용 가능합니다
+• 더 자세한 요약을 원하시면 실제 API를 연동해주세요`;
+
+            return demoSummary;
+        }
+
+        // 결과 표시
+        function displayResult(summary) {
+            const resultSection = document.getElementById('resultSection');
+            const summaryContent = document.getElementById('summaryContent');
+            const keyPointsList = document.getElementById('keyPointsList');
+
+            // 요약과 핵심 포인트 분리
+            const parts = summary.split(/핵심 포인트:|주요 포인트:/i);
+            const mainSummary = parts[0].trim();
+            const keyPoints = parts[1] ? parts[1].trim().split(/[•·\-]\s*/g).filter(p => p.trim()) : [];
+
+            // 요약 표시
+            summaryContent.innerHTML = sanitizeText(mainSummary).replace(/\n/g, '<br>');
+
+            // 핵심 포인트 표시
+            keyPointsList.innerHTML = '';
+            keyPoints.forEach(point => {
+                if (point.trim()) {
+                    const pointDiv = document.createElement('div');
+                    pointDiv.className = 'key-point';
+                    pointDiv.innerHTML = `
+                        <span class="point-icon">✨</span>
+                        <span>${sanitizeText(point.trim())}</span>
+                    `;
+                    keyPointsList.appendChild(pointDiv);
+                }
+            });
+
+            resultSection.classList.add('active');
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // 텍스트 sanitize
+        function sanitizeText(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 진행률 표시
+        function showProgress(message, percent) {
+            const container = document.getElementById('progressContainer');
+            const fill = document.getElementById('progressFill');
+            const text = document.getElementById('progressText');
+
+            container.classList.add('active');
+            fill.style.width = `${percent}%`;
+            text.textContent = message;
+        }
+
+        // 진행률 숨기기
+        function hideProgress() {
+            setTimeout(() => {
+                document.getElementById('progressContainer').classList.remove('active');
+            }, 1000);
+        }
+
+        // 에러 메시지 표시
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+
+            errorText.textContent = message;
+            errorDiv.classList.add('active');
+
+            setTimeout(() => {
+                errorDiv.classList.remove('active');
+            }, 5000);
+        }
+
+        // 성공 메시지 표시
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+
+            successText.textContent = message;
+            successDiv.classList.add('active');
+
+            setTimeout(() => {
+                successDiv.classList.remove('active');
+            }, 3000);
+        }
+
+        // 토스트 메시지
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            const text = document.getElementById('toastMessage');
+
+            const icons = {
+                info: 'ℹ️',
+                success: '✅',
+                error: '❌',
+                warning: '⚠️'
+            };
+
+            icon.textContent = icons[type];
+            text.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 결과 복사
+        async function copyResult() {
+            const summaryContent = document.getElementById('summaryContent').innerText;
+            const keyPoints = Array.from(document.querySelectorAll('.key-point span:last-child'))
+                .map(el => `• ${el.innerText}`).join('\n');
+
+            const fullText = `📊 요약 결과\n\n${summaryContent}\n\n⭐ 핵심 포인트\n${keyPoints}`;
+
+            try {
+                await navigator.clipboard.writeText(fullText);
+                showToast('요약이 클립보드에 복사되었습니다', 'success');
+            } catch (err) {
+                showToast('복사 실패: ' + err.message, 'error');
+            }
+        }
+
+        // 결과 다운로드
+        function downloadResult() {
+            const summaryContent = document.getElementById('summaryContent').innerText;
+            const keyPoints = Array.from(document.querySelectorAll('.key-point span:last-child'))
+                .map(el => `• ${el.innerText}`).join('\n');
+
+            const fullText = `PDF 요약 결과\n${'='.repeat(50)}\n\n${summaryContent}\n\n핵심 포인트\n${'='.repeat(50)}\n${keyPoints}\n\n생성일시: ${new Date().toLocaleString('ko-KR')}`;
+
+            const blob = new Blob([fullText], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `PDF_요약_${new Date().getTime()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showToast('요약 파일이 다운로드되었습니다', 'success');
+        }
+
+        // 결과 공유
+        async function shareResult() {
+            const summaryContent = document.getElementById('summaryContent').innerText;
+            const shareData = {
+                title: 'PDF 요약 결과',
+                text: summaryContent.substring(0, 500) + '...'
+            };
+
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                    showToast('공유되었습니다', 'success');
+                } else {
+                    // Web Share API 미지원 브라우저
+                    await navigator.clipboard.writeText(summaryContent);
+                    showToast('공유 링크가 복사되었습니다', 'success');
+                }
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    showToast('공유 실패: ' + err.message, 'error');
+                }
+            }
+        }
+
+        // 앱 초기화
+        function resetApp() {
+            AppState.file = null;
+            AppState.extractedText = '';
+
+            document.getElementById('fileInput').value = '';
+            document.getElementById('fileInfo').classList.remove('active');
+            document.getElementById('resultSection').classList.remove('active');
+            document.getElementById('summarizeBtn').disabled = true;
+            document.getElementById('errorMessage').classList.remove('active');
+            document.getElementById('successMessage').classList.remove('active');
+
+            showToast('초기화되었습니다', 'info');
+        }
+
+        // 테마 전환
+        function toggleTheme() {
+            const currentTheme = AppState.theme;
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+            applyTheme(newTheme);
+            AppState.theme = newTheme;
+            localStorage.setItem('theme', newTheme);
+
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // 테마 적용
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                document.querySelector('.theme-toggle').textContent = '☀️';
+            } else {
+                document.body.removeAttribute('data-theme');
+                document.querySelector('.theme-toggle').textContent = '🌙';
+            }
+        }
+
+        // 설정 모달 열기
+        function openModal() {
+            document.getElementById('settingsModal').classList.add('active');
+            document.getElementById('apiKey').focus();
+        }
+
+        // 설정 모달 닫기
+        function closeModal() {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+
+        // 설정 저장
+        function saveSettings() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const model = document.getElementById('modelSelect').value;
+
+            if (!apiKey) {
+                showToast('API 키를 입력해주세요', 'warning');
+                return;
+            }
+
+            AppState.apiKey = apiKey;
+            AppState.selectedModel = model;
+
+            localStorage.setItem('openrouter_api_key', apiKey);
+            localStorage.setItem('selected_model', model);
+
+            showToast('설정이 저장되었습니다', 'success');
+            closeModal();
+        }
+
+        // 연결 테스트
+        async function testConnection() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+
+            if (!apiKey) {
+                showToast('API 키를 먼저 입력해주세요', 'warning');
+                return;
+            }
+
+            showToast('연결 테스트 중...', 'info');
+
+            try {
+                const response = await fetch('https://openrouter.ai/api/v1/models', {
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`
+                    }
+                });
+
+                if (response.ok) {
+                    showToast('연결 성공! API 키가 유효합니다', 'success');
+                } else {
+                    throw new Error('Invalid API key');
+                }
+            } catch (error) {
+                showToast('연결 실패: API 키를 확인해주세요', 'error');
+            }
+        }
+
+        // 키보드 단축키
+        function handleKeyboardShortcuts(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'u':
+                    case 'U':
+                        e.preventDefault();
+                        document.getElementById('fileInput').click();
+                        break;
+                    case 'Enter':
+                        e.preventDefault();
+                        if (!AppState.isProcessing && AppState.file) {
+                            handleSummarize();
+                        }
+                        break;
+                    case 'r':
+                    case 'R':
+                        e.preventDefault();
+                        resetApp();
+                        break;
+                }
+            }
+
+            // ESC 키로 모달 닫기
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        }
+
+        // 모달 외부 클릭 시 닫기
+        document.getElementById('settingsModal').addEventListener('click', (e) => {
+            if (e.target.id === 'settingsModal') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

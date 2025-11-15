@@ -1,0 +1,12 @@
+{
+  "saved_recipes": [
+    {
+      "id": "sample_recipe_1",
+      "title": "Sample Recipe",
+      "ingredients": ["ingredient1", "ingredient2"],
+      "instructions": "Sample cooking instructions",
+      "saved_at": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "note": "This is a sample file. Copy to saved_recipes.json and update with your data."
+}

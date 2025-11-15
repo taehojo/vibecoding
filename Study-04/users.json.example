@@ -1,0 +1,10 @@
+{
+  "users": [
+    {
+      "email": "demo@example.com",
+      "password": "hashed_password_here",
+      "name": "Demo User"
+    }
+  ],
+  "note": "This is a sample file. Copy to users.json and update with your data."
+}

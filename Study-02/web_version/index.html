@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tasks - PC Version</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 왼쪽 사이드바 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="app-title">
+                    <i class="fas fa-tasks"></i>
+                    My Tasks
+                </h1>
+                <button class="theme-toggle" id="themeToggle" title="테마 변경">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            
+            <!-- 카테고리 필터 -->
+            <div class="category-filter">
+                <h3>카테고리</h3>
+                <button class="filter-btn active" data-category="all">
+                    <i class="fas fa-list"></i>
+                    <span>전체</span>
+                    <span class="count" id="countAll">0</span>
+                </button>
+                <button class="filter-btn" data-category="work">
+                    <i class="fas fa-briefcase"></i>
+                    <span>업무</span>
+                    <span class="count" id="countWork">0</span>
+                </button>
+                <button class="filter-btn" data-category="personal">
+                    <i class="fas fa-home"></i>
+                    <span>개인</span>
+                    <span class="count" id="countPersonal">0</span>
+                </button>
+                <button class="filter-btn" data-category="study">
+                    <i class="fas fa-book"></i>
+                    <span>공부</span>
+                    <span class="count" id="countStudy">0</span>
+                </button>
+            </div>
+
+            <!-- 진행률 대시보드 -->
+            <div class="progress-dashboard">
+                <h3>진행률</h3>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>전체</span>
+                        <span class="progress-percent" id="overallPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill overall" id="overallProgress"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>업무</span>
+                        <span class="progress-percent" id="workPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill work" id="workProgress"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>개인</span>
+                        <span class="progress-percent" id="personalPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill personal" id="personalProgress"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>공부</span>
+                        <span class="progress-percent" id="studyPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill study" id="studyProgress"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 빠른 액션 -->
+            <div class="quick-actions">
+                <button class="action-btn" id="clearCompleted">
+                    <i class="fas fa-broom"></i>
+                    완료 항목 삭제
+                </button>
+                <button class="action-btn" id="exportData">
+                    <i class="fas fa-download"></i>
+                    데이터 내보내기
+                </button>
+                <button class="action-btn" id="importData">
+                    <i class="fas fa-upload"></i>
+                    데이터 가져오기
+                </button>
+                <input type="file" id="importFile" accept=".json" style="display: none;">
+            </div>
+
+            <!-- 키보드 단축키 안내 -->
+            <div class="keyboard-shortcuts">
+                <h3>단축키</h3>
+                <div class="shortcut-item">
+                    <kbd>Ctrl + Enter</kbd>
+                    <span>할 일 추가</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Ctrl + /</kbd>
+                    <span>검색 포커스</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>Alt + K</kbd>
+                    <span>키워드 설정</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 메인 콘텐츠 영역 -->
+        <main class="main-content">
+            <!-- 상단 헤더 -->
+            <header class="main-header">
+                <div class="quote-section" id="quoteSection">
+                    <i class="fas fa-lightbulb"></i>
+                    <span class="quote-text" id="quoteText"></span>
+                </div>
+                
+                <!-- 검색 바 -->
+                <div class="search-section">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="할 일 검색... (Ctrl + /)">
+                    </div>
+                    
+                    <!-- 정렬 옵션 -->
+                    <select class="sort-select" id="sortSelect">
+                        <option value="newest">최신순</option>
+                        <option value="oldest">오래된순</option>
+                        <option value="category">카테고리순</option>
+                        <option value="completed">완료 상태순</option>
+                    </select>
+                </div>
+            </header>
+
+            <!-- 할 일 입력 섹션 -->
+            <div class="input-section">
+                <div class="input-container">
+                    <input type="text" id="todoInput" placeholder="할 일을 입력하세요... (Enter로 추가)">
+                    <select id="categorySelect">
+                        <option value="personal">개인</option>
+                        <option value="work">업무</option>
+                        <option value="study">공부</option>
+                    </select>
+                    <button id="addBtn">
+                        <i class="fas fa-plus"></i>
+                        추가
+                    </button>
+                </div>
+                
+                <!-- 카테고리 자동 제안 -->
+                <div class="category-suggestion" id="categorySuggestion" style="display: none;">
+                    <i class="fas fa-magic"></i>
+                    <span class="suggestion-text"></span>
+                    <button class="suggestion-apply">적용</button>
+                    <button class="suggestion-dismiss">무시</button>
+                </div>
+            </div>
+
+            <!-- 할 일 목록 -->
+            <div class="todo-list-container">
+                <div class="list-header">
+                    <h2 id="listTitle">전체 할 일</h2>
+                    <span class="todo-count" id="todoCount">0개</span>
+                </div>
+                
+                <ul class="todo-list" id="todoList">
+                    <!-- 동적으로 생성됨 -->
+                </ul>
+                
+                <div class="empty-state" id="emptyState">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>등록된 할 일이 없습니다.</p>
+                    <span>새로운 할 일을 추가해보세요!</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 키워드 설정 모달 -->
+    <div class="modal" id="keywordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>카테고리 키워드 설정</h2>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="keyword-section">
+                    <h3>업무 키워드</h3>
+                    <div class="keyword-input-group">
+                        <input type="text" id="workKeywords" placeholder="키워드를 쉼표로 구분하여 입력">
+                        <div class="keyword-tags" id="workTags"></div>
+                    </div>
+                </div>
+                <div class="keyword-section">
+                    <h3>개인 키워드</h3>
+                    <div class="keyword-input-group">
+                        <input type="text" id="personalKeywords" placeholder="키워드를 쉼표로 구분하여 입력">
+                        <div class="keyword-tags" id="personalTags"></div>
+                    </div>
+                </div>
+                <div class="keyword-section">
+                    <h3>공부 키워드</h3>
+                    <div class="keyword-input-group">
+                        <input type="text" id="studyKeywords" placeholder="키워드를 쉼표로 구분하여 입력">
+                        <div class="keyword-tags" id="studyTags"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-save" id="saveKeywords">저장</button>
+                <button class="btn-cancel" id="cancelKeywords">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sortable.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

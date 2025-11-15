@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑 리스트</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        #itemInput {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        #itemInput:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        #addBtn {
+            padding: 12px 25px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #addBtn:hover {
+            background: #5568d3;
+        }
+
+        #addBtn:active {
+            transform: scale(0.98);
+        }
+
+        #shoppingList {
+            list-style: none;
+        }
+
+        .list-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .list-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .list-item.checked {
+            opacity: 0.6;
+            background: #d4edda;
+        }
+
+        .list-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .list-item span {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .list-item.checked span {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #6c757d;
+            padding: 40px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 쇼핑 리스트</h1>
+
+        <div class="input-container">
+            <input
+                type="text"
+                id="itemInput"
+                placeholder="쇼핑 아이템을 입력하세요..."
+                autofocus
+            >
+            <button id="addBtn">추가</button>
+        </div>
+
+        <ul id="shoppingList">
+            <div class="empty-message">아이템을 추가해보세요!</div>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        let supabase = null;
+        const itemInput = document.getElementById('itemInput');
+        const addBtn = document.getElementById('addBtn');
+        const shoppingList = document.getElementById('shoppingList');
+
+        // Supabase 초기화
+        async function initSupabase() {
+            try {
+                const response = await fetch('/api/config');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch Supabase config');
+                }
+                const config = await response.json();
+
+                if (config.success) {
+                    supabase = window.supabase.createClient(
+                        config.supabaseUrl,
+                        config.supabaseAnonKey
+                    );
+                    console.log('Supabase initialized successfully');
+                    loadItems();
+                } else {
+                    throw new Error(config.error || 'Failed to initialize Supabase');
+                }
+            } catch (error) {
+                console.error('Supabase initialization error:', error);
+                alert('Supabase 연결에 실패했습니다. 환경 변수를 확인해주세요.');
+            }
+        }
+
+        // Supabase에서 데이터 로드
+        async function loadItems() {
+            if (!supabase) {
+                console.error('Supabase not initialized');
+                return;
+            }
+
+            try {
+                const { data, error } = await supabase
+                    .from('shopping_items')
+                    .select('*')
+                    .order('created_at', { ascending: true });
+
+                if (error) throw error;
+
+                shoppingList.innerHTML = '';
+
+                if (!data || data.length === 0) {
+                    shoppingList.innerHTML = '<div class="empty-message">아이템을 추가해보세요!</div>';
+                    return;
+                }
+
+                data.forEach((item) => {
+                    addItemToDOM(item.name, item.completed, item.id);
+                });
+            } catch (error) {
+                console.error('Error loading items:', error);
+                alert('데이터를 불러오는데 실패했습니다.');
+            }
+        }
+
+        // DOM에 아이템 추가
+        function addItemToDOM(text, checked, id) {
+            const li = document.createElement('li');
+            li.className = `list-item ${checked ? 'checked' : ''}`;
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = checked;
+            checkbox.addEventListener('change', () => toggleItem(id, checked));
+
+            const span = document.createElement('span');
+            span.textContent = text;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = '삭제';
+            deleteBtn.addEventListener('click', () => deleteItem(id));
+
+            li.appendChild(checkbox);
+            li.appendChild(span);
+            li.appendChild(deleteBtn);
+            shoppingList.appendChild(li);
+        }
+
+        // 아이템 추가
+        async function addItem() {
+            if (!supabase) {
+                alert('Supabase가 초기화되지 않았습니다.');
+                return;
+            }
+
+            const text = itemInput.value.trim();
+
+            if (text === '') {
+                alert('아이템을 입력해주세요!');
+                return;
+            }
+
+            try {
+                const { error } = await supabase
+                    .from('shopping_items')
+                    .insert([{ name: text, completed: false }]);
+
+                if (error) throw error;
+
+                itemInput.value = '';
+                loadItems();
+            } catch (error) {
+                console.error('Error adding item:', error);
+                alert('아이템을 추가하는데 실패했습니다.');
+            }
+        }
+
+        // 아이템 체크/언체크
+        async function toggleItem(id, currentStatus) {
+            try {
+                const { error } = await supabase
+                    .from('shopping_items')
+                    .update({ completed: !currentStatus, updated_at: new Date().toISOString() })
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                loadItems();
+            } catch (error) {
+                console.error('Error toggling item:', error);
+                alert('상태를 변경하는데 실패했습니다.');
+            }
+        }
+
+        // 아이템 삭제
+        async function deleteItem(id) {
+            try {
+                const { error } = await supabase
+                    .from('shopping_items')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                loadItems();
+            } catch (error) {
+                console.error('Error deleting item:', error);
+                alert('아이템을 삭제하는데 실패했습니다.');
+            }
+        }
+
+        // 이벤트 리스너
+        addBtn.addEventListener('click', addItem);
+        itemInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addItem();
+            }
+        });
+
+        // 초기 로드
+        initSupabase();
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퀴즈 게임 - 지식의 도전</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">🎯 퀴즈 마스터</div>
+            <div class="nav-menu">
+                <button onclick="leaderboardUI.show()" class="nav-btn">🏆 순위표</button>
+                <button onclick="statisticsDashboard.show()" class="nav-btn">📊 통계</button>
+                <button onclick="showProfile()" class="nav-btn">👤 프로필</button>
+                <button onclick="toggleDarkMode()" class="nav-btn" id="darkModeBtn">🌙</button>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- 시작 화면 -->
+        <div id="startScreen" class="screen active">
+            <div class="start-content">
+                <h1 class="title">🎯 퀴즈 게임</h1>
+                <p class="subtitle">4개 카테고리, 40개의 도전적인 문제</p>
+                <div class="categories-preview">
+                    <div class="category-chip">🏛️ 한국사</div>
+                    <div class="category-chip">🌍 세계지리</div>
+                    <div class="category-chip">🔬 과학</div>
+                    <div class="category-chip">🎨 예술과 문화</div>
+                </div>
+                <button id="startBtn" class="btn btn-primary">게임 시작</button>
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">🎮</span>
+                        <span id="totalGamesPlayed">0</span> 게임
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">⭐</span>
+                        <span id="bestScoreDisplay">0</span> 최고점수
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">📈</span>
+                        <span id="userLevel">Lv.1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 퀴즈 화면 -->
+        <div id="quizScreen" class="screen">
+            <div class="quiz-header">
+                <div class="progress-info">
+                    <span id="currentQuestion">1</span> / <span id="totalQuestions">40</span>
+                </div>
+                <div class="score-info">
+                    점수: <span id="currentScore">0</span>
+                </div>
+                <div id="timer" class="timer" style="display: none;"></div>
+                <div id="streak" class="streak" style="display: none;">🔥 <span id="streakCount">0</span></div>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+
+            <div class="quiz-content">
+                <div class="category-badge" id="categoryBadge">한국사</div>
+                <h2 id="questionText" class="question">문제가 여기 표시됩니다</h2>
+                
+                <div id="optionsContainer" class="options-container">
+                    <!-- 옵션들이 동적으로 생성됨 -->
+                </div>
+                
+                <button id="hintBtn" class="hint-btn" onclick="useHint()">💡 힌트 사용 (-2점)</button>
+            </div>
+
+            <!-- 피드백 모달 -->
+            <div id="feedbackModal" class="feedback-modal">
+                <div class="feedback-content">
+                    <div id="feedbackIcon" class="feedback-icon"></div>
+                    <h3 id="feedbackTitle">정답!</h3>
+                    <p id="feedbackExplanation">설명이 여기 표시됩니다</p>
+                    <div id="scoreBreakdown" class="score-breakdown"></div>
+                    <button id="nextBtn" class="btn btn-secondary">다음 문제</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div id="resultScreen" class="screen">
+            <div class="result-content">
+                <h1 class="result-title">🏆 퀴즈 완료!</h1>
+                
+                <div class="result-stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="finalScore">0</div>
+                        <div class="stat-label">최종 점수</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="correctCount">0</div>
+                        <div class="stat-label">정답 개수</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="accuracyRate">0%</div>
+                        <div class="stat-label">정답률</div>
+                    </div>
+                </div>
+
+                <div class="category-results" id="categoryResults">
+                    <!-- 카테고리별 결과가 동적으로 생성됨 -->
+                </div>
+
+                <div class="result-actions">
+                    <button id="restartBtn" class="btn btn-primary">다시 시작</button>
+                    <button onclick="shareResult()" class="btn btn-secondary">📤 결과 공유</button>
+                    <button onclick="leaderboardUI.show()" class="btn btn-secondary">🏆 순위 확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="dataManager.js"></script>
+    <script src="leaderboard.js"></script>
+    <script src="script.js"></script>
+    <script src="ui-enhancements.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/pdf", "destination": "/index_pdf.html" }
+  ]
+}

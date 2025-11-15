@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공감 AI 다이어리 테스트</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .emotion-display {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .emotion-tag {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .emotion-score {
+            background-color: #2196F3;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        .empathy-message {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-style: italic;
+            color: #555;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .error {
+            background-color: #ffebee;
+            border-left-color: #f44336;
+            color: #c62828;
+        }
+
+        .test-examples {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f5e8;
+            border-radius: 8px;
+        }
+
+        .test-examples h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+
+        .example-btn {
+            background-color: #81C784;
+            margin: 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .example-btn:hover {
+            background-color: #66BB6A;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤗 공감 AI 다이어리</h1>
+
+        <div class="form-group">
+            <label for="diaryText">오늘의 일기를 작성해주세요:</label>
+            <textarea
+                id="diaryText"
+                placeholder="오늘 하루 어떤 일이 있었나요? 어떤 감정을 느꼈나요? 자유롭게 작성해주세요..."
+            ></textarea>
+        </div>
+
+        <button onclick="analyzeDiary()" id="analyzeBtn">감정 분석하기</button>
+
+        <div id="result" style="display: none;"></div>
+
+        <div class="test-examples">
+            <h3>📝 테스트 예시</h3>
+            <p>아래 버튼을 클릭하여 다양한 감정의 일기 예시를 테스트해보세요:</p>
+
+            <button class="example-btn" onclick="setExampleText('joy')">기쁨</button>
+            <button class="example-btn" onclick="setExampleText('sadness')">슬픔</button>
+            <button class="example-btn" onclick="setExampleText('anger')">분노</button>
+            <button class="example-btn" onclick="setExampleText('fear')">두려움</button>
+            <button class="example-btn" onclick="setExampleText('mixed')">복합감정</button>
+        </div>
+    </div>
+
+    <script src="backend.js"></script>
+    <script>
+        // 예시 텍스트
+        const examples = {
+            joy: "오늘 정말 좋은 하루였다! 아침에 일어나자마자 친구에게서 좋은 소식을 들었고, 오후에는 오랫동안 준비했던 프로젝트가 성공적으로 완료되었다는 연락을 받았다. 저녁에는 가족들과 함께 맛있는 저녁을 먹으며 즐거운 시간을 보냈다. 이런 행복한 순간들이 계속되었으면 좋겠다.",
+
+            sadness: "오늘은 정말 힘든 하루였다. 아침부터 비가 내려서 기분이 우울했는데, 회사에서도 좋지 않은 일이 있었다. 오랫동안 함께 일했던 동료가 퇴사한다는 소식을 들었고, 나 혼자 남겨진 것 같은 외로움을 느꼈다. 집에 돌아와서도 계속 슬픈 기분이 들어서 눈물이 났다.",
+
+            anger: "오늘 정말 화가 났다. 지하철에서 새치기를 하는 사람 때문에 기분이 상했는데, 회사에서도 억울한 일이 있었다. 내가 열심히 준비한 아이디어를 다른 사람이 가져가서 발표했는데도 아무도 문제삼지 않았다. 이런 불공정한 상황이 정말 답답하고 분하다.",
+
+            fear: "내일 중요한 면접이 있어서 너무 긴장되고 불안하다. 밤새 준비를 했지만 여전히 부족한 것 같고, 혹시 실수를 하면 어떻게 하지 하는 걱정이 계속 든다. 심장이 두근거리고 손에 땀이 난다. 잘 할 수 있을지 자신이 없어서 무섭다.",
+
+            mixed: "오늘은 정말 복잡한 하루였다. 아침에는 좋은 소식을 들어서 기뻤는데, 오후에는 친구와 작은 다툼이 있어서 속상했다. 저녁에는 혼자 시간을 보내면서 여러 생각이 들었다. 기쁘기도 하고 슬프기도 하고, 때로는 화가 나기도 했다. 인생이 참 복잡하다는 생각이 든다."
+        };
+
+        function setExampleText(emotion) {
+            document.getElementById('diaryText').value = examples[emotion];
+        }
+
+        async function analyzeDiary() {
+            const diaryText = document.getElementById('diaryText').value.trim();
+            const resultDiv = document.getElementById('result');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+
+            if (!diaryText) {
+                alert('일기 내용을 입력해주세요.');
+                return;
+            }
+
+            // 로딩 상태
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = '분석 중...';
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="loading">AI가 당신의 감정을 분석하고 있습니다... 잠시만 기다려주세요.</div>';
+
+            try {
+                console.log('일기 분석 시작:', diaryText);
+                const result = await analyzeDiaryEntry(diaryText);
+                console.log('분석 결과:', result);
+
+                // 결과 표시
+                resultDiv.className = 'result';
+                resultDiv.innerHTML = `
+                    <div class="emotion-display">
+                        <span class="emotion-tag">${result.emotionKorean || result.emotion}</span>
+                        <span class="emotion-score">강도: ${result.emotionScore}/10</span>
+                    </div>
+                    <div class="empathy-message">
+                        ${result.empathyMessage}
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('분석 오류:', error);
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <strong>오류가 발생했습니다:</strong><br>
+                    ${error.message}<br><br>
+                    <small>인터넷 연결을 확인하고 다시 시도해주세요.</small>
+                `;
+            } finally {
+                // 버튼 상태 복원
+                analyzeBtn.disabled = false;
+                analyzeBtn.textContent = '감정 분석하기';
+            }
+        }
+
+        // 엔터키로 분석 실행
+        document.getElementById('diaryText').addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === 'Enter') {
+                analyzeDiary();
+            }
+        });
+
+        // 페이지 로드시 연결 테스트
+        window.addEventListener('load', async function() {
+            console.log('공감 AI 다이어리 페이지가 로드되었습니다.');
+
+            // 백엔드 연결 테스트
+            try {
+                const isConnected = await empathyDiary.testConnection();
+                if (isConnected) {
+                    console.log('✅ API 연결 성공');
+                } else {
+                    console.log('⚠️ API 연결 실패 - 대체 분석 모드로 작동');
+                }
+            } catch (error) {
+                console.error('연결 테스트 중 오류:', error);
+            }
+        });
+    </script>
+</body>
+</html>

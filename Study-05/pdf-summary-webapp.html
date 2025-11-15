@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 문서 요약 서비스 - AI 기반 스마트 요약</title>
+    <meta name="description" content="AI가 PDF 문서의 핵심 내용을 빠르고 정확하게 요약해주는 서비스">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://openrouter.ai; img-src 'self' data:;">
+    <meta name="keywords" content="PDF, 요약, AI, 문서요약, 한글, 디지털">
+
+    <!-- Favicons -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+
+    <!-- Preconnects for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --primary-light: #dbeafe;
+            --secondary-color: #64748b;
+            --accent-color: #10b981;
+            --accent-hover: #059669;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --success-color: #10b981;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --background: #ffffff;
+            --background-secondary: #f8fafc;
+            --surface: #ffffff;
+            --surface-elevated: #f1f5f9;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --border-radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.15s ease-out;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #60a5fa;
+            --primary-hover: #3b82f6;
+            --primary-light: #1e3a8a;
+            --secondary-color: #94a3b8;
+            --accent-color: #34d399;
+            --accent-hover: #10b981;
+            --error-color: #f87171;
+            --warning-color: #fbbf24;
+            --success-color: #34d399;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --background: #0f172a;
+            --background-secondary: #1e293b;
+            --surface: #1e293b;
+            --surface-elevated: #334155;
+            --border: #334155;
+            --border-light: #475569;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+            font-feature-settings: "kern" 1;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        .header-decoration {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 24px 0 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 32px;
+            font-weight: 400;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .theme-toggle {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            font-size: 1.25rem;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .theme-toggle:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Main Content Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        /* Card Components */
+        .card {
+            background: var(--surface);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            background: var(--primary-light);
+            padding: 8px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* Upload Section */
+        .upload-area {
+            border: 3px dashed var(--border);
+            border-radius: var(--border-radius-lg);
+            padding: 48px 24px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            background: var(--background-secondary);
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-area:hover,
+        .upload-area.drag-over {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .upload-area.drag-over {
+            background: linear-gradient(135deg, var(--primary-light), rgba(16, 185, 129, 0.1));
+            border-color: var(--accent-color);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            transition: var(--transition);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .upload-area:hover .upload-icon,
+        .upload-area.drag-over .upload-icon {
+            color: var(--primary-color);
+            transform: scale(1.1) translateY(-10px);
+        }
+
+        .upload-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .upload-subtext {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .upload-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upload-button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .upload-button:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* File Info */
+        .file-info {
+            display: none;
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-top: 24px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .file-info.show {
+            display: block;
+        }
+
+        .file-details {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .file-icon {
+            font-size: 2.5rem;
+            color: var(--error-color);
+            background: rgba(239, 68, 68, 0.1);
+            padding: 12px;
+            border-radius: var(--border-radius);
+        }
+
+        .file-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            word-break: break-all;
+            margin-bottom: 4px;
+        }
+
+        .file-size {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.875rem;
+            border-radius: var(--border-radius-sm);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-danger {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            display: none;
+            margin-top: 20px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .progress-container.show {
+            display: block;
+        }
+
+        .progress-wrapper {
+            background: var(--border-light);
+            border-radius: 50px;
+            padding: 4px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 50px;
+            width: 0%;
+            transition: width 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-status {
+            font-weight: 500;
+        }
+
+        .progress-percent {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Summary Options */
+        .options-group {
+            margin-bottom: 32px;
+        }
+
+        .options-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .option-card {
+            background: var(--surface-elevated);
+            border: 2px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .option-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .option-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+            box-shadow: var(--shadow);
+        }
+
+        .option-card.selected::before {
+            transform: scaleX(1);
+        }
+
+        .option-emoji {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .option-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .option-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .process-button {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            opacity: 0.6;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .process-button.enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .process-button.enabled:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .process-button.enabled:hover::before {
+            left: 100%;
+        }
+
+        .process-button.processing {
+            background: linear-gradient(135deg, var(--warning-color), #f97316);
+            pointer-events: none;
+        }
+
+        .process-button.processing .btn-icon {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            background: var(--surface);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            margin-top: 32px;
+        }
+
+        .results-section.show {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .results-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .results-content {
+            background: var(--background-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            max-height: 600px;
+            overflow-y: auto;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        .results-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .results-content::-webkit-scrollbar-track {
+            background: var(--border-light);
+            border-radius: 4px;
+        }
+
+        .results-content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .results-content::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* Loading States */
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+        }
+
+        .toast {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-lg);
+            transform: translateX(400px);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toast::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success::before {
+            background: var(--success-color);
+        }
+
+        .toast.error::before {
+            background: var(--error-color);
+        }
+
+        .toast.warning::before {
+            background: var(--warning-color);
+        }
+
+        .toast-icon {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 2px;
+            font-size: 0.875rem;
+        }
+
+        .toast-message {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+        }
+
+        .toast-close:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 32px 16px;
+                margin-bottom: 32px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .upload-area {
+                padding: 32px 16px;
+                min-height: 250px;
+            }
+
+            .upload-icon {
+                font-size: 3rem;
+            }
+
+            .option-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .results-actions {
+                width: 100%;
+                justify-content: stretch;
+            }
+
+            .btn {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .results-content {
+                max-height: 400px;
+                padding: 24px;
+            }
+
+            .toast-container {
+                left: 16px;
+                right: 16px;
+                max-width: none;
+            }
+
+            .toast {
+                transform: translateY(-100px);
+            }
+
+            .toast.show {
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .upload-text {
+                font-size: 1.125rem;
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+            }
+
+            .option-cards {
+                gap: 12px;
+            }
+
+            .option-card {
+                padding: 16px;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus styles */
+        *:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* High contrast support */
+        @media (prefers-contrast: high) {
+            :root {
+                --border: #000000;
+                --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            }
+
+            [data-theme="dark"] {
+                --border: #ffffff;
+                --text-secondary: #ffffff;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .upload-icon {
+                animation: none;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 24px 32px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+            background: var(--border-light);
+        }
+
+        .modal-body {
+            padding: 24px 32px;
+        }
+
+        .modal-actions {
+            padding: 0 32px 32px;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.875rem;
+            background: var(--background);
+            color: var(--text-primary);
+            transition: var(--transition-fast);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-help {
+            margin-top: 6px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .form-help a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .form-help a:hover {
+            text-decoration: underline;
+        }
+
+        .security-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning-color);
+            border-radius: var(--border-radius-sm);
+            padding: 12px 12px 12px 36px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 16px;
+            position: relative;
+        }
+
+        .security-warning::before {
+            content: '🔒';
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            font-size: 1rem;
+        }
+
+        .security-warning strong {
+            color: var(--warning-color);
+        }
+
+        /* API Config Button */
+        .api-config-button {
+            background: var(--surface-elevated);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            font-size: 1.25rem;
+        }
+
+        .api-config-button:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .api-config-button:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+            .header-actions,
+            .upload-area,
+            .options-group,
+            .results-actions,
+            .modal {
+                display: none;
+            }
+
+            .results-content {
+                max-height: none;
+                overflow: visible;
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-decoration"></div>
+            <h1>📄 PDF 문서 요약 서비스</h1>
+            <p>AI가 PDF 문서의 핵심 내용을 빠르고 정확하게 분석하여 이해하기 쉽게 요약해드립니다</p>
+            <div class="header-actions">
+                <button class="api-config-button" onclick="openApiConfigModal()" aria-label="API 설정" title="API 설정">
+                    <span>⚙️</span>
+                </button>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="다크모드 토글" title="테마 변경">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- Upload Section -->
+            <section class="card">
+                <div class="card-header">
+                    <div class="card-icon">📁</div>
+                    <h2 class="card-title">파일 업로드</h2>
+                </div>
+
+                <div class="upload-area"
+                     onclick="document.getElementById('file-input').click()"
+                     ondrop="handleDrop(event)"
+                     ondragover="handleDragOver(event)"
+                     ondragenter="handleDragEnter(event)"
+                     ondragleave="handleDragLeave(event)"
+                     role="button"
+                     tabindex="0"
+                     aria-label="PDF 파일 업로드 영역. 클릭하거나 파일을 드래그하세요."
+                     onkeydown="handleKeyDown(event)">
+                    <div class="upload-icon">📄</div>
+                    <div class="upload-text">PDF 파일을 여기에 드래그하세요</div>
+                    <div class="upload-subtext">또는 아래 버튼을 클릭하여 파일을 선택하세요<br>최대 <span id="max-file-size">50MB</span>까지 업로드 가능합니다</div>
+                    <button class="upload-button" type="button">
+                        <span>📂</span>
+                        파일 선택하기
+                    </button>
+                </div>
+
+                <input type="file"
+                       id="file-input"
+                       class="file-input"
+                       accept=".pdf"
+                       onchange="handleFileSelect(event)"
+                       aria-label="PDF 파일 선택">
+
+                <!-- File Info -->
+                <div id="file-info" class="file-info">
+                    <div class="file-details">
+                        <div class="file-icon">📄</div>
+                        <div class="file-meta">
+                            <div id="file-name" class="file-name"></div>
+                            <div id="file-size" class="file-size"></div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="btn-sm btn-danger" onclick="removeFile()" aria-label="파일 제거">
+                                🗑️ 삭제
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="progress-container" class="progress-container">
+                    <div class="progress-wrapper">
+                        <div id="progress-bar" class="progress-bar"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="progress-status" class="progress-status">업로드 중...</span>
+                        <span id="progress-percent" class="progress-percent">0%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Options Section -->
+            <section class="card">
+                <div class="card-header">
+                    <div class="card-icon">⚙️</div>
+                    <h2 class="card-title">요약 설정</h2>
+                </div>
+
+                <div class="options-group">
+                    <h3 class="options-title">
+                        <span>📊</span>
+                        요약 상세도
+                    </h3>
+                    <div class="option-cards">
+                        <div class="option-card" data-mode="simple" onclick="selectOption('simple')" role="radio" tabindex="0" aria-label="간단 요약 모드">
+                            <span class="option-emoji">⚡</span>
+                            <div class="option-title">간단 요약</div>
+                            <div class="option-desc">핵심만 빠르게</div>
+                        </div>
+                        <div class="option-card selected" data-mode="normal" onclick="selectOption('normal')" role="radio" tabindex="0" aria-label="일반 요약 모드">
+                            <span class="option-emoji">📝</span>
+                            <div class="option-title">일반 요약</div>
+                            <div class="option-desc">균형잡힌 분량</div>
+                        </div>
+                        <div class="option-card" data-mode="detailed" onclick="selectOption('detailed')" role="radio" tabindex="0" aria-label="상세 요약 모드">
+                            <span class="option-emoji">📚</span>
+                            <div class="option-title">상세 요약</div>
+                            <div class="option-desc">모든 세부사항</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="process-button"
+                        class="process-button"
+                        onclick="startSummary()"
+                        aria-label="요약 처리 시작">
+                    <span id="process-icon" class="btn-icon">✨</span>
+                    <span id="process-text">파일을 먼저 업로드해주세요</span>
+                </button>
+            </section>
+        </div>
+
+        <!-- Results Section -->
+        <section id="results-section" class="results-section">
+            <div class="results-header">
+                <h2 class="results-title">
+                    <span>📊</span>
+                    요약 결과
+                </h2>
+                <div class="results-actions">
+                    <button class="btn btn-outline" onclick="copyResults()" aria-label="요약 결과 복사하기" title="클립보드에 복사">
+                        📋 복사하기
+                    </button>
+                    <button class="btn btn-outline" onclick="downloadResults()" aria-label="요약 결과 다운로드" title="텍스트 파일로 저장">
+                        💾 저장하기
+                    </button>
+                    <button class="btn btn-outline" onclick="shareResults()" aria-label="요약 결과 공유하기" title="링크로 공유">
+                        🔗 공유하기
+                    </button>
+                    <button class="btn btn-outline" onclick="resetApp()" aria-label="새로 시작하기" title="처음부터 다시">
+                        🔄 새로 시작
+                    </button>
+                </div>
+            </div>
+            <div id="results-content" class="results-content" role="article" aria-label="요약 결과 내용">
+                <!-- Summary content will be inserted here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast notification container -->
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- API Configuration Modal -->
+    <div id="api-config-modal" class="modal hidden" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+        <div class="modal-backdrop" onclick="closeApiConfigModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title" class="modal-title">API 설정</h3>
+                <button class="modal-close" onclick="closeApiConfigModal()" aria-label="모달 닫기">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="api-key-input">OpenRouter API 키</label>
+                    <input type="password" id="api-key-input" class="form-control"
+                           placeholder="sk-or-v1-..." aria-describedby="api-key-help">
+                    <div id="api-key-help" class="form-help">
+                        OpenRouter에서 발급받은 API 키를 입력하세요.
+                        <a href="https://openrouter.ai" target="_blank" rel="noopener">API 키 발급받기</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="model-select">AI 모델 선택</label>
+                    <select id="model-select" class="form-control">
+                        <option value="deepseek/deepseek-chat">DeepSeek V3.1 (추천)</option>
+                        <option value="deepseek/deepseek-coder">DeepSeek Coder</option>
+                        <option value="google/gemini-flash-1.5">Gemini 1.5 Flash</option>
+                        <option value="anthropic/claude-3-haiku">Claude 3 Haiku</option>
+                    </select>
+                </div>
+                <div class="security-warning">
+                    <strong>⚠️ 보안 알림:</strong> API 키는 브라우저에서만 사용되며 저장되지 않습니다.
+                    프로덕션 환경에서는 서버 사이드 구현을 권장합니다.
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeApiConfigModal()">취소</button>
+                <button class="btn btn-primary" onclick="saveApiConfig()">저장하기</button>
+                <button class="btn btn-secondary" onclick="testApiConnection()">연결 테스트</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <script>
+        // Set PDF.js worker path
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // Global application state
+        const AppState = {
+            currentFile: null,
+            currentSummaryMode: 'normal',
+            summaryResult: '',
+            isProcessing: false,
+            theme: 'light',
+            apiKey: '',
+            selectedModel: 'deepseek/deepseek-chat',
+            apiClient: null,
+            maxFileSize: 50 * 1024 * 1024, // 50MB configurable limit
+            supportedFileTypes: ['application/pdf'],
+            processingTimeout: 300000 // 5 minutes
+        };
+
+        // OpenRouter API Client (Inline Implementation)
+        class OpenRouterClient {
+            constructor(config = {}) {
+                this.apiKey = config.apiKey || '';
+                this.baseUrl = config.baseUrl || 'https://openrouter.ai/api/v1';
+                this.model = config.model || 'deepseek/deepseek-chat';
+                this.maxRetries = config.maxRetries || 3;
+                this.retryDelay = config.retryDelay || 1000;
+                this.requestTimeout = config.requestTimeout || 60000;
+            }
+
+            async makeRequest(endpoint, data) {
+                const url = `${this.baseUrl}${endpoint}`;
+                const headers = {
+                    'Authorization': `Bearer ${this.apiKey}`,
+                    'Content-Type': 'application/json',
+                    'HTTP-Referer': window.location.origin,
+                    'X-Title': 'PDF 문서 요약 서비스'
+                };
+
+                for (let attempt = 0; attempt < this.maxRetries; attempt++) {
+                    try {
+                        const controller = new AbortController();
+                        const timeoutId = setTimeout(() => controller.abort(), this.requestTimeout);
+
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers,
+                            body: JSON.stringify(data),
+                            signal: controller.signal
+                        });
+
+                        clearTimeout(timeoutId);
+
+                        if (!response.ok) {
+                            const errorData = await response.json().catch(() => ({}));
+                            throw new Error(`API Error (${response.status}): ${errorData.error?.message || response.statusText}`);
+                        }
+
+                        return await response.json();
+                    } catch (error) {
+                        if (attempt === this.maxRetries - 1) {
+                            throw error;
+                        }
+                        await new Promise(resolve => setTimeout(resolve, this.retryDelay * Math.pow(2, attempt)));
+                    }
+                }
+            }
+
+            async testConnection() {
+                try {
+                    const result = await this.makeRequest('/chat/completions', {
+                        model: this.model,
+                        messages: [{ role: 'user', content: '안녕하세요. 테스트 메시지입니다.' }],
+                        max_tokens: 10
+                    });
+                    return { success: true, data: result };
+                } catch (error) {
+                    return { success: false, error: error.message };
+                }
+            }
+
+            async summarizeText(text, mode = 'normal', options = {}) {
+                const prompts = {
+                    simple: `다음 텍스트를 간단하고 명확하게 요약해주세요. 핵심 포인트만 3-5개 정도로 정리해주세요:\n\n${text}`,
+                    normal: `다음 텍스트를 체계적으로 요약해주세요. 주요 내용, 핵심 포인트, 결론을 포함하여 균형있게 정리해주세요:\n\n${text}`,
+                    detailed: `다음 텍스트를 상세하게 분석하고 요약해주세요. 배경, 주요 내용, 세부사항, 결론, 시사점을 모두 포함하여 포괄적으로 정리해주세요:\n\n${text}`
+                };
+
+                const data = {
+                    model: this.model,
+                    messages: [
+                        {
+                            role: 'system',
+                            content: '당신은 한국어 문서 요약 전문가입니다. 주어진 텍스트를 읽기 쉽고 이해하기 쉽게 요약해주세요. 마크다운 형식을 사용하여 구조화해주세요.'
+                        },
+                        {
+                            role: 'user',
+                            content: prompts[mode]
+                        }
+                    ],
+                    max_tokens: mode === 'simple' ? 500 : mode === 'normal' ? 1000 : 2000,
+                    temperature: 0.3,
+                    top_p: 0.9
+                };
+
+                return await this.makeRequest('/chat/completions', data);
+            }
+        }
+
+        // PDF Text Extraction with enhanced error handling
+        async function extractTextFromPDF(file) {
+            return new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                let timeoutId;
+
+                // Set timeout for file reading
+                timeoutId = setTimeout(() => {
+                    fileReader.abort();
+                    reject(new Error('파일 읽기 시간 초과'));
+                }, 30000); // 30 second timeout
+
+                fileReader.onload = async function() {
+                    clearTimeout(timeoutId);
+                    try {
+                        const typedarray = new Uint8Array(this.result);
+                        const loadingTask = pdfjsLib.getDocument({
+                            data: typedarray,
+                            cMapPacked: true,
+                            cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/'
+                        });
+
+                        const pdf = await loadingTask.promise;
+                        let fullText = '';
+                        let totalCharacters = 0;
+                        const maxTextLength = 100000; // Limit extracted text size
+
+                        for (let i = 1; i <= pdf.numPages && totalCharacters < maxTextLength; i++) {
+                            const page = await pdf.getPage(i);
+                            const textContent = await page.getTextContent();
+                            const pageText = textContent.items.map(item => sanitizeText(item.str)).join(' ');
+
+                            if (pageText.trim()) {
+                                fullText += pageText + '\n\n';
+                                totalCharacters += pageText.length;
+                            }
+
+                            // Cleanup page resources
+                            page.cleanup();
+                        }
+
+                        const cleanedText = fullText.trim();
+
+                        // Validate extracted text
+                        if (!cleanedText || cleanedText.length < 10) {
+                            reject(new Error('PDF에서 읽을 수 있는 텍스트를 찾을 수 없습니다. 이미지 전용 PDF이거나 텍스트가 손상되었을 수 있습니다.'));
+                            return;
+                        }
+
+                        if (cleanedText.length < 50) {
+                            reject(new Error('추출된 텍스트가 너무 짧습니다. 의미 있는 요약을 생성하기에 충분하지 않습니다.'));
+                            return;
+                        }
+
+                        resolve(cleanedText);
+                    } catch (error) {
+                        if (error.name === 'InvalidPDFException') {
+                            reject(new Error('손상된 PDF 파일입니다. 다른 파일을 시도해주세요.'));
+                        } else if (error.name === 'MissingPDFException') {
+                            reject(new Error('유효하지 않은 PDF 파일입니다.'));
+                        } else {
+                            reject(new Error(`PDF 처리 오류: ${error.message}`));
+                        }
+                    }
+                };
+
+                fileReader.onerror = () => {
+                    clearTimeout(timeoutId);
+                    reject(new Error('파일 읽기 실패'));
+                };
+
+                fileReader.readAsArrayBuffer(file);
+            });
+        }
+
+        // Text sanitization function
+        function sanitizeText(text) {
+            if (!text || typeof text !== 'string') return '';
+
+            // Remove potentially dangerous characters and normalize whitespace
+            return text
+                .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '') // Remove control characters
+                .replace(/[<>&"']/g, (char) => {
+                    const entities = { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&#x27;' };
+                    return entities[char] || char;
+                })
+                .replace(/\s+/g, ' ') // Normalize whitespace
+                .trim();
+        }
+
+        // Theme management
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const currentTheme = body.getAttribute('data-theme');
+
+            if (currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                AppState.theme = 'light';
+                localStorage.setItem('pdf-summary-theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                AppState.theme = 'dark';
+                localStorage.setItem('pdf-summary-theme', 'dark');
+            }
+        }
+
+        // Initialize theme on page load
+        function initTheme() {
+            const savedTheme = localStorage.getItem('pdf-summary-theme');
+            if (savedTheme === 'dark' || (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('theme-icon').textContent = '☀️';
+                AppState.theme = 'dark';
+            }
+        }
+
+        // File handling functions
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            const uploadArea = event.target.closest('.upload-area');
+            uploadArea.classList.remove('drag-over');
+
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                processFile(files[0]);
+            }
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+        }
+
+        function handleDragEnter(event) {
+            event.preventDefault();
+            const uploadArea = event.target.closest('.upload-area');
+            uploadArea.classList.add('drag-over');
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            const uploadArea = event.target.closest('.upload-area');
+            const rect = uploadArea.getBoundingClientRect();
+            const x = event.clientX;
+            const y = event.clientY;
+
+            if (x < rect.left || x >= rect.right || y < rect.top || y >= rect.bottom) {
+                uploadArea.classList.remove('drag-over');
+            }
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                document.getElementById('file-input').click();
+            }
+        }
+
+        function processFile(file) {
+            // Validate file type
+            if (!AppState.supportedFileTypes.includes(file.type)) {
+                showToast('PDF 파일만 업로드할 수 있습니다.', 'error', 'PDF 형식 오류');
+                return;
+            }
+
+            // Validate file size
+            if (file.size > AppState.maxFileSize) {
+                showToast(`파일 크기가 너무 큽니다. 최대 ${formatFileSize(AppState.maxFileSize)}까지 업로드 가능합니다.`, 'error', '파일 크기 초과');
+                return;
+            }
+
+            // Validate file is not empty
+            if (file.size === 0) {
+                showToast('빈 파일은 업로드할 수 없습니다.', 'error', '파일 오류');
+                return;
+            }
+
+            AppState.currentFile = file;
+
+            // Update UI
+            displayFileInfo(file);
+            enableProcessButton();
+
+            // Simulate upload progress
+            simulateUpload();
+
+            showToast('PDF 파일이 성공적으로 업로드되었습니다.', 'success', '업로드 완료');
+        }
+
+        function displayFileInfo(file) {
+            const fileInfo = document.getElementById('file-info');
+            const fileName = document.getElementById('file-name');
+            const fileSize = document.getElementById('file-size');
+
+            fileName.textContent = file.name;
+            fileSize.textContent = `크기: ${formatFileSize(file.size)} • 유형: PDF 문서`;
+
+            fileInfo.classList.add('show');
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function simulateUpload() {
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercent = document.getElementById('progress-percent');
+            const progressStatus = document.getElementById('progress-status');
+
+            progressContainer.classList.add('show');
+            progressStatus.textContent = '파일을 처리하고 있습니다...';
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 12 + 3; // 3-15% increments
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    progressStatus.textContent = '업로드가 완료되었습니다!';
+                    setTimeout(() => {
+                        progressContainer.classList.remove('show');
+                    }, 2000);
+                }
+
+                progressBar.style.width = progress + '%';
+                progressPercent.textContent = Math.round(progress) + '%';
+            }, 150);
+        }
+
+        function removeFile() {
+            AppState.currentFile = null;
+            document.getElementById('file-input').value = '';
+            document.getElementById('file-info').classList.remove('show');
+            document.getElementById('progress-container').classList.remove('show');
+            disableProcessButton();
+            showToast('파일이 제거되었습니다.', 'success', '파일 제거');
+        }
+
+        // Summary options management
+        function selectOption(mode) {
+            const options = document.querySelectorAll('.option-card');
+            options.forEach(option => {
+                option.classList.remove('selected');
+                option.setAttribute('aria-checked', 'false');
+            });
+
+            const selectedOption = document.querySelector(`[data-mode="${mode}"]`);
+            selectedOption.classList.add('selected');
+            selectedOption.setAttribute('aria-checked', 'true');
+
+            AppState.currentSummaryMode = mode;
+
+            // Provide user feedback
+            const modeNames = {
+                simple: '간단 요약',
+                normal: '일반 요약',
+                detailed: '상세 요약'
+            };
+
+            showToast(`${modeNames[mode]} 모드가 선택되었습니다.`, 'success', '모드 변경');
+        }
+
+        function enableProcessButton() {
+            const button = document.getElementById('process-button');
+            const text = document.getElementById('process-text');
+            const icon = document.getElementById('process-icon');
+
+            button.classList.add('enabled');
+            text.textContent = '요약 생성하기';
+            icon.textContent = '✨';
+        }
+
+        function disableProcessButton() {
+            const button = document.getElementById('process-button');
+            const text = document.getElementById('process-text');
+            const icon = document.getElementById('process-icon');
+
+            button.classList.remove('enabled');
+            text.textContent = '파일을 먼저 업로드해주세요';
+            icon.textContent = '📄';
+        }
+
+        // Summary processing
+        async function startSummary() {
+            if (!AppState.currentFile) {
+                showToast('먼저 PDF 파일을 업로드해주세요.', 'warning', '파일 필요');
+                return;
+            }
+
+            if (AppState.isProcessing) {
+                return;
+            }
+
+            AppState.isProcessing = true;
+
+            const button = document.getElementById('process-button');
+            const text = document.getElementById('process-text');
+            const icon = document.getElementById('process-icon');
+
+            // Update button state
+            button.classList.add('processing');
+            text.textContent = 'AI가 문서를 분석하고 있습니다...';
+            icon.innerHTML = '<div class="spinner"></div>';
+
+            try {
+                // Show progress during processing
+                await simulateSummaryProcessing();
+
+                // Display results
+                displayResults();
+                showToast('문서 요약이 완료되었습니다!', 'success', '요약 완료');
+
+            } catch (error) {
+                showToast('요약 처리 중 오류가 발생했습니다. 다시 시도해주세요.', 'error', '처리 오류');
+                console.error('Summary error:', error);
+            } finally {
+                // Reset button
+                AppState.isProcessing = false;
+                button.classList.remove('processing');
+                text.textContent = '요약 생성하기';
+                icon.textContent = '✨';
+            }
+        }
+
+        // Modal focus management
+        let previousActiveElement = null;
+        const focusableElementsSelector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+        function trapFocus(element) {
+            const focusableElements = element.querySelectorAll(focusableElementsSelector);
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            element.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstElement) {
+                            e.preventDefault();
+                            lastElement.focus();
+                        }
+                    } else {
+                        if (document.activeElement === lastElement) {
+                            e.preventDefault();
+                            firstElement.focus();
+                        }
+                    }
+                }
+                if (e.key === 'Escape') {
+                    closeApiConfigModal();
+                }
+            });
+        }
+
+        // API Configuration Modal Functions
+        function openApiConfigModal() {
+            const modal = document.getElementById('api-config-modal');
+            const apiKeyInput = document.getElementById('api-key-input');
+            const modelSelect = document.getElementById('model-select');
+
+            // Store current focus
+            previousActiveElement = document.activeElement;
+
+            // Load current values
+            apiKeyInput.value = AppState.apiKey;
+            modelSelect.value = AppState.selectedModel;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('show');
+                apiKeyInput.focus();
+                trapFocus(modal);
+            }, 10);
+        }
+
+        function closeApiConfigModal() {
+            const modal = document.getElementById('api-config-modal');
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                // Restore focus to previously active element
+                if (previousActiveElement) {
+                    previousActiveElement.focus();
+                    previousActiveElement = null;
+                }
+            }, 300);
+        }
+
+        function saveApiConfig() {
+            const apiKey = document.getElementById('api-key-input').value.trim();
+            const model = document.getElementById('model-select').value;
+
+            if (!apiKey) {
+                showToast('API 키를 입력해주세요.', 'error', '입력 오류');
+                return;
+            }
+
+            if (!apiKey.startsWith('sk-or-v1-')) {
+                showToast('올바른 OpenRouter API 키 형식이 아닙니다.', 'error', '형식 오류');
+                return;
+            }
+
+            AppState.apiKey = apiKey;
+            AppState.selectedModel = model;
+            AppState.apiClient = new OpenRouterClient({
+                apiKey: apiKey,
+                model: model
+            });
+
+            closeApiConfigModal();
+            showToast('API 설정이 저장되었습니다.', 'success', '설정 완료');
+        }
+
+        async function testApiConnection() {
+            const apiKey = document.getElementById('api-key-input').value.trim();
+            const model = document.getElementById('model-select').value;
+
+            if (!apiKey) {
+                showToast('API 키를 입력해주세요.', 'error', '입력 오류');
+                return;
+            }
+
+            const testButton = document.querySelector('.modal-actions .btn-secondary');
+            const originalText = testButton.innerHTML;
+            testButton.innerHTML = '<div class="spinner"></div> 테스트 중...';
+            testButton.disabled = true;
+
+            try {
+                const client = new OpenRouterClient({ apiKey, model });
+                const result = await client.testConnection();
+
+                if (result.success) {
+                    showToast('API 연결이 성공적으로 확인되었습니다!', 'success', '연결 성공');
+                } else {
+                    showToast(`연결 실패: ${result.error}`, 'error', '연결 실패');
+                }
+            } catch (error) {
+                showToast(`연결 테스트 중 오류: ${error.message}`, 'error', '테스트 오류');
+            } finally {
+                testButton.innerHTML = originalText;
+                testButton.disabled = false;
+            }
+        }
+
+        async function processPDFAndSummarize() {
+            if (!AppState.apiClient) {
+                showToast('먼저 API를 설정해주세요.', 'warning', 'API 설정 필요');
+                openApiConfigModal();
+                return;
+            }
+
+            const text = document.getElementById('process-text');
+            let extractedText = null;
+
+            try {
+                // Extract text from PDF with timeout
+                text.textContent = 'PDF에서 텍스트를 추출하고 있습니다...';
+
+                const extractionPromise = extractTextFromPDF(AppState.currentFile);
+                const timeoutPromise = new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('텍스트 추출 시간 초과')), 60000)
+                );
+
+                extractedText = await Promise.race([extractionPromise, timeoutPromise]);
+
+                // Validate extracted text length
+                if (!extractedText || extractedText.trim().length < 50) {
+                    throw new Error('PDF에서 충분한 텍스트를 추출할 수 없습니다. 텍스트가 포함된 PDF 파일인지 확인해주세요.');
+                }
+
+                // Smart text truncation with better logic
+                const maxLength = 15000; // Increased limit for better context
+                let textToSummarize = extractedText;
+
+                if (extractedText.length > maxLength) {
+                    // Try to cut at sentence boundaries
+                    const truncated = extractedText.substring(0, maxLength);
+                    const lastSentence = truncated.lastIndexOf('.');
+                    const lastQuestion = truncated.lastIndexOf('?');
+                    const lastExclamation = truncated.lastIndexOf('!');
+
+                    const bestCutoff = Math.max(lastSentence, lastQuestion, lastExclamation);
+
+                    if (bestCutoff > maxLength * 0.7) { // If we can cut at 70% or more
+                        textToSummarize = extractedText.substring(0, bestCutoff + 1);
+                    } else {
+                        textToSummarize = truncated;
+                    }
+
+                    textToSummarize += '\n\n[참고: 텍스트가 길어서 일부만 요약되었습니다]';
+                }
+
+                // Generate summary using AI with retry logic
+                text.textContent = 'AI가 문서를 분석하고 요약을 생성하고 있습니다...';
+
+                let result;
+                let retryCount = 0;
+                const maxRetries = 2;
+
+                while (retryCount <= maxRetries) {
+                    try {
+                        result = await Promise.race([
+                            AppState.apiClient.summarizeText(textToSummarize, AppState.currentSummaryMode),
+                            new Promise((_, reject) =>
+                                setTimeout(() => reject(new Error('AI 처리 시간 초과')), AppState.processingTimeout)
+                            )
+                        ]);
+                        break;
+                    } catch (apiError) {
+                        retryCount++;
+                        if (retryCount <= maxRetries) {
+                            text.textContent = `연결 오류로 재시도 중... (${retryCount}/${maxRetries})`;
+                            await new Promise(resolve => setTimeout(resolve, 2000 * retryCount)); // Exponential backoff
+                        } else {
+                            throw apiError;
+                        }
+                    }
+                }
+
+                if (!result || !result.choices || !result.choices[0] || !result.choices[0].message) {
+                    throw new Error('AI 서비스에서 올바른 응답을 받지 못했습니다.');
+                }
+
+                const summaryContent = result.choices[0].message.content;
+                if (!summaryContent || summaryContent.trim().length < 10) {
+                    throw new Error('AI가 생성한 요약이 너무 짧습니다.');
+                }
+
+                AppState.summaryResult = sanitizeText(summaryContent);
+
+                // Add comprehensive metadata
+                const fileSize = formatFileSize(AppState.currentFile.size);
+                const currentTime = new Date().toLocaleString('ko-KR');
+                const compressionRatio = Math.round((AppState.summaryResult.length / extractedText.length) * 100);
+
+                const metadata = `\n\n---\n📊 문서 분석 정보\n` +
+                    `• 원본 파일: ${AppState.currentFile.name}\n` +
+                    `• 파일 크기: ${fileSize}\n` +
+                    `• 요약 완료 시간: ${currentTime}\n` +
+                    `• 추출된 텍스트: ${extractedText.length.toLocaleString()}자\n` +
+                    `• 요약 길이: ${AppState.summaryResult.length.toLocaleString()}자\n` +
+                    `• 압축률: ${compressionRatio}%\n` +
+                    `• AI 모델: ${AppState.selectedModel}\n` +
+                    `• 요약 모드: ${AppState.currentSummaryMode}`;
+
+                AppState.summaryResult += metadata;
+
+            } catch (error) {
+                // Enhanced error reporting
+                console.error('PDF processing error:', error);
+
+                let userFriendlyMessage;
+                if (error.message.includes('시간 초과')) {
+                    userFriendlyMessage = '처리 시간이 너무 오래 걸립니다. 더 작은 파일을 시도해보거나 나중에 다시 시도해주세요.';
+                } else if (error.message.includes('API')) {
+                    userFriendlyMessage = 'AI 서비스 연결에 문제가 있습니다. 네트워크 연결을 확인하고 다시 시도해주세요.';
+                } else if (error.message.includes('텍스트')) {
+                    userFriendlyMessage = error.message;
+                } else {
+                    userFriendlyMessage = `처리 중 오류가 발생했습니다: ${error.message}`;
+                }
+
+                throw new Error(userFriendlyMessage);
+            }
+        }
+
+        async function simulateSummaryProcessing() {
+            if (AppState.apiClient) {
+                // Real API processing
+                await processPDFAndSummarize();
+            } else {
+                // Fallback to demo mode
+                const phases = [
+                    { text: 'PDF 파일을 읽고 있습니다...', duration: 1000 },
+                    { text: 'AI가 문서 내용을 분석하고 있습니다...', duration: 2000 },
+                    { text: '핵심 내용을 추출하고 있습니다...', duration: 1500 },
+                    { text: '요약을 생성하고 있습니다...', duration: 1000 }
+                ];
+
+                const text = document.getElementById('process-text');
+
+                for (const phase of phases) {
+                    text.textContent = phase.text;
+                    await new Promise(resolve => setTimeout(resolve, phase.duration));
+                }
+
+                // Generate mock summary
+                generateMockSummary();
+                showToast('데모 모드로 실행되었습니다. 실제 AI 요약을 사용하려면 API를 설정해주세요.', 'warning', '데모 모드');
+            }
+        }
+
+        function generateMockSummary() {
+            const fileName = AppState.currentFile.name.replace('.pdf', '');
+            const fileSize = formatFileSize(AppState.currentFile.size);
+            const currentTime = new Date().toLocaleString('ko-KR');
+
+            const summaries = {
+                simple: `📋 ${fileName} - 간단 요약
+
+🔍 핵심 내용
+• 주요 토픽 1: 문서의 첫 번째 핵심 주제
+• 주요 토픽 2: 문서의 두 번째 핵심 주제
+• 주요 토픽 3: 문서의 세 번째 핵심 주제
+
+💡 결론
+이 문서의 가장 중요한 메시지와 결론을 한 문장으로 요약합니다.
+
+---
+📊 문서 정보: ${fileSize} | ⏰ 요약 시간: ${currentTime}`,
+
+                normal: `📋 ${fileName} - 일반 요약
+
+🔍 문서 개요
+이 PDF 문서는 [주요 주제]에 대한 포괄적인 내용을 다루고 있으며, 총 ${Math.ceil(AppState.currentFile.size / 1024)}KB 분량의 정보를 포함하고 있습니다.
+
+📌 주요 내용
+1️⃣ 첫 번째 섹션
+   • 핵심 개념과 기본 원리 설명
+   • 관련 데이터 및 통계 자료 제시
+   • 구체적인 사례와 예시 분석
+
+2️⃣ 두 번째 섹션
+   • 심화된 내용과 세부 사항
+   • 비교 분석 및 대안 제시
+   • 실무 적용 방안 논의
+
+3️⃣ 세 번째 섹션
+   • 결과 해석 및 시사점
+   • 향후 전망과 발전 방향
+   • 제한사항 및 고려사항
+
+💡 핵심 메시지
+문서의 주요 결론과 독자가 알아야 할 핵심 내용을 명확하게 정리하여 제시합니다.
+
+🎯 실무 활용
+이 내용을 실제 업무나 학습에 적용할 때 고려해야 할 주요 포인트들을 제안합니다.
+
+---
+📊 처리 정보: 원본 ${fileSize} | ⏰ 요약 완료: ${currentTime}`,
+
+                detailed: `📋 ${fileName} - 상세 요약 보고서
+
+📄 문서 기본 정보
+• 파일명: ${fileName}
+• 파일 크기: ${fileSize}
+• 처리 일시: ${currentTime}
+• 요약 모드: 상세 분석
+
+🔍 문서 구조 및 내용 분석
+
+1. 서론 및 배경 (Introduction & Background)
+   📍 문서의 목적과 범위
+   • 연구/작성 목적과 배경 설명
+   • 다루고자 하는 주제의 중요성
+   • 문서의 구성과 접근 방법
+
+   📍 핵심 용어 및 개념 정의
+   • 주요 전문용어 해설
+   • 기본 개념과 원리 설명
+   • 선행 연구 및 참고 문헌
+
+2. 본론 - 주요 내용 (Main Content)
+   📍 첫 번째 핵심 주제
+   • 세부 내용과 구체적 설명
+   • 관련 데이터, 차트, 표 분석
+   • 실제 사례 및 적용 예시
+   • 장점과 한계점 분석
+
+   📍 두 번째 핵심 주제
+   • 심화 분석 및 비교 연구
+   • 다양한 관점과 접근법
+   • 논란점 및 쟁점 사항
+   • 해결 방안 및 대안 제시
+
+   📍 세 번째 핵심 주제
+   • 통합적 관점에서의 분석
+   • 상호 연관성 및 영향 관계
+   • 미래 전망 및 예측
+   • 정책적/실무적 함의
+
+3. 결론 및 제언 (Conclusion & Recommendations)
+   📍 주요 발견사항 요약
+   • 가장 중요한 연구 결과
+   • 예상했던 것과 다른 발견
+   • 새로운 인사이트와 관점
+
+   📍 실무적 시사점
+   • 현장 적용 가능성
+   • 구체적 실행 방안
+   • 예상되는 효과와 한계
+
+   📍 향후 과제 및 연구 방향
+   • 추가 연구가 필요한 영역
+   • 보완해야 할 부분
+   • 장기적 발전 전략
+
+💡 핵심 인사이트 (Key Insights)
+🔹 가장 중요한 발견: [핵심 메시지 1]
+🔹 실무 적용 포인트: [핵심 메시지 2]
+🔹 주의사항: [핵심 메시지 3]
+
+📊 문서 품질 평가
+• 내용의 신뢰성: ⭐⭐⭐⭐⭐
+• 실무 활용도: ⭐⭐⭐⭐⭐
+• 이해하기 쉬움: ⭐⭐⭐⭐⭐
+
+🔗 추가 참고사항
+• 관련 문서나 자료에 대한 참조
+• 심화 학습을 위한 추천 자료
+• 문의사항이나 피드백 방법
+
+---
+⚡ 처리 통계
+• 원본 문서: ${fileSize}
+• 요약 생성: ${currentTime}
+• 압축률: 약 85% 단축
+• 처리 시간: 6.2초
+• AI 모델: GPT-4 기반 한국어 요약 엔진`
+            };
+
+            AppState.summaryResult = summaries[AppState.currentSummaryMode];
+        }
+
+        function displayResults() {
+            const resultsSection = document.getElementById('results-section');
+            const resultsContent = document.getElementById('results-content');
+
+            // Safely display sanitized results
+            resultsContent.innerHTML = '';
+            const pre = document.createElement('pre');
+            pre.textContent = AppState.summaryResult; // Use textContent to prevent XSS
+            pre.style.whiteSpace = 'pre-wrap';
+            pre.style.fontFamily = 'inherit';
+            resultsContent.appendChild(pre);
+            resultsSection.classList.add('show');
+
+            // Smooth scroll to results with offset for header
+            setTimeout(() => {
+                resultsSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+        }
+
+        // Results actions
+        async function copyResults() {
+            if (!AppState.summaryResult) {
+                showToast('복사할 요약 결과가 없습니다.', 'warning', '복사 실패');
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(AppState.summaryResult);
+                showToast('요약 결과가 클립보드에 복사되었습니다.', 'success', '복사 완료');
+            } catch (error) {
+                // Fallback for older browsers
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = AppState.summaryResult;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    showToast('요약 결과가 클립보드에 복사되었습니다.', 'success', '복사 완료');
+                } catch (fallbackError) {
+                    showToast('복사 기능을 사용할 수 없습니다.', 'error', '복사 실패');
+                }
+            }
+        }
+
+        function downloadResults() {
+            if (!AppState.summaryResult) {
+                showToast('다운로드할 요약 결과가 없습니다.', 'warning', '다운로드 실패');
+                return;
+            }
+
+            try {
+                const blob = new Blob([AppState.summaryResult], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+
+                const fileName = AppState.currentFile ?
+                    `${AppState.currentFile.name.replace('.pdf', '')}_요약_${new Date().toISOString().slice(0, 10)}.txt` :
+                    `PDF_요약_${new Date().toISOString().slice(0, 10)}.txt`;
+
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showToast('요약 결과가 텍스트 파일로 저장되었습니다.', 'success', '다운로드 완료');
+            } catch (error) {
+                showToast('파일 다운로드 중 오류가 발생했습니다.', 'error', '다운로드 실패');
+            }
+        }
+
+        async function shareResults() {
+            if (!AppState.summaryResult) {
+                showToast('공유할 요약 결과가 없습니다.', 'warning', '공유 실패');
+                return;
+            }
+
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'PDF 문서 요약 결과',
+                        text: AppState.summaryResult
+                    });
+                    showToast('요약 결과가 공유되었습니다.', 'success', '공유 완료');
+                } catch (error) {
+                    if (error.name !== 'AbortError') {
+                        showToast('공유 중 오류가 발생했습니다.', 'error', '공유 실패');
+                    }
+                }
+            } else {
+                // Fallback: copy to clipboard
+                await copyResults();
+                showToast('공유 기능이 지원되지 않아 클립보드에 복사했습니다.', 'warning', '대체 동작');
+            }
+        }
+
+        function resetApp() {
+            // Reset all state
+            AppState.currentFile = null;
+            AppState.summaryResult = '';
+            AppState.isProcessing = false;
+
+            // Reset UI elements
+            document.getElementById('file-input').value = '';
+            document.getElementById('file-info').classList.remove('show');
+            document.getElementById('progress-container').classList.remove('show');
+            document.getElementById('results-section').classList.remove('show');
+
+            // Reset options to default (normal)
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+                card.setAttribute('aria-checked', 'false');
+            });
+            document.querySelector('[data-mode="normal"]').classList.add('selected');
+            document.querySelector('[data-mode="normal"]').setAttribute('aria-checked', 'true');
+            AppState.currentSummaryMode = 'normal';
+
+            // Reset button
+            disableProcessButton();
+
+            // Scroll to top smoothly
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+            showToast('새로운 문서 요약을 시작할 준비가 완료되었습니다.', 'success', '초기화 완료');
+        }
+
+        // Toast notification system
+        function showToast(message, type = 'success', title = null) {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const toastId = 'toast-' + Date.now();
+
+            const icons = {
+                success: '✅',
+                error: '❌',
+                warning: '⚠️',
+                info: 'ℹ️'
+            };
+
+            const titles = {
+                success: title || '성공',
+                error: title || '오류',
+                warning: title || '알림',
+                info: title || '정보'
+            };
+
+            toast.id = toastId;
+            toast.className = `toast ${type}`;
+            toast.setAttribute('role', 'alert');
+            toast.innerHTML = `
+                <div class="toast-icon">${icons[type] || icons.info}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${titles[type]}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="removeToast('${toastId}')" aria-label="알림 닫기">✕</button>
+            `;
+
+            toastContainer.appendChild(toast);
+
+            // Show toast with animation
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                removeToast(toastId);
+            }, 5000);
+        }
+
+        function removeToast(toastId) {
+            const toast = document.getElementById(toastId);
+            if (toast) {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+
+        // Keyboard navigation for option cards
+        function initKeyboardNavigation() {
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        const mode = card.getAttribute('data-mode');
+                        selectOption(mode);
+                    }
+                });
+            });
+        }
+
+        // Initialize app
+        function initializeApp() {
+            initTheme();
+            initKeyboardNavigation();
+            updateFileSizeDisplay();
+
+            // Prevent default drag behaviors on document
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                document.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, false);
+            });
+
+            // Add skip link for accessibility
+            addSkipLink();
+
+            // Handle system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                if (!localStorage.getItem('pdf-summary-theme')) {
+                    if (e.matches) {
+                        document.body.setAttribute('data-theme', 'dark');
+                        document.getElementById('theme-icon').textContent = '☀️';
+                        AppState.theme = 'dark';
+                    } else {
+                        document.body.removeAttribute('data-theme');
+                        document.getElementById('theme-icon').textContent = '🌙';
+                        AppState.theme = 'light';
+                    }
+                }
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (event) => {
+                if (event.ctrlKey || event.metaKey) {
+                    switch (event.key) {
+                        case 'u':
+                            event.preventDefault();
+                            document.getElementById('file-input').click();
+                            break;
+                        case 'Enter':
+                            event.preventDefault();
+                            if (AppState.currentFile && !AppState.isProcessing) {
+                                startSummary();
+                            }
+                            break;
+                        case 'r':
+                            event.preventDefault();
+                            resetApp();
+                            break;
+                    }
+                }
+            });
+
+            // Show welcome message
+            setTimeout(() => {
+                showToast('PDF 문서 요약 서비스에 오신 것을 환영합니다! 파일을 업로드하여 시작하세요.', 'info', '환영합니다');
+            }, 1000);
+        }
+
+        // Update file size display
+        function updateFileSizeDisplay() {
+            const fileSizeElement = document.getElementById('max-file-size');
+            if (fileSizeElement) {
+                fileSizeElement.textContent = formatFileSize(AppState.maxFileSize);
+            }
+        }
+
+        // Add skip link for accessibility
+        function addSkipLink() {
+            const skipLink = document.createElement('a');
+            skipLink.href = '#main-content';
+            skipLink.textContent = '메인 콘텐츠로 건너뛰기';
+            skipLink.className = 'sr-only';
+            skipLink.style.cssText = `
+                position: absolute;
+                top: -40px;
+                left: 6px;
+                background: var(--primary-color);
+                color: white;
+                padding: 8px;
+                border-radius: 4px;
+                text-decoration: none;
+                z-index: 1000;
+                transition: top 0.3s;
+            `;
+
+            skipLink.addEventListener('focus', () => {
+                skipLink.style.top = '6px';
+            });
+
+            skipLink.addEventListener('blur', () => {
+                skipLink.style.top = '-40px';
+            });
+
+            document.body.insertBefore(skipLink, document.body.firstChild);
+
+            // Add main content ID
+            const container = document.querySelector('.container');
+            if (container && !container.id) {
+                container.id = 'main-content';
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', initializeApp);
+
+        // Service Worker registration for PWA capabilities (optional future enhancement)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
+</body>
+</html>

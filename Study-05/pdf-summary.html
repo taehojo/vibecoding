@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 문서 요약 애플리케이션</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .upload-area {
+            background: white;
+            border: 3px dashed #ddd;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area.drag-over {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+
+        .upload-area.processing {
+            border-color: #28a745;
+            background-color: #d4edda;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .progress-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #28a745;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #6c757d;
+        }
+
+        .results-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            display: none;
+        }
+
+        .extracted-text {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .file-info {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d7ff;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .file-info h3 {
+            margin-bottom: 10px;
+            color: #0056b3;
+        }
+
+        .file-info p {
+            margin-bottom: 5px;
+        }
+
+        .chunks-info {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+        }
+
+        .chunk-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chunk-header {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+
+        .chunk-preview {
+            font-size: 12px;
+            color: #6c757d;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PDF 문서 요약 애플리케이션</h1>
+            <p>PDF 파일을 업로드하여 텍스트를 추출하고 요약하세요</p>
+        </div>
+
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📄</div>
+            <div class="upload-text">PDF 파일을 드래그하여 놓거나 클릭하여 선택하세요</div>
+            <p style="color: #999; font-size: 14px;">최대 파일 크기: 50MB</p>
+            <input type="file" id="fileInput" class="file-input" accept=".pdf" />
+            <button class="btn" id="selectFileBtn">파일 선택</button>
+        </div>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">처리 중...</div>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <div class="file-info" id="fileInfo">
+            <h3>파일 정보</h3>
+            <p><strong>파일명:</strong> <span id="fileName"></span></p>
+            <p><strong>파일 크기:</strong> <span id="fileSize"></span></p>
+            <p><strong>페이지 수:</strong> <span id="pageCount"></span></p>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <h3>추출된 텍스트</h3>
+            <div class="extracted-text" id="extractedText"></div>
+
+            <div class="chunks-info" id="chunksInfo">
+                <h4>AI API 전송용 청크</h4>
+                <p>텍스트가 길어서 여러 청크로 분할되었습니다:</p>
+                <div id="chunksContainer"></div>
+            </div>
+
+            <button class="btn" id="processWithAI" style="margin-top: 15px;">AI로 요약하기</button>
+        </div>
+    </div>
+
+    <!-- PDF.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <script>
+        // PDF 요약 애플리케이션 메인 클래스
+        class PDFSummaryApp {
+            constructor() {
+                this.currentFile = null;
+                this.extractedText = '';
+                this.textChunks = [];
+                this.maxChunkSize = 4000; // AI API 토큰 제한 고려
+                this.maxFileSize = 50 * 1024 * 1024; // 50MB
+
+                this.initializeElements();
+                this.bindEvents();
+                this.initializePDFJS();
+            }
+
+            initializeElements() {
+                this.uploadArea = document.getElementById('uploadArea');
+                this.fileInput = document.getElementById('fileInput');
+                this.selectFileBtn = document.getElementById('selectFileBtn');
+                this.progressContainer = document.getElementById('progressContainer');
+                this.progressFill = document.getElementById('progressFill');
+                this.progressText = document.getElementById('progressText');
+                this.errorMessage = document.getElementById('errorMessage');
+                this.successMessage = document.getElementById('successMessage');
+                this.fileInfo = document.getElementById('fileInfo');
+                this.fileName = document.getElementById('fileName');
+                this.fileSize = document.getElementById('fileSize');
+                this.pageCount = document.getElementById('pageCount');
+                this.resultsContainer = document.getElementById('resultsContainer');
+                this.extractedText = document.getElementById('extractedText');
+                this.chunksInfo = document.getElementById('chunksInfo');
+                this.chunksContainer = document.getElementById('chunksContainer');
+                this.processWithAI = document.getElementById('processWithAI');
+            }
+
+            initializePDFJS() {
+                // PDF.js 워커 설정
+                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+            }
+
+            bindEvents() {
+                // 파일 선택 버튼 클릭
+                this.selectFileBtn.addEventListener('click', () => {
+                    this.fileInput.click();
+                });
+
+                // 파일 선택 시
+                this.fileInput.addEventListener('change', (e) => {
+                    if (e.target.files.length > 0) {
+                        this.handleFile(e.target.files[0]);
+                    }
+                });
+
+                // 드래그 앤 드롭 이벤트
+                this.uploadArea.addEventListener('click', () => {
+                    this.fileInput.click();
+                });
+
+                this.uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    this.uploadArea.classList.add('drag-over');
+                });
+
+                this.uploadArea.addEventListener('dragleave', () => {
+                    this.uploadArea.classList.remove('drag-over');
+                });
+
+                this.uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    this.uploadArea.classList.remove('drag-over');
+
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        this.handleFile(files[0]);
+                    }
+                });
+
+                // AI 처리 버튼
+                this.processWithAI.addEventListener('click', () => {
+                    this.processWithAI();
+                });
+            }
+
+            // 파일 유효성 검증
+            validateFile(file) {
+                const errors = [];
+
+                // PDF 파일 형식 검증
+                if (file.type !== 'application/pdf') {
+                    errors.push('PDF 파일만 업로드 가능합니다.');
+                }
+
+                // 파일 크기 검증
+                if (file.size > this.maxFileSize) {
+                    errors.push(`파일 크기가 너무 큽니다. 최대 ${this.formatFileSize(this.maxFileSize)}까지 업로드 가능합니다.`);
+                }
+
+                // 빈 파일 검증
+                if (file.size === 0) {
+                    errors.push('빈 파일은 업로드할 수 없습니다.');
+                }
+
+                return errors;
+            }
+
+            // 파일 크기 포맷팅
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            // 에러 메시지 표시
+            showError(message) {
+                this.errorMessage.textContent = message;
+                this.errorMessage.style.display = 'block';
+                this.successMessage.style.display = 'none';
+            }
+
+            // 성공 메시지 표시
+            showSuccess(message) {
+                this.successMessage.textContent = message;
+                this.successMessage.style.display = 'block';
+                this.errorMessage.style.display = 'none';
+            }
+
+            // 메시지 숨기기
+            hideMessages() {
+                this.errorMessage.style.display = 'none';
+                this.successMessage.style.display = 'none';
+            }
+
+            // 진행률 업데이트
+            updateProgress(percent, message) {
+                this.progressFill.style.width = percent + '%';
+                this.progressText.textContent = message;
+            }
+
+            // 진행률 표시/숨기기
+            showProgress() {
+                this.progressContainer.style.display = 'block';
+                this.uploadArea.classList.add('processing');
+            }
+
+            hideProgress() {
+                this.progressContainer.style.display = 'none';
+                this.uploadArea.classList.remove('processing');
+            }
+
+            // 파일 정보 표시
+            showFileInfo(file, pageCount) {
+                this.fileName.textContent = file.name;
+                this.fileSize.textContent = this.formatFileSize(file.size);
+                this.pageCount.textContent = pageCount;
+                this.fileInfo.style.display = 'block';
+            }
+
+            // 파일 처리 메인 함수
+            async handleFile(file) {
+                this.hideMessages();
+                this.hideProgress();
+                this.fileInfo.style.display = 'none';
+                this.resultsContainer.style.display = 'none';
+
+                // 파일 유효성 검증
+                const validationErrors = this.validateFile(file);
+                if (validationErrors.length > 0) {
+                    this.showError(validationErrors.join(' '));
+                    return;
+                }
+
+                this.currentFile = file;
+                this.showProgress();
+                this.updateProgress(0, 'PDF 파일을 읽는 중...');
+
+                try {
+                    // PDF 파일을 ArrayBuffer로 변환
+                    const arrayBuffer = await this.fileToArrayBuffer(file);
+                    this.updateProgress(20, 'PDF 문서를 분석하는 중...');
+
+                    // PDF 문서 로드
+                    const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+                    this.updateProgress(40, '텍스트를 추출하는 중...');
+
+                    // 파일 정보 표시
+                    this.showFileInfo(file, pdf.numPages);
+
+                    // 텍스트 추출
+                    const extractedText = await this.extractTextFromPDF(pdf);
+                    this.updateProgress(80, '텍스트를 처리하는 중...');
+
+                    // 텍스트 정리 및 청킹
+                    const cleanedText = this.cleanText(extractedText);
+                    this.textChunks = this.createTextChunks(cleanedText);
+
+                    this.updateProgress(100, '완료!');
+
+                    // 결과 표시
+                    setTimeout(() => {
+                        this.hideProgress();
+                        this.displayResults(cleanedText);
+                        this.showSuccess(`텍스트 추출이 완료되었습니다. ${this.textChunks.length}개의 청크로 분할되었습니다.`);
+                    }, 500);
+
+                } catch (error) {
+                    console.error('PDF 처리 중 오류:', error);
+                    this.hideProgress();
+                    this.showError('PDF 파일을 처리하는 중 오류가 발생했습니다: ' + error.message);
+                }
+            }
+
+            // 파일을 ArrayBuffer로 변환
+            fileToArrayBuffer(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = () => reject(new Error('파일을 읽을 수 없습니다.'));
+                    reader.readAsArrayBuffer(file);
+                });
+            }
+
+            // PDF에서 텍스트 추출
+            async extractTextFromPDF(pdf) {
+                let fullText = '';
+                const totalPages = pdf.numPages;
+
+                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                    try {
+                        const page = await pdf.getPage(pageNum);
+                        const textContent = await page.getTextContent();
+
+                        let pageText = '';
+                        textContent.items.forEach(item => {
+                            if (item.str) {
+                                pageText += item.str + ' ';
+                            }
+                        });
+
+                        if (pageText.trim()) {
+                            fullText += `\n--- 페이지 ${pageNum} ---\n${pageText.trim()}\n`;
+                        }
+
+                        // 진행률 업데이트
+                        const progress = 40 + (pageNum / totalPages) * 40;
+                        this.updateProgress(progress, `페이지 ${pageNum}/${totalPages} 처리 중...`);
+
+                        // 메모리 최적화를 위해 잠시 대기
+                        if (pageNum % 10 === 0) {
+                            await new Promise(resolve => setTimeout(resolve, 10));
+                        }
+
+                    } catch (error) {
+                        console.error(`페이지 ${pageNum} 처리 중 오류:`, error);
+                        fullText += `\n--- 페이지 ${pageNum} (오류 발생) ---\n`;
+                    }
+                }
+
+                return fullText;
+            }
+
+            // 텍스트 정리
+            cleanText(text) {
+                return text
+                    .replace(/\s+/g, ' ')  // 연속된 공백 제거
+                    .replace(/\n\s*\n/g, '\n')  // 연속된 빈 줄 제거
+                    .trim();
+            }
+
+            // 텍스트를 청크로 분할
+            createTextChunks(text) {
+                const chunks = [];
+                const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+
+                let currentChunk = '';
+
+                for (const sentence of sentences) {
+                    const trimmedSentence = sentence.trim();
+                    if (!trimmedSentence) continue;
+
+                    const potentialChunk = currentChunk + (currentChunk ? '. ' : '') + trimmedSentence;
+
+                    if (potentialChunk.length <= this.maxChunkSize) {
+                        currentChunk = potentialChunk;
+                    } else {
+                        if (currentChunk) {
+                            chunks.push(currentChunk + '.');
+                        }
+
+                        // 문장 자체가 청크 크기를 초과하는 경우 강제 분할
+                        if (trimmedSentence.length > this.maxChunkSize) {
+                            const words = trimmedSentence.split(' ');
+                            let wordChunk = '';
+
+                            for (const word of words) {
+                                if ((wordChunk + ' ' + word).length <= this.maxChunkSize) {
+                                    wordChunk += (wordChunk ? ' ' : '') + word;
+                                } else {
+                                    if (wordChunk) {
+                                        chunks.push(wordChunk);
+                                    }
+                                    wordChunk = word;
+                                }
+                            }
+
+                            currentChunk = wordChunk;
+                        } else {
+                            currentChunk = trimmedSentence;
+                        }
+                    }
+                }
+
+                if (currentChunk) {
+                    chunks.push(currentChunk + '.');
+                }
+
+                return chunks.map((chunk, index) => ({
+                    id: index + 1,
+                    text: chunk,
+                    length: chunk.length
+                }));
+            }
+
+            // 결과 표시
+            displayResults(text) {
+                this.extractedText.textContent = text;
+                this.displayChunks();
+                this.resultsContainer.style.display = 'block';
+            }
+
+            // 청크 정보 표시
+            displayChunks() {
+                if (this.textChunks.length <= 1) {
+                    this.chunksInfo.style.display = 'none';
+                    return;
+                }
+
+                this.chunksContainer.innerHTML = '';
+
+                this.textChunks.forEach(chunk => {
+                    const chunkElement = document.createElement('div');
+                    chunkElement.className = 'chunk-item';
+
+                    const preview = chunk.text.length > 200 ?
+                        chunk.text.substring(0, 200) + '...' :
+                        chunk.text;
+
+                    chunkElement.innerHTML = `
+                        <div class="chunk-header">청크 ${chunk.id} (${chunk.length}자)</div>
+                        <div class="chunk-preview">${preview}</div>
+                    `;
+
+                    this.chunksContainer.appendChild(chunkElement);
+                });
+
+                this.chunksInfo.style.display = 'block';
+            }
+
+            // AI API 연동을 위한 데이터 준비
+            prepareDataForAI() {
+                return {
+                    fileName: this.currentFile?.name,
+                    fileSize: this.currentFile?.size,
+                    totalChunks: this.textChunks.length,
+                    chunks: this.textChunks,
+                    fullText: this.extractedText.textContent,
+                    metadata: {
+                        timestamp: new Date().toISOString(),
+                        processingTime: Date.now() - this.startTime
+                    }
+                };
+            }
+
+            // AI 처리 (여기서는 데모용으로 콘솔에 출력)
+            async processWithAI() {
+                if (!this.textChunks.length) {
+                    this.showError('먼저 PDF 파일을 업로드해주세요.');
+                    return;
+                }
+
+                const aiData = this.prepareDataForAI();
+
+                // 실제 구현에서는 여기서 AI API를 호출
+                console.log('AI API로 전송할 데이터:', aiData);
+
+                this.showSuccess('AI 요약 요청이 준비되었습니다. (콘솔을 확인하세요)');
+
+                // 예시: 실제 AI API 호출
+                /*
+                try {
+                    const response = await fetch('/api/summarize', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(aiData)
+                    });
+
+                    const result = await response.json();
+                    // 결과 처리
+                } catch (error) {
+                    this.showError('AI 요약 중 오류가 발생했습니다: ' + error.message);
+                }
+                */
+            }
+
+            // 메모리 정리
+            cleanup() {
+                this.currentFile = null;
+                this.extractedText = '';
+                this.textChunks = [];
+            }
+        }
+
+        // 애플리케이션 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            window.pdfApp = new PDFSummaryApp();
+        });
+    </script>
+</body>
+</html>
