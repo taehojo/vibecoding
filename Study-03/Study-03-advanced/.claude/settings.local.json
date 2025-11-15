@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(C:\\Users\\taehj\\OneDrive\\Desktop\\VibeCoding/**)",
+      "Bash(git init:*)",
+      "Read(C:\\Users\\taehj\\OneDrive\\Desktop\\VibeCoding\\Study-01/**)",
+      "Read(C:\\Users\\taehj\\OneDrive\\Desktop\\VibeCoding\\Study-02/**)",
+      "Bash(del analyze_quiz.js)",
+      "Bash(node:*)",
+      "Read(\\/**)",
+      "Bash(dir:*)",
+      "Bash(del add_quiz.js add_quiz_direct.js)",
+      "Bash(/quiz-check)",
+      "Bash(/quiz-stats)",
+      "Bash(del quiz_validate.js)",
+      "Bash(findstr:*)",
+      "Bash(move student-input.js back/)",
+      "Read(//c/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

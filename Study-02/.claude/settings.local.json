@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/C:\\Users\\taehj\\OneDrive\\Desktop\\VibeCoding\\Study-01\\desktop_version/**)",
+      "Read(/C:\\Users\\taehj\\OneDrive\\Desktop\\VibeCoding\\Study-01\\web_version/**)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

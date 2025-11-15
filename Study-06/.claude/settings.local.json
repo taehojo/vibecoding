@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__sequential-thinking__sequentialthinking",
+      "mcp__notion__notion-create-pages",
+      "mcp__github__get_me",
+      "mcp__github__create_repository",
+      "mcp__github__delete_workflow_run_logs",
+      "Bash(gh run list:*)",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_type"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

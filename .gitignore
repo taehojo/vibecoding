@@ -1,8 +1,65 @@
-# Back folder - local files only
-back/
-
-# Environment variables
+# Environment variables and secrets
 .env
+.env.local
+.env.*.local
+*.key
+*.pem
+credentials.json
+secrets.json
+config/secrets.js
 
-# Claude Code settings
-.claude/
+# API Keys and tokens
+**/api_keys.txt
+**/apikeys.txt
+**/*_key.txt
+**/*_token.txt
+**/*_secret.txt
+
+# Personal data
+personal_data/
+private/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/

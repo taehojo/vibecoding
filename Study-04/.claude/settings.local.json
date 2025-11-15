@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/taehj/OneDrive/Desktop/VibeCoding/**)",
+      "Bash(pip install:*)",
+      "Bash(py test_models.py)",
+      "Bash(py -m pip install:*)",
+      "Bash(py test_step1.py)",
+      "Bash(py:*)",
+      "Bash(findstr:*)",
+      "Bash(del:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
