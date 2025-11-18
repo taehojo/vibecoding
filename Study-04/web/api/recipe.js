@@ -59,7 +59,7 @@ export default async function handler(req, res) {
         }
 
         const requestBody = {
-            model: 'meta-llama/llama-4-maverick:free',
+            model: 'google/gemma-3-27b-it:free',
             messages: [
                 {
                     role: "user",
