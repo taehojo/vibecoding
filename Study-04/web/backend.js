@@ -190,6 +190,7 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
             }
 
             const data = await response.json();
+            console.log('=== 서버 응답 데이터 ===', data);
 
             if (data.success && data.content) {
                 // OpenRouter 응답 형식으로 변환
@@ -203,6 +204,7 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
                     ]
                 };
             } else {
+                console.error('응답 형식 오류 - data.success:', data.success, 'data.content:', data.content);
                 throw new Error('서버 응답 형식이 올바르지 않습니다.');
             }
         } catch (error) {
