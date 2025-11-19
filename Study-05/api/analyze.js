@@ -79,7 +79,7 @@ export default async function handler(req, res) {
                 'X-Title': 'Empathy Diary App'
             },
             body: JSON.stringify({
-                model: 'openai/gpt-oss-20b:free',
+                model: 'google/gemma-3-27b-it:free',
                 messages: [
                     {
                         role: 'user',
