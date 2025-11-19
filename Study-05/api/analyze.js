@@ -79,7 +79,7 @@ export default async function handler(req, res) {
                 'X-Title': 'Empathy Diary App'
             },
             body: JSON.stringify({
-                model: 'deepseek/deepseek-chat-v3.1:free',
+                model: 'google/gemma-3-27b-it:free',
                 messages: [
                     {
                         role: 'user',
