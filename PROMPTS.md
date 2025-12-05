@@ -7,12 +7,12 @@
 ## 📖 목차
 
 - [01장: 나의 첫 바이브 코딩](#01장-나의-첫-바이브-코딩)
-- [02장: 효과적인 프롬프트로 성능 200% 활용하기](#02장-효과적인-프롬프트로-성능-200-활용하기)
-- [03장: 클로드 코드 시작하기](#03장-클로드-코드-시작하기-터미널에서-만드는-첫-프로그램)
-- [04장: 할 일 관리 앱 만들기](#04장-할-일-관리-앱-만들기-클로드-코드-실전-활용)
-- [05장: 미니 게임 제작으로 배우는 고급 활용](#05장-미니-게임-제작으로-배우는-클로드-코드-고급-활용)
-- [06장: 클로드 코드에 API 날개 달기](#06장-클로드-코드에-api-날개-달기)
-- [07장: AI 에이전트로 개발팀 구성하기](#07장-클로드-코드-ai-에이전트로-개발팀-구성하기)
+- [02장: 효과적인 프롬프트로 AI 200% 활용하기](#02장-효과적인-프롬프트로-ai-200-활용하기)
+- [03장: 클로드 코드 시작하기](#03장-클로드-코드-시작하기)
+- [04장: 클로드 코드 명령어](#04장-클로드-코드-실전-활용)
+- [05장: 프로젝트 자동화](#05장-프로젝트-자동화)
+- [06장: API로 AI 기능 확장하기](#06장-api로-ai-기능-확장하기)
+- [07장: AI 에이전트로 개발 자동화하기](#07장-ai-에이전트로-개발-자동화하기)
 - [08장: MCP로 클로드 코드의 한계 넘어서기](#08장-mcp로-클로드-코드의-한계-넘어서기)
 
 ---
@@ -49,7 +49,7 @@
 
 ---
 
-### 02장: 효과적인 프롬프트로 성능 200% 활용하기
+### 02장: 효과적인 프롬프트로 AI 200% 활용하기
 
 #### 02-1: PRD 작성하기
 
@@ -109,7 +109,7 @@ case-studies 섹션에 있는 [Before/After 지표]를 hero-introduction 섹션�
 
 ## 둘째 마당 | 클로드 코드와 함께하는 실전 코딩
 
-### 03장: 클로드 코드 시작하기: 터미널에서 만드는 첫 프로그램
+### 03장: 클로드 코드 시작하기
 
 #### 03-2: 손글씨 숫자 인식 프로그램
 
@@ -312,7 +312,7 @@ case-studies 섹션에 있는 [Before/After 지표]를 hero-introduction 섹션�
 
 ---
 
-### 05장: 미니 게임 제작으로 배우는 클로드 코드 고급 활용
+### 05장: 프로젝트 자동화
 
 #### 05-1 할루시네이션 없는 AI 콘텐츠 만들기
 
@@ -320,7 +320,7 @@ case-studies 섹션에 있는 [Before/After 지표]를 hero-introduction 섹션�
 상식 퀴즈 게임을 만들려고 해. PRD를 작성해 줘.
 게임 규칙:
 - 4지선다 객관식 퀴즈
-- 카테고리: 한국사, 과학, 지리, 일반상식 
+- 카테고리: 한국사, 과학, 지리, 예술과 문화 
 - 각 카테고리별 10문제씩 총 40문제
 - 정답/오답 즉시 피드백
 - 최종 점수 및 순위 기록
@@ -610,7 +610,7 @@ teacher-dashboard.md에 이 명령어를 추가해.
 
 ## 셋째 마당 | 클로드 코드로 프로처럼 일하기
 
-### 06장: 클로드 코드에 API 날개 달기
+### 06장: API로 AI 기능 확장하기
 
 #### 냉장고를 부탁해 앱 제작 (3단계)
 
@@ -632,7 +632,7 @@ PRD_step3.md를 읽고 세 번째 단계를 구현해줘.
 
 ---
 
-### 07장: 클로드 코드 AI 에이전트로 개발팀 구성하기
+### 07장: AI 에이전트로 개발 자동화하기
 
 #### AI 에이전트 생성
 
@@ -681,7 +681,7 @@ code-bug-analyzer, performance-optimizer, ux-designer 에이전트들에게 쇼�
 
 **Notion MCP:**
 ```bash
-claude mcp add –-transport http notion https://mcp.notion.com/mcp
+claude mcp add --transport http notion https://mcp.notion.com/mcp
 ```
 
 ```
@@ -708,7 +708,7 @@ playwright mcp를 사용해서 쇼핑 리스트 앱의 모든 기능이 정상 �
 
 **GitHub MCP:**
 ```bash
-claude mcp add --transport http github https://api.githubcopilot.com/mcp -H 'Authorization: Bearer YOUR_GITHUB_PAT'
+claude mcp add --transport http github https://api.githubcopilot.com/mcp -H 'Authorization: Bearer <깃허브 API 토큰>'
 ```
 
 ```
@@ -717,7 +717,7 @@ github mcp를 이용해 shopping-list-app이라는 저장소를 만들고 우리
 
 **Supabase MCP:**
 ```bash
-claude mcp add supabase -s local -e SUPABASE_ACCESS_TOKEN=[토큰] -- cmd /c npx -y @supabase/mcp-server-supabase@latest
+claude mcp add supabase -s local -e SUPABASE_ACCESS_TOKEN=<내 API 토큰> -- cmd /c npx -y @supabase/mcp-server-supabase@latest
 ```
 
 ```
