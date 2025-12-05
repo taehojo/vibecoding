@@ -129,7 +129,7 @@
   - 2단계: 레시피 생성하기
   - 3단계: 사용자 프로필에 레시피 저장하기
 
-> **예제**: 냉장고를 부탁해 앱 - 냉장고 사진 업로드 ([입력예제1](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/냉장고.jpg), [입력예제2](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/냉장고2.jpg)) → 재료 인식 → 레시피 추천 → 사용자 프로필/저장 기능 (3단계 구현)
+> **예제**: 냉장고를 부탁해 앱 - 냉장고 사진 업로드 ([입력예제](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/냉장고2.jpg)) → 재료 인식 → 레시피 추천 → 사용자 프로필/저장 기능 (3단계 구현)
 
 **Chapter 7: AI 에이전트로 개발 자동화하기**
 - 07-1 클로드 코드의 AI 에이전트 이해하기
