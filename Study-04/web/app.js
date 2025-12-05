@@ -351,8 +351,8 @@ class FridgeRecipeApp {
                 errorMessage = '❌ API 키를 설정해주세요.';
                 toastMessage = '⚠️ API 키를 설정해주세요.';
             } else if (error.message.includes('처리하지 못했습니다')) {
-                errorMessage = '❌ AI가 이 이미지를 처리하지 못했습니다.<br/>💡 <strong>샘플2 버튼</strong>을 눌러 다른 이미지를 시도하거나,<br/>더 단순한 구도의 냉장고 사진을 업로드해보세요.';
-                toastMessage = '이미지를 처리하지 못했습니다. 샘플2를 시도해보세요.';
+                errorMessage = '❌ AI가 이 이미지를 처리하지 못했습니다.<br/>💡 더 단순하고 명확한 구도의 냉장고 사진을 업로드해보세요.';
+                toastMessage = '이미지를 처리하지 못했습니다. 다른 사진을 시도해보세요.';
             } else if (error.message.includes('크기가 너무')) {
                 errorMessage = '❌ 이미지 크기가 너무 큽니다. 작은 이미지를 사용해주세요.';
                 toastMessage = '이미지 크기가 너무 큽니다.';
