@@ -87,6 +87,8 @@ export default async function handler(req, res) {
             presence_penalty: 0.0
         };
 
+        console.log('이미지 포함:', !!imageBase64);
+
         const response = await fetch(openRouterUrl, {
             method: 'POST',
             headers: {

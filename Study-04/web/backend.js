@@ -192,6 +192,13 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
             const data = await response.json();
             console.log('=== 서버 응답 데이터 ===', data);
 
+            // success: false인 경우 서버에서 반환한 에러 처리
+            if (data.success === false) {
+                const errorMsg = data.error || 'AI가 이미지를 처리하지 못했습니다.';
+                console.warn('서버 응답:', errorMsg);
+                throw new Error(errorMsg);
+            }
+
             if (data.success) {
                 // content가 빈 문자열인 경우 처리
                 if (!data.content || data.content.trim() === '') {
@@ -254,8 +261,9 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
                     content: content
                 }
             ],
-            max_tokens: 1500,
-            temperature: 0.7
+            max_tokens: 2000,
+            temperature: 0.7,
+            top_p: 0.9
         };
 
         const requestOptions = {
