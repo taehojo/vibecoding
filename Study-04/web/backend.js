@@ -192,7 +192,13 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
             const data = await response.json();
             console.log('=== 서버 응답 데이터 ===', data);
 
-            if (data.success && data.content) {
+            if (data.success) {
+                // content가 빈 문자열인 경우 처리
+                if (!data.content || data.content.trim() === '') {
+                    console.warn('AI 응답이 비어있습니다. 이미지 처리에 실패했을 가능성이 있습니다.');
+                    throw new Error('AI가 이미지를 처리하지 못했습니다. 다른 이미지를 시도해보세요.');
+                }
+
                 // OpenRouter 응답 형식으로 변환
                 return {
                     choices: [
@@ -283,14 +289,16 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
             throw new Error('이미지가 필요합니다.');
         }
 
-        const prompt = `이 사진을 보고 보이는 식재료를 쉼표로 구분해서 나열해주세요.
+        const prompt = `냉장고 사진을 분석하여 보이는 모든 식재료를 찾아주세요.
 
-예시: 계란, 우유, 당근, 양파, 토마토
+중요한 규칙:
+1. 이미지를 자세히 관찰하고 보이는 모든 식재료를 나열하세요
+2. 계란, 채소, 과일, 음료, 소스 등 모든 것을 포함하세요
+3. 쉼표로 구분하여 나열하세요 (예: 계란, 우유, 당근, 양파, 토마토)
+4. 다른 설명이나 형식 없이 재료 이름만 작성하세요
+5. 한국어로 작성하세요
 
-응답 규칙:
-1. 보이는 식재료만 정확하게 나열하세요
-2. 다른 설명 없이 재료 이름만 쉼표로 구분해서 작성하세요
-3. 한국어 식재료명을 사용하세요`;
+응답 형식: 재료1, 재료2, 재료3, ...`;
 
         try {
             console.log('재료 인식 중...');

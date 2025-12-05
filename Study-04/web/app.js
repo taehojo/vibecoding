@@ -158,6 +158,44 @@ class FridgeRecipeApp {
     }
 
     /**
+     * 이미지 최적화 (리사이징 및 품질 조정)
+     */
+    async optimizeImage(imageBase64, maxWidth = 1024, maxHeight = 1024, quality = 0.85) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                // 비율 유지하면서 리사이징
+                if (width > maxWidth || height > maxHeight) {
+                    const ratio = Math.min(maxWidth / width, maxHeight / height);
+                    width = Math.floor(width * ratio);
+                    height = Math.floor(height * ratio);
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext('2d');
+                // 이미지 품질 향상을 위한 설정
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // JPEG 형식으로 변환 (용량 감소)
+                const optimizedBase64 = canvas.toDataURL('image/jpeg', quality);
+                console.log(`이미지 최적화: ${img.width}x${img.height} → ${width}x${height}`);
+                console.log(`크기 감소: ${(imageBase64.length / 1024).toFixed(2)}KB → ${(optimizedBase64.length / 1024).toFixed(2)}KB`);
+                resolve(optimizedBase64);
+            };
+            img.onerror = () => reject(new Error('이미지 로드 실패'));
+            img.src = imageBase64;
+        });
+    }
+
+    /**
      * 샘플 이미지 로드
      */
     async loadSampleImage(sampleName) {
@@ -167,8 +205,10 @@ class FridgeRecipeApp {
 
             // Blob을 base64로 변환
             const reader = new FileReader();
-            reader.onload = (e) => {
-                this.currentImage = e.target.result;
+            reader.onload = async (e) => {
+                // 이미지 최적화
+                const optimizedImage = await this.optimizeImage(e.target.result);
+                this.currentImage = optimizedImage;
                 this.recognizedIngredients = [];
 
                 const previewImage = document.getElementById('previewImage');
@@ -202,8 +242,10 @@ class FridgeRecipeApp {
      */
     handleImageFile(file) {
         const reader = new FileReader();
-        reader.onload = (e) => {
-            this.currentImage = e.target.result;
+        reader.onload = async (e) => {
+            // 이미지 최적화
+            const optimizedImage = await this.optimizeImage(e.target.result);
+            this.currentImage = optimizedImage;
             this.recognizedIngredients = [];
 
             const previewImage = document.getElementById('previewImage');
@@ -300,13 +342,26 @@ class FridgeRecipeApp {
             }
         } catch (error) {
             console.error('재료 인식 오류:', error);
-            recognizedContent.innerHTML = '<p class="recognized-error">❌ 재료 인식에 실패했습니다. API 키를 확인하거나 다시 시도해주세요.</p>';
+
+            // 에러 메시지 분석
+            let errorMessage = '❌ 재료 인식에 실패했습니다.';
+            let toastMessage = '재료 인식에 실패했습니다.';
 
             if (error.message.includes('API 키')) {
-                this.showToast('⚠️ API 키를 설정해주세요.', 'warning');
+                errorMessage = '❌ API 키를 설정해주세요.';
+                toastMessage = '⚠️ API 키를 설정해주세요.';
+            } else if (error.message.includes('처리하지 못했습니다')) {
+                errorMessage = '❌ AI가 이 이미지를 처리하지 못했습니다.<br/>다른 각도나 더 선명한 사진을 시도해보세요.';
+                toastMessage = '이미지를 처리하지 못했습니다. 다른 사진을 시도해보세요.';
+            } else if (error.message.includes('크기가 너무')) {
+                errorMessage = '❌ 이미지 크기가 너무 큽니다. 작은 이미지를 사용해주세요.';
+                toastMessage = '이미지 크기가 너무 큽니다.';
             } else {
-                this.showToast('재료 인식에 실패했습니다.', 'error');
+                errorMessage += ' API 키를 확인하거나 다시 시도해주세요.';
             }
+
+            recognizedContent.innerHTML = `<p class="recognized-error">${errorMessage}</p>`;
+            this.showToast(toastMessage, 'error');
         } finally {
             analyzeBtn.disabled = false;
             analyzeBtn.innerHTML = '<span class="btn-icon">🔍</span> 재료 분석하기';

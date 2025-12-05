@@ -36,6 +36,20 @@ export default async function handler(req, res) {
             });
         }
 
+        // 이미지 크기 체크 (Base64 문자열 길이로 대략적인 크기 추정)
+        if (imageBase64) {
+            const imageSizeKB = (imageBase64.length * 0.75) / 1024; // Base64는 원본의 약 133%
+            console.log(`이미지 크기 (추정): ${imageSizeKB.toFixed(2)} KB`);
+
+            // 5MB 제한 (OpenRouter/Gemma의 일반적인 제한)
+            if (imageSizeKB > 5120) {
+                return res.status(400).json({
+                    error: '이미지 크기가 너무 큽니다. 5MB 이하의 이미지를 사용해주세요.',
+                    size: `${imageSizeKB.toFixed(2)} KB`
+                });
+            }
+        }
+
         // OpenRouter API 호출
         const openRouterUrl = 'https://openrouter.ai/api/v1/chat/completions';
 
@@ -66,8 +80,11 @@ export default async function handler(req, res) {
                     content: content
                 }
             ],
-            max_tokens: 1500,
-            temperature: 0.7
+            max_tokens: 2000,  // 토큰 증가
+            temperature: 0.7,
+            top_p: 0.9,  // 응답 다양성 증가
+            frequency_penalty: 0.0,
+            presence_penalty: 0.0
         };
 
         const response = await fetch(openRouterUrl, {
@@ -91,15 +108,30 @@ export default async function handler(req, res) {
         }
 
         const data = await response.json();
+        console.log('OpenRouter 응답:', JSON.stringify(data, null, 2));
 
         if (data.choices && data.choices[0] && data.choices[0].message) {
+            const content = data.choices[0].message.content || '';
+
+            // 빈 응답 체크
+            if (!content || content.trim() === '') {
+                console.warn('AI가 빈 응답을 반환했습니다.');
+                return res.status(200).json({
+                    success: false,
+                    error: 'AI가 이미지를 처리하지 못했습니다.',
+                    content: ''
+                });
+            }
+
             return res.status(200).json({
                 success: true,
-                content: data.choices[0].message.content
+                content: content
             });
         } else {
+            console.error('잘못된 응답 구조:', data);
             return res.status(500).json({
-                error: 'Invalid response from AI API'
+                error: 'Invalid response from AI API',
+                responseData: data
             });
         }
 
