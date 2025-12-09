@@ -73,7 +73,7 @@ export default async function handler(req, res) {
         }
 
         const requestBody = {
-            model: 'google/gemma-3-27b-it:free',
+            model: 'google/gemini-2.0-flash-exp:free',
             messages: [
                 {
                     role: "user",

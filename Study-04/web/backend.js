@@ -12,7 +12,7 @@ class FridgeRecipeBackend {
         // 개발/로컬 테스트용 - 로컬에서는 직접 API 호출 가능
         this.apiKey = this.getApiKey();
         this.baseUrl = 'https://openrouter.ai/api/v1';
-        this.model = 'google/gemma-3-27b-it:free';
+        this.model = 'google/gemini-2.0-flash-exp:free';
     }
 
     /**

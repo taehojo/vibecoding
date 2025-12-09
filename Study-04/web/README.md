@@ -81,7 +81,7 @@ https://your-project-name.vercel.app
 
 - **Frontend**: Vanilla JavaScript, HTML5, CSS3
 - **Backend**: Vercel Serverless Functions (Node.js)
-- **AI Model**: Meta Llama 4 Maverick (via OpenRouter)
+- **AI Model**: Google Gemini 2.0 Flash (via OpenRouter)
 - **Hosting**: Vercel
 - **Storage**: LocalStorage (저장된 레시피)
 
