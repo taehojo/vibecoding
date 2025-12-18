@@ -176,7 +176,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        let supabase = null;
+        let supabaseClient = null;
         const itemInput = document.getElementById('itemInput');
         const addBtn = document.getElementById('addBtn');
         const shoppingList = document.getElementById('shoppingList');
@@ -191,7 +191,7 @@
                 const config = await response.json();
 
                 if (config.success) {
-                    supabase = window.supabase.createClient(
+                    supabaseClient = window.supabase.createClient(
                         config.supabaseUrl,
                         config.supabaseAnonKey
                     );
@@ -208,13 +208,13 @@
 
         // Supabase에서 데이터 로드
         async function loadItems() {
-            if (!supabase) {
+            if (!supabaseClient) {
                 console.error('Supabase not initialized');
                 return;
             }
 
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('shopping_items')
                     .select('*')
                     .order('created_at', { ascending: true });
@@ -263,7 +263,7 @@
 
         // 아이템 추가
         async function addItem() {
-            if (!supabase) {
+            if (!supabaseClient) {
                 alert('Supabase가 초기화되지 않았습니다.');
                 return;
             }
@@ -276,7 +276,7 @@
             }
 
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('shopping_items')
                     .insert([{ name: text, completed: false }]);
 
@@ -293,7 +293,7 @@
         // 아이템 체크/언체크
         async function toggleItem(id, currentStatus) {
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('shopping_items')
                     .update({ completed: !currentStatus, updated_at: new Date().toISOString() })
                     .eq('id', id);
@@ -310,7 +310,7 @@
         // 아이템 삭제
         async function deleteItem(id) {
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('shopping_items')
                     .delete()
                     .eq('id', id);
