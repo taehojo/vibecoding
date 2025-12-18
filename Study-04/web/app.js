@@ -335,7 +335,7 @@ class FridgeRecipeApp {
                 const ingredientsText = document.getElementById('ingredientsText');
                 ingredientsText.value = ingredients.join(', ');
 
-                this.showToast(`✅ ${ingredients.length}개의 재료를 인식했습니다!`, 'success');
+                this.showToast(`${ingredients.length}개의 재료를 인식했습니다!`, 'success');
             } else {
                 recognizedContent.innerHTML = '<p class="recognized-error">❌ 재료를 인식하지 못했습니다. 다른 사진을 시도해보세요.</p>';
                 this.showToast('재료를 인식하지 못했습니다.', 'error');
