@@ -356,8 +356,11 @@ class FridgeRecipeApp {
             } else if (error.message.includes('크기가 너무')) {
                 errorMessage = '❌ 이미지 크기가 너무 큽니다. 작은 이미지를 사용해주세요.';
                 toastMessage = '이미지 크기가 너무 큽니다.';
+            } else if (error.message.includes('사용량이 많습니다')) {
+                errorMessage = '❌ 무료 AI 서버가 현재 사용량이 많습니다.<br/>⏰ 잠시 후 다시 시도해주세요.';
+                toastMessage = '서버가 바쁩니다. 잠시 후 다시 시도해주세요.';
             } else {
-                errorMessage += ' API 키를 확인하거나 다시 시도해주세요.';
+                errorMessage += ' 잠시 후 다시 시도해주세요.';
             }
 
             recognizedContent.innerHTML = `<p class="recognized-error">${errorMessage}</p>`;
