@@ -186,6 +186,12 @@ ${ingredients ? `추가 재료/요청사항: ${ingredients}` : ''}
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('서버 API 오류:', errorData);
+
+                // Rate limit 에러 처리
+                if (response.status === 429) {
+                    throw new Error('무료 AI 서버가 현재 사용량이 많습니다. 잠시 후 다시 시도해주세요.');
+                }
+
                 throw new Error(`서버 오류: ${response.status} - ${errorData.error || response.statusText}`);
             }
 
