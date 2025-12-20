@@ -696,7 +696,7 @@ UX 디자이너: 사용자가 쉽고 편하게 이용할 수 있도록 화면 �
 #### 다중 에이전트 협업
 
 ```
-code-bug -analyzer로 ‘냉장고를 부탁해’ 애플리케이션 코드 전체를 리뷰한 뒤, 발견한 문제를 performance-optimizer가 수정해서 성능 최적화한 다음, ux-design-advisor가 사용자 경험을 개선하게 해 줘
+code-bug-analyzer로 ‘냉장고를 부탁해’ 애플리케이션 코드 전체를 리뷰한 뒤, 발견한 문제를 performance-optimizer가 수정해서 성능 최적화한 다음, ux-design-advisor가 사용자 경험을 개선하게 해 줘
 ```
 
 ```
