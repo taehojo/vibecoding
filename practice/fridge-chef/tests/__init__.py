@@ -1,0 +1,1 @@
+"""Fridge Chef tests package."""
