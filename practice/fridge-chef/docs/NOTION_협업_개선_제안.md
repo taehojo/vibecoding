@@ -1,9 +1,5 @@
 # 협업 개선 제안 (2025-12-26)
 
-> 이 문서는 Notion 페이지 (https://www.notion.so/giworks/with-Claude-Code-2c816b5c57a8805aa150c1452e0d7a45)의 서브 페이지로 복사하세요.
-
----
-
 ## 협업 시 개선 제안
 
 ### 1. 테스트 시나리오 공유
