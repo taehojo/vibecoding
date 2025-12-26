@@ -63,3 +63,8 @@ logs/
 *.temp
 temp/
 tmp/
+
+# User Custom
+practice/
+pyproject.toml
+uv.lock
