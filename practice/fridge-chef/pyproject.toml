@@ -1,0 +1,21 @@
+[project]
+name = "fridge-chef"
+version = "0.1.0"
+description = "냉장고 재료 기반 AI 레시피 추천 서비스"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "streamlit>=1.40.0",
+    "python-dotenv>=1.0.0",
+    "requests>=2.32.0",
+    "pillow>=11.0.0",
+    "sqlalchemy>=2.0.0",
+    "bcrypt>=4.2.0",
+    "plotly>=5.18.0",
+    "qrcode[pil]>=7.4.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]

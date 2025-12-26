@@ -65,5 +65,4 @@ temp/
 tmp/
 
 # User Custom
-pyproject.toml
 uv.lock
