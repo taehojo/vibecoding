@@ -784,10 +784,7 @@ claude mcp add sequential-thinking -s local -- cmd /c npx -y @modelcontextprotoc
 ```bash
 claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: YOUR_API_KEY"
 ```
-**Context7 MCP local:**
-```bash
-claude mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY
-```
+
 
 **Playwright MCP:**
 ```bash
