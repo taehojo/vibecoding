@@ -766,7 +766,7 @@ claude mcp add --transport http notion https://mcp.notion.com/mcp
 ```
 
 ```
-Notion MCP를 이용해 클로드 코드의 최신 업데이트를 검색하고 이를 요약해 노션에 저장해줘.
+클로드 코드의 업데이트, 변경 사항을 검색하고 요약해 줘. 그 결과를 노션 MCP를 이용해 노션에 저장해 줘.
 ```
 
 **Sequential Thinking MCP:**
@@ -775,7 +775,18 @@ claude mcp add sequential-thinking -s local -- cmd /c npx -y @modelcontextprotoc
 ```
 
 ```
-내가 만든 웹 포트폴리오의 방문자 체류 시간을 지금의 2배로 늘리는 방법을, 먼저 일반적인 방법으로 묻고, 그다음 Sequential Thinking MCP를 이용해서 다시한 번 체계적으로 구상한 뒤, 두 답변을 각각 '체류시간 늘리기'와 '체류시간 늘리기 -체계적인 구상'이라는 이름으로 노션에 저장해줘.
+내 웹 포트폴리오 방문자의 체류 시간을 지금의 2배로 늘리고 싶어. 두 가지 문서를 작성해.
+1. 이 목표를 달성할 방법을 구상해서 노션 MCP를 이용해 ‘체류 시간 늘리기’로 저장해 줘.
+2. Sequential Thinking MCP를 이용해서 이 목표를 달성할 방법을 체계적으로 구상하고 노션 MCP를 이용해 ‘체류 시간 늘리기 – 체계적 구상’으로 저장해 줘
+```
+
+**Context7 MCP server:**
+```bash
+claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: YOUR_API_KEY"
+```
+**Context7 MCP local:**
+```bash
+claude mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY
 ```
 
 **Playwright MCP:**
@@ -784,27 +795,36 @@ claude mcp add playwright -- cmd /c npx @playwright/mcp@latest
 ```
 
 ```
-playwright mcp를 사용해서 쇼핑 리스트 앱의 모든 기능이 정상 작동하는지 테스트해 줘.
+쇼핑 리스트 앱을 만들어 줘. 아이템 추가, 삭제, 체크 기능이 있는 간단한 웹 UI로 로컬 브라우저에서 실행되게 해 줘
+```
+
+```
+Playwright MCP를 사용해서 이 쇼핑 리스트 앱의 모든 기능을 자동으로 테스트해 줘. 아이템 추가, 삭제, 체크 기능이 제대로 작동하는지 확인해 줘.
 ```
 
 **GitHub MCP:**
 ```bash
-claude mcp add --transport http github https://api.githubcopilot.com/mcp -H 'Authorization: Bearer <깃허브 API 토큰>'
+claude mcp add --transport http github https://api.githubcopilot.com/mcp -H 'Authorization: Bearer $(grep GITHUB_PAT .env | cut -d '=' -f2)'
 ```
 
 ```
-github mcp를 이용해 shopping-list-app이라는 저장소를 만들고 우리의 프로젝트를 push를 통해 업로드해줘.
+현재 폴더에 만들어진 쇼핑 리스트 앱을 깃허브에 저장하고 싶어. github mcp를 사용해서 shopping-listapp이라는 저장소를 만들고 업로드해 줘.
+```
+
+**Vercel:**
+```bash
+쇼핑 리스트 앱의 shopping -list.html 파일을 index.html로 수정해서 깃허브에 업로드해 줘
 ```
 
 **Supabase MCP:**
 ```bash
-claude mcp add supabase -s local -e SUPABASE_ACCESS_TOKEN=<내 API 토큰> -- cmd /c npx -y @supabase/mcp-server-supabase@latest
+claude mcp add supabase -s local -e SUPABASE_ACCESS_TOKEN=<Supabase API 토큰> -- cmd /c npx -y @supabase/mcp-server-supabase@latest
 ```
 
 ```
-supabase mcp를 이용해 쇼핑 리스트 앱을 데이터베이스와 연동해줘. 실시간 동기화가 되게 해줘.
+Supabase mcp를 이용해서 우리의 쇼핑 리스트 앱을 데이터베이스와 연동해 줘. shopping_items라는 테이블을 만들고, 현재 로컬 스토리지에 저장되던 데이터를 Supabase 데이터베이스에 저장하도록 코드를 수정해 줘. 수정이 완료되면 깃허브에 commit하고 push해 줘.
 ```
 
 ---
 
-Happy Vibe Coding! 🚀
+수고 많으셨습니다!
