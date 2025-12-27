@@ -18,7 +18,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# Initialize database
+# Ensure database is initialized (singleton - safe to call multiple times)
 init_database()
 
 

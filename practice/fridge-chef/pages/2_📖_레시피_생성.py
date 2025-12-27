@@ -12,7 +12,7 @@ from services.user import UserRecipeService
 from db.init_db import init_database
 from models.recipe import Recipe
 
-# Initialize database
+# Ensure database is initialized (singleton - safe to call multiple times)
 init_database()
 
 st.set_page_config(
@@ -215,30 +215,83 @@ def render_recipe_card(recipe: Recipe, idx: int):
         st.markdown("---")
 
 
+def get_recipe_error_message(error: Exception) -> dict:
+    """Convert recipe generation errors to user-friendly messages."""
+    error_str = str(error).lower()
+
+    if "timeout" in error_str:
+        return {
+            "title": "요청 시간이 초과되었습니다.",
+            "suggestion": "재료 개수를 줄이거나, 잠시 후 다시 시도해주세요."
+        }
+    elif "rate" in error_str or "429" in error_str:
+        return {
+            "title": "서버가 바쁩니다.",
+            "suggestion": "1분 후에 다시 시도해주세요."
+        }
+    else:
+        return {
+            "title": "레시피 생성 중 문제가 발생했습니다.",
+            "suggestion": "잠시 후 다시 시도해주세요."
+        }
+
+
 def generate_recipes(settings: dict):
-    """Generate recipes with the given settings."""
-    with st.spinner("🍳 AI가 맛있는 레시피를 생성하고 있습니다..."):
-        try:
-            service = RecipeService()
-            recipes = service.generate_recipes(
-                ingredients=st.session_state.recognized_ingredients,
-                difficulty=settings["difficulty"],
-                max_time=settings["max_time"],
-                dietary=settings["dietary"],
-                exclude=settings["exclude"],
-            )
+    """Generate recipes with progress feedback."""
+    # Show expected time
+    st.info("⏱️ 레시피 생성에는 약 10-20초가 소요됩니다.")
 
-            if recipes:
-                st.session_state.generated_recipes = recipes
-                st.success(f"✅ {len(recipes)}개의 레시피를 생성했습니다!")
-            else:
-                st.warning("⚠️ 레시피를 생성하지 못했습니다. 다시 시도해주세요.")
+    # Progress tracking
+    progress_bar = st.progress(0)
+    status_text = st.empty()
 
-        except ValueError as e:
-            st.error(f"❌ 설정 오류: {e}")
-        except Exception as e:
-            st.error(f"❌ 레시피 생성 중 오류가 발생했습니다: {e}")
-            st.info("💡 잠시 후 다시 시도해주세요.")
+    try:
+        # Step 1: Preparation
+        status_text.text("📦 재료 정보를 분석하고 있습니다...")
+        progress_bar.progress(20)
+
+        service = RecipeService()
+
+        # Step 2: API Call
+        status_text.text("🍳 AI가 맛있는 레시피를 고민하고 있습니다...")
+        progress_bar.progress(50)
+
+        recipes = service.generate_recipes(
+            ingredients=st.session_state.recognized_ingredients,
+            difficulty=settings["difficulty"],
+            max_time=settings["max_time"],
+            dietary=settings["dietary"],
+            exclude=settings["exclude"],
+        )
+
+        # Step 3: Process results
+        status_text.text("📋 레시피를 정리하고 있습니다...")
+        progress_bar.progress(90)
+
+        if recipes:
+            st.session_state.generated_recipes = recipes
+            progress_bar.progress(100)
+            status_text.empty()
+            progress_bar.empty()
+            st.success(f"✅ {len(recipes)}개의 레시피를 찾았습니다!")
+            st.balloons()
+        else:
+            progress_bar.empty()
+            status_text.empty()
+            st.warning("⚠️ 레시피를 찾지 못했습니다.")
+            st.info("💡 재료를 더 추가하거나, 설정을 변경해보세요.")
+
+    except ValueError as e:
+        progress_bar.empty()
+        status_text.empty()
+        st.error("❌ 서비스 설정에 문제가 있습니다.")
+        st.info("💡 관리자에게 문의해주세요.")
+    except Exception as e:
+        progress_bar.empty()
+        status_text.empty()
+        error_info = get_recipe_error_message(e)
+        st.error(f"❌ {error_info['title']}")
+        st.info(f"💡 {error_info['suggestion']}")
 
 
 def main():

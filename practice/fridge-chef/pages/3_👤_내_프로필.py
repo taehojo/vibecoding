@@ -15,7 +15,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# Initialize database
+# Ensure database is initialized (singleton - safe to call multiple times)
 init_database()
 
 
@@ -53,31 +53,109 @@ def render_login_form():
                     st.error("아이디 또는 비밀번호가 올바르지 않습니다.")
 
 
+def calculate_password_strength(password: str) -> str:
+    """Calculate password strength."""
+    if len(password) < 4:
+        return "weak"
+
+    has_upper = any(c.isupper() for c in password)
+    has_lower = any(c.islower() for c in password)
+    has_digit = any(c.isdigit() for c in password)
+    has_special = any(c in "!@#$%^&*()_+-=[]{}|;:',.<>?" for c in password)
+
+    score = sum([has_upper, has_lower, has_digit, has_special])
+
+    if len(password) >= 8 and score >= 3:
+        return "strong"
+    elif len(password) >= 6 and score >= 2:
+        return "medium"
+    return "weak"
+
+
 def render_register_form():
-    """Render registration form."""
+    """Render registration form with real-time validation."""
     st.markdown("### 📝 회원가입")
 
-    with st.form("register_form"):
-        username = st.text_input("아이디", placeholder="사용할 아이디")
-        nickname = st.text_input("닉네임", placeholder="표시될 닉네임")
-        password = st.text_input("비밀번호", type="password", placeholder="비밀번호")
-        password_confirm = st.text_input("비밀번호 확인", type="password", placeholder="비밀번호 재입력")
+    # Real-time validation (without form wrapper)
+    username = st.text_input(
+        "아이디",
+        placeholder="4자 이상의 영문/숫자",
+        key="reg_username"
+    )
 
-        submitted = st.form_submit_button("회원가입", use_container_width=True)
+    # Username validation
+    username_valid = False
+    if username:
+        if len(username) < 4:
+            st.warning("⚠️ 아이디는 4자 이상이어야 합니다.")
+        elif not username.replace("_", "").isalnum():
+            st.warning("⚠️ 아이디는 영문, 숫자, 밑줄(_)만 사용할 수 있습니다.")
+        else:
+            st.success("✅ 사용 가능한 아이디 형식입니다.")
+            username_valid = True
 
-        if submitted:
-            if not username or not password:
-                st.error("아이디와 비밀번호를 입력해주세요.")
-            elif password != password_confirm:
-                st.error("비밀번호가 일치하지 않습니다.")
-            elif len(password) < 4:
-                st.error("비밀번호는 4자 이상이어야 합니다.")
-            else:
-                user = AuthService.register(username, password, nickname)
-                if user:
-                    st.success("회원가입이 완료되었습니다! 로그인해주세요.")
-                else:
-                    st.error("이미 사용 중인 아이디입니다.")
+    nickname = st.text_input(
+        "닉네임",
+        placeholder="표시될 이름",
+        key="reg_nickname"
+    )
+
+    password = st.text_input(
+        "비밀번호",
+        type="password",
+        placeholder="4자 이상 (8자 이상 권장)",
+        key="reg_password"
+    )
+
+    # Password strength indicator
+    password_valid = False
+    if password:
+        strength = calculate_password_strength(password)
+        if strength == "weak":
+            st.warning("⚠️ 비밀번호가 너무 약합니다. 4자 이상 입력해주세요.")
+        elif strength == "medium":
+            st.info("💡 보통 강도의 비밀번호입니다. 특수문자를 추가하면 더 안전합니다.")
+            password_valid = True
+        else:
+            st.success("✅ 안전한 비밀번호입니다.")
+            password_valid = True
+
+    password_confirm = st.text_input(
+        "비밀번호 확인",
+        type="password",
+        placeholder="비밀번호 재입력",
+        key="reg_password_confirm"
+    )
+
+    # Password match check
+    passwords_match = False
+    if password_confirm:
+        if password != password_confirm:
+            st.error("❌ 비밀번호가 일치하지 않습니다.")
+        else:
+            st.success("✅ 비밀번호가 일치합니다.")
+            passwords_match = True
+
+    # Submit button (enabled only when all validations pass)
+    can_submit = username_valid and password_valid and passwords_match
+
+    st.markdown("")  # Spacing
+
+    if st.button(
+        "회원가입",
+        type="primary",
+        use_container_width=True,
+        disabled=not can_submit
+    ):
+        user = AuthService.register(username, password, nickname)
+        if user:
+            st.success("🎉 회원가입이 완료되었습니다! 로그인해주세요.")
+            st.balloons()
+        else:
+            st.error("❌ 이미 사용 중인 아이디입니다. 다른 아이디를 선택해주세요.")
+
+    if not can_submit and (username or password or password_confirm):
+        st.caption("💡 모든 항목을 올바르게 입력하면 회원가입 버튼이 활성화됩니다.")
 
 
 def render_profile_settings():

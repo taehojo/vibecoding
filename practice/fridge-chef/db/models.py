@@ -1,6 +1,6 @@
 """SQLAlchemy ORM models for Fridge Chef."""
 import json
-from datetime import datetime, UTC
+from datetime import datetime
 
 from sqlalchemy import (
     Column, Integer, String, Text, DateTime, ForeignKey, Index
@@ -19,8 +19,8 @@ class User(Base):
     password_hash = Column(String(255), nullable=False)
     nickname = Column(String(50))
     skill_level = Column(String(20), default="beginner")
-    created_at = Column(DateTime, default=lambda: datetime.now(UTC))
-    updated_at = Column(DateTime, default=lambda: datetime.now(UTC), onupdate=lambda: datetime.now(UTC))
+    created_at = Column(DateTime, default=lambda: datetime.now())
+    updated_at = Column(DateTime, default=lambda: datetime.now(), onupdate=lambda: datetime.now())
 
     # Relationships
     preferences = relationship("UserPreferences", back_populates="user", uselist=False, cascade="all, delete-orphan")
@@ -88,15 +88,21 @@ class SavedRecipe(Base):
     rating = Column(Integer)
     is_favorite = Column(Integer, default=0)
     share_id = Column(String(20), unique=True)
-    saved_at = Column(DateTime, default=lambda: datetime.now(UTC))
+    saved_at = Column(DateTime, default=lambda: datetime.now())
 
     # Relationships
     user = relationship("User", back_populates="saved_recipes")
     cooking_history = relationship("CookingHistory", back_populates="saved_recipe")
 
-    # Indexes
+    # Indexes for optimized queries
     __table_args__ = (
         Index("idx_saved_recipes_user", "user_id"),
+        # Index for share_id lookups
+        Index("idx_saved_recipes_share_id", "share_id"),
+        # Index for user + rating queries (dashboard)
+        Index("idx_saved_recipes_user_rating", "user_id", "rating"),
+        # Index for user + saved_at queries (sorting)
+        Index("idx_saved_recipes_user_saved_at", "user_id", "saved_at"),
     )
 
     def get_recipe_data(self) -> dict:
@@ -125,7 +131,7 @@ class CookingHistory(Base):
     saved_recipe_id = Column(Integer, ForeignKey("saved_recipes.id", ondelete="SET NULL"))
     recipe_name = Column(String(200), nullable=False)
     ingredients_used = Column(Text, default="[]")
-    cooked_at = Column(DateTime, default=lambda: datetime.now(UTC))
+    cooked_at = Column(DateTime, default=lambda: datetime.now())
     rating = Column(Integer)
     notes = Column(Text)
 
@@ -156,12 +162,16 @@ class IngredientUsage(Base):
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
     ingredient_name = Column(String(100), nullable=False)
     usage_count = Column(Integer, default=1)
-    last_used = Column(DateTime, default=lambda: datetime.now(UTC))
+    last_used = Column(DateTime, default=lambda: datetime.now())
 
     # Relationships
     user = relationship("User", back_populates="ingredient_usage")
 
-    # Indexes
+    # Indexes for optimized queries
     __table_args__ = (
         Index("idx_ingredient_usage_user", "user_id"),
+        # Composite index for filtering by user and ingredient
+        Index("idx_ingredient_usage_user_ingredient", "user_id", "ingredient_name"),
+        # Index for sorting by usage count
+        Index("idx_ingredient_usage_count", "user_id", "usage_count"),
     )

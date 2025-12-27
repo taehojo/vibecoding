@@ -1,5 +1,6 @@
 """Share modal component."""
 import streamlit as st
+from urllib.parse import quote
 
 from services.sharing import SharingService
 
@@ -53,22 +54,25 @@ def render_share_modal(
         cols = st.columns(4)
 
         share_text = f"맛있는 레시피를 공유합니다: {recipe_data.get('name', '레시피')}"
+        # URL encode the share text and URL for safe use in URLs
+        encoded_text = quote(share_text, safe='')
+        encoded_url = quote(share_url, safe='') if share_url else ''
 
         with cols[0]:
             # KakaoTalk (uses system share on mobile)
-            st.markdown(f"[카카오톡](kakaotalk://msg/text?text={share_text})")
+            st.markdown(f"[카카오톡](kakaotalk://msg/text?text={encoded_text})")
 
         with cols[1]:
             # Twitter/X
             if share_url:
-                st.markdown(f"[트위터](https://twitter.com/intent/tweet?text={share_text}&url={share_url})")
+                st.markdown(f"[트위터](https://twitter.com/intent/tweet?text={encoded_text}&url={encoded_url})")
             else:
-                st.markdown(f"[트위터](https://twitter.com/intent/tweet?text={share_text})")
+                st.markdown(f"[트위터](https://twitter.com/intent/tweet?text={encoded_text})")
 
         with cols[2]:
             # Facebook
             if share_url:
-                st.markdown(f"[페이스북](https://www.facebook.com/sharer/sharer.php?u={share_url})")
+                st.markdown(f"[페이스북](https://www.facebook.com/sharer/sharer.php?u={encoded_url})")
             else:
                 st.caption("페이스북")
 

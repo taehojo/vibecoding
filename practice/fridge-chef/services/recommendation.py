@@ -1,6 +1,6 @@
 """Personalized recipe recommendation engine."""
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import NamedTuple
 
 from sqlalchemy import func
@@ -72,29 +72,31 @@ class RecommendationService:
 
         Returns:
             Dict with cooking stats.
+
+        Performance: Uses single query with subqueries instead of 4 separate queries.
         """
         with get_db() as session:
-            # Total recipes saved
-            saved_count = session.query(func.count(SavedRecipe.id)).filter(
+            # Combine all SavedRecipe stats in a single query
+            saved_stats = session.query(
+                func.count(SavedRecipe.id).label("saved_count"),
+                func.avg(SavedRecipe.rating).filter(
+                    SavedRecipe.rating.isnot(None)
+                ).label("avg_rating"),
+                func.count(SavedRecipe.id).filter(
+                    SavedRecipe.is_favorite == 1
+                ).label("favorite_count"),
+            ).filter(
                 SavedRecipe.user_id == self.user_id
-            ).scalar() or 0
+            ).first()
 
-            # Total cooking instances
+            # Cooking count in separate query (different table)
             cooked_count = session.query(func.count(CookingHistory.id)).filter(
                 CookingHistory.user_id == self.user_id
             ).scalar() or 0
 
-            # Average rating
-            avg_rating = session.query(func.avg(SavedRecipe.rating)).filter(
-                SavedRecipe.user_id == self.user_id,
-                SavedRecipe.rating.isnot(None)
-            ).scalar() or 0
-
-            # Favorite count
-            favorite_count = session.query(func.count(SavedRecipe.id)).filter(
-                SavedRecipe.user_id == self.user_id,
-                SavedRecipe.is_favorite == 1
-            ).scalar() or 0
+            saved_count = saved_stats.saved_count or 0
+            avg_rating = saved_stats.avg_rating or 0
+            favorite_count = saved_stats.favorite_count or 0
 
             return {
                 "saved_count": saved_count,
@@ -265,9 +267,7 @@ class RecommendationService:
 
                 if cook_date == expected_date:
                     streak += 1
-                    expected_date = expected_date.replace(
-                        day=expected_date.day - 1
-                    ) if expected_date.day > 1 else None
+                    expected_date = expected_date - timedelta(days=1)
                 elif cook_date < expected_date:
                     break
                 # Skip if future date

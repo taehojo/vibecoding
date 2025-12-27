@@ -1,8 +1,20 @@
-"""Vision service for ingredient recognition using OpenRouter API."""
+"""Vision service for ingredient recognition using OpenRouter API.
+
+Performance optimizations:
+- Connection pooling via shared session
+- Retry logic with exponential backoff
+- Validated response parsing
+"""
 import base64
 import re
-import requests
+
 from .config import Config
+from .api_utils import (
+    get_api_session,
+    validate_openrouter_response,
+    retry_with_backoff,
+    APIError,
+)
 
 
 class VisionService:
@@ -13,6 +25,7 @@ class VisionService:
         self.base_url = Config.OPENROUTER_BASE_URL
         self.model = Config.VISION_MODEL
         self.timeout = Config.API_TIMEOUT
+        self._session = get_api_session()
 
     def _get_headers(self) -> dict:
         """Get API request headers."""
@@ -60,6 +73,7 @@ class VisionService:
 
         return ingredients
 
+    @retry_with_backoff(max_retries=3, initial_delay=1.0)
     def recognize_ingredients(self, image_bytes: bytes, content_type: str = "image/jpeg") -> list[str]:
         """Recognize ingredients from image bytes.
 
@@ -72,7 +86,7 @@ class VisionService:
 
         Raises:
             ValueError: If API key is not configured
-            requests.RequestException: If API request fails
+            APIError: If API request fails after retries
         """
         if not self.api_key:
             raise ValueError("OPENROUTER_API_KEY is not configured")
@@ -92,7 +106,7 @@ class VisionService:
             ],
         }
 
-        response = requests.post(
+        response = self._session.post(
             self.base_url,
             headers=self._get_headers(),
             json=payload,
@@ -101,6 +115,8 @@ class VisionService:
         response.raise_for_status()
 
         result = response.json()
-        content = result["choices"][0]["message"]["content"]
+
+        # Validate and extract content using utility
+        content = validate_openrouter_response(result)
 
         return self._parse_ingredients(content)

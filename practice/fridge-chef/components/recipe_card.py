@@ -115,7 +115,25 @@ def render_recipe_card(
 
             with cols[3]:
                 if on_delete:
-                    if st.button("🗑️ 삭제", key=f"{key_prefix}_delete", use_container_width=True):
-                        on_delete(saved_recipe)
+                    # Delete confirmation state management
+                    confirm_key = f"{key_prefix}_confirm_delete"
+
+                    if st.session_state.get(confirm_key, False):
+                        # Confirmation mode
+                        st.warning("정말 삭제할까요?")
+                        col_yes, col_no = st.columns(2)
+                        with col_yes:
+                            if st.button("삭제", key=f"{key_prefix}_confirm_yes", type="primary"):
+                                on_delete(saved_recipe)
+                                st.session_state[confirm_key] = False
+                        with col_no:
+                            if st.button("취소", key=f"{key_prefix}_confirm_no"):
+                                st.session_state[confirm_key] = False
+                                st.rerun()
+                    else:
+                        # Normal mode
+                        if st.button("🗑️ 삭제", key=f"{key_prefix}_delete", use_container_width=True):
+                            st.session_state[confirm_key] = True
+                            st.rerun()
 
         st.markdown("---")

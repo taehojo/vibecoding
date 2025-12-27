@@ -10,6 +10,38 @@ from services.vision import VisionService
 from services.config import Config
 from utils.image import ImageProcessor
 
+
+def get_user_friendly_error(error: Exception) -> dict:
+    """Convert technical errors to user-friendly messages."""
+    error_str = str(error).lower()
+
+    if "timeout" in error_str or "timed out" in error_str:
+        return {
+            "title": "응답 시간이 초과되었습니다.",
+            "suggestion": "인터넷 연결을 확인하고 다시 시도해주세요. 이미지 크기가 크다면 더 작은 이미지를 사용해보세요."
+        }
+    elif "connection" in error_str or "network" in error_str:
+        return {
+            "title": "서버에 연결할 수 없습니다.",
+            "suggestion": "인터넷 연결을 확인해주세요."
+        }
+    elif "rate limit" in error_str or "429" in error_str:
+        return {
+            "title": "요청이 너무 많습니다.",
+            "suggestion": "잠시 후(약 1분) 다시 시도해주세요."
+        }
+    elif "api" in error_str or "key" in error_str:
+        return {
+            "title": "서비스 설정에 문제가 있습니다.",
+            "suggestion": "관리자에게 문의하거나 잠시 후 다시 시도해주세요."
+        }
+    else:
+        return {
+            "title": "재료 인식 중 문제가 발생했습니다.",
+            "suggestion": "다른 이미지를 시도하거나 잠시 후 다시 시도해주세요."
+        }
+
+
 st.set_page_config(
     page_title="재료 인식 - Fridge Chef",
     page_icon="🍳",
@@ -134,10 +166,12 @@ def process_image(image_bytes: bytes, filename: str):
                 st.warning("⚠️ 재료를 인식하지 못했습니다. 다른 이미지를 시도해보세요.")
 
         except ValueError as e:
-            st.error(f"❌ 설정 오류: {e}")
+            st.error("❌ 서비스 설정에 문제가 있습니다.")
+            st.info("💡 관리자에게 문의하거나 잠시 후 다시 시도해주세요.")
         except Exception as e:
-            st.error(f"❌ 인식 중 오류가 발생했습니다: {e}")
-            st.info("💡 잠시 후 다시 시도해주세요.")
+            error_info = get_user_friendly_error(e)
+            st.error(f"❌ {error_info['title']}")
+            st.info(f"💡 {error_info['suggestion']}")
 
 
 def main():

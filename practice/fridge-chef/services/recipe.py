@@ -1,14 +1,24 @@
-"""Recipe generation service using OpenRouter API."""
+"""Recipe generation service using OpenRouter API.
+
+Performance optimizations:
+- Connection pooling via shared session
+- Retry logic with exponential backoff
+- Validated response parsing
+"""
 import sys
 from pathlib import Path
-
-import requests
 
 # Add project root to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from models.recipe import Recipe
 from services.config import Config
+from services.api_utils import (
+    get_api_session,
+    validate_openrouter_response,
+    retry_with_backoff,
+    APIError,
+)
 from utils.parser import RecipeParser
 
 
@@ -23,6 +33,7 @@ class RecipeService:
         self.api_key = Config.OPENROUTER_API_KEY
         self.base_url = Config.OPENROUTER_BASE_URL
         self.model = Config.RECIPE_MODEL
+        self._session = get_api_session()
 
     def _build_prompt(
         self,
@@ -86,6 +97,7 @@ class RecipeService:
 
 반드시 유효한 JSON 형식으로만 응답해주세요. 다른 설명 없이 JSON만 출력하세요."""
 
+    @retry_with_backoff(max_retries=3, initial_delay=1.0)
     def generate_recipes(
         self,
         ingredients: list[str],
@@ -98,7 +110,7 @@ class RecipeService:
 
         Args:
             ingredients: List of available ingredients.
-            difficulty: Desired difficulty level (쉬움/보통/어려움).
+            difficulty: Desired difficulty level.
             max_time: Maximum cooking time in minutes.
             dietary: Dietary restrictions.
             exclude: Ingredients to exclude.
@@ -107,7 +119,7 @@ class RecipeService:
             List of Recipe objects.
 
         Raises:
-            requests.RequestException: If API call fails.
+            APIError: If API call fails after retries.
             ValueError: If response cannot be parsed.
         """
         if not ingredients:
@@ -138,7 +150,7 @@ class RecipeService:
             "max_tokens": 4096,
         }
 
-        response = requests.post(
+        response = self._session.post(
             self.base_url,
             headers=headers,
             json=payload,
@@ -147,7 +159,9 @@ class RecipeService:
         response.raise_for_status()
 
         result = response.json()
-        content = result["choices"][0]["message"]["content"]
+
+        # Validate and extract content using utility
+        content = validate_openrouter_response(result)
 
         return self._parse_response(content)
 
