@@ -189,3 +189,10 @@
 ## 📖 더 알아보기
 
 **[혼공 바이브코딩 집필 에피소드](https://www.hanbit.co.kr/channel/view.html?cmscode=CMS3592606738)**
+
+---
+
+## 🛠️ 클로드 코드 설치 가이드
+
+- **[macOS 설치 가이드](INSTALL-MAC.md)** - Mac 사용자를 위한 설치 안내
+- **[Linux 설치 가이드](INSTALL-LINUX.md)** - Linux 사용자를 위한 설치 안내
