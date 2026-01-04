@@ -794,8 +794,15 @@ claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "
 
 
 **Playwright MCP:**
-```bash
+
+Windows 명령 프롬프트(cmd)에서 실행하는 경우:
+```cmd
 claude mcp add playwright -- cmd /c npx @playwright/mcp@latest
+```
+
+Windows PowerShell에서 실행하는 경우:
+```powershell
+claude mcp add playwright -- npx @playwright/mcp@latest
 ```
 
 ```
