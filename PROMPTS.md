@@ -770,8 +770,15 @@ claude mcp add --transport http notion https://mcp.notion.com/mcp
 ```
 
 **Sequential Thinking MCP:**
-```bash
+
+Windows 명령 프롬프트(cmd)에서 실행하는 경우:
+```cmd
 claude mcp add sequential-thinking -s local -- cmd /c npx -y @modelcontextprotocol/server-sequential-thinking@latest
+```
+
+Windows PowerShell에서 실행하는 경우:
+```powershell
+claude mcp add sequential-thinking -s local -- npx -y @modelcontextprotocol/server-sequential-thinking@latest
 ```
 
 ```
