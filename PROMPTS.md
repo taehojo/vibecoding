@@ -778,7 +778,7 @@ claude mcp add sequential-thinking -s local -- cmd /c npx -y @modelcontextprotoc
 
 Windows PowerShell에서 실행하는 경우:
 ```powershell
-claude mcp add sequential-thinking -s local -- npx -y @modelcontextprotocol/server-sequential-thinking@latest
+claude mcp add sequential-thinking -s local -- npx @modelcontextprotocol/server-sequential-thinking@latest
 ```
 
 ```
