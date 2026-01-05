@@ -80,7 +80,7 @@
   - 프로젝트 설정 파일의 이해
   - 계층적 구조 활용하여 웹 버전 손글씨 인식 프로그램 만들기
 >
-> **예제**: 손글씨 인식 프로그램 [(라이브 데모)](https://vibecoding-ch03.vercel.app) - MNIST 데이터셋을 활용한 숫자 인식 데스크톱 앱 + 웹 버전 확장 (계층적 폴더 구조 사용)
+> **예제**: 손글씨 인식 프로그램 [🎯 라이브 데모](https://vibecoding-ch03.vercel.app) - MNIST 데이터셋을 활용한 숫자 인식 데스크톱 앱 + 웹 버전 확장 (계층적 폴더 구조 사용)
 
 **Chapter 4: 클로드 코드 실전 활용** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=EOnUXdUIXqQ)
 - 04-1 단계별 프롬프트와 함께 클로드 코드 명령어 익히기
@@ -95,7 +95,7 @@
   - 참조를 통해 코드 빠르게 점검하기
   - 클로드 코드 프로젝트 관리하기
 
-> **예제**: 할 일 관리 앱 [(라이브 데모)](https://taehojo.github.io/vibecoding/Study-02/) - 할 일 추가/수정/삭제, 카테고리 분류, 진행률 대시보드, 다크 모드 (웹 + PC 버전)
+> **예제**: 할 일 관리 앱 [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-02/) - 할 일 추가/수정/삭제, 카테고리 분류, 진행률 대시보드, 다크 모드 (웹 + PC 버전)
 
 **Chapter 5: 게임 제작으로 배우는 체계적인 개발과 관리** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=v4kZ4ErsxlU)
 - 05-1 할루시네이션 없는 AI 콘텐츠 만들기
@@ -112,7 +112,7 @@
   - 클로드 코드가 스스로 만드는 커스텀 명령어
   - 효율적인 유지보수 워크플로 구축하기
 
-> **예제**: 상식 퀴즈 게임 [(라이브 데모)](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/) - 4지선다 객관식, 카테고리별 모드, 점수 시스템, 리더보드 (할루시네이션 검증 가이드라인 적용, 커스텀 명령어 자동화)
+> **예제**: 상식 퀴즈 게임 [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/) - 4지선다 객관식, 카테고리별 모드, 점수 시스템, 리더보드 (할루시네이션 검증 가이드라인 적용, 커스텀 명령어 자동화)
 
 **Chapter 6: 클로드 코드에 API 날개 달기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=bPTzqCIp-uc)
 - 06-1 클로드 코드에서 API 설정하기
@@ -125,7 +125,7 @@
   - 2단계: 레시피 생성하기
   - 3단계: 사용자 프로필에 레시피 저장하기
 
-> **예제**: 냉장고를 부탁해 앱 [(라이브 데모)](https://vibecoding-ch06.vercel.app) - 냉장고 사진 업로드 ([입력예제](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/냉장고2.jpg)) → 재료 인식 → 레시피 추천 → 사용자 프로필/저장 기능 (3단계 구현)
+> **예제**: 냉장고를 부탁해 앱 [🎯 라이브 데모](https://vibecoding-ch06.vercel.app) - 냉장고 사진 업로드 ([📥 입력예제](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/냉장고2.jpg)) → 재료 인식 → 레시피 추천 → 사용자 프로필/저장 기능 (3단계 구현)
 
 **Chapter 7: 클로드 코드 AI 에이전트로 개발팀 구성하기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=_kKX2kqBD58)
 - 07-1 클로드 코드의 AI 에이전트 이해하기
@@ -140,8 +140,8 @@
   - 에이전트 팀과 완성하는 애플리케이션, 'PDF 요약 AI'
 
 > **예제**:
-> - AI 공감 다이어리 앱 [(라이브 데모)](https://vibecoding-ch07.vercel.app): 하루 일기 입력 → 감정 분석 → 공감 메시지 생성 (에이전트 협업: 백엔드, 프론트, QA)
-> - PDF 문서 요약 AI [(라이브 데모)](https://vibecoding-ch07.vercel.app/pdf): PDF 업로드 ([입력예제](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/한글맞춤법.pdf)) → 텍스트 추출 → 요약/분석 (5 에이전트 협업: 기획, 백엔드, AI 통합, 프론트, QA)
+> - AI 공감 다이어리 앱 [🎯 라이브 데모](https://vibecoding-ch07.vercel.app): 하루 일기 입력 → 감정 분석 → 공감 메시지 생성 (에이전트 협업: 백엔드, 프론트, QA)
+> - PDF 문서 요약 AI [🎯 라이브 데모](https://vibecoding-ch07.vercel.app/pdf): PDF 업로드 ([📥 입력예제](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/한글맞춤법.pdf)) → 텍스트 추출 → 요약/분석 (5 에이전트 협업: 기획, 백엔드, AI 통합, 프론트, QA)
 
 **Chapter 8: MCP로 클로드 코드의 한계 넘어서기** (▶️ 유튜브 강의 준비중)
 - 08-1 MCP 이해하고 클로드 코드와 연결하기
@@ -158,7 +158,7 @@
   - 애플리케이션에 데이터베이스 연동하기
   - 쇼핑 리스트 앱 진짜 서비스로 업그레이드하기
 
-> **예제**: 쇼핑 리스트 앱 [(라이브 데모)](https://shopping-list-app-chi-blush.vercel.app) - Playwright 자동 테스트 → 깃허브 업로드 → Vercel 배포 → Supabase 데이터베이스 연동으로 완성도 높은 실전 서비스 구축
+> **예제**: 쇼핑 리스트 앱 [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app) - Playwright 자동 테스트 → 깃허브 업로드 → Vercel 배포 → Supabase 데이터베이스 연동으로 완성도 높은 실전 서비스 구축
 
 ---
 
