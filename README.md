@@ -162,29 +162,20 @@
 
 ---
 
-## 📦 프로젝트
+## 📦 실습 결과 폴더 안내
 
-각 Chapter의 완성된 실습 프로젝트입니다. 🎯 라이브 데모를 클릭하여 바로 실행해보세요!
+각 챕터의 실습 결과물이 저장된 폴더입니다. 책의 실습을 따라하면 해당 폴더와 동일한 결과물이 만들어집니다.
 
-### Chapter 3: 손글씨 인식 프로그램
-- **Study-01**: [🎯 라이브 데모](https://vibecoding-ch03.vercel.app)
-
-### Chapter 4: 할 일 관리 앱
-- **Study-02**: [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-02/)
-
-### Chapter 5: 상식 퀴즈 게임
-- **Study-03-basic** (기본): [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic) (실습 참조용)
-- **Study-03-advanced** (고급): [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/)
-
-### Chapter 6: 냉장고를 부탁해 (AI 레시피 추천)
-- **Study-04**: [🎯 라이브 데모](https://vibecoding-ch06.vercel.app)
-
-### Chapter 7: 공감 AI 다이어리, PDF 문서 요약 AI
-- **Study-05 (공감 AI 다이어리)**: [🎯 라이브 데모](https://vibecoding-ch07.vercel.app)
-- **Study-05 (PDF 문서 요약 AI)**: [🎯 라이브 데모](https://vibecoding-ch07.vercel.app/pdf)
-
-### Chapter 8: 쇼핑 리스트 앱 (데이터베이스 연동)
-- **Study-06**: [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app)
+| 챕터 | 폴더명 | 실습 내용 | 바로가기 |
+|:---:|:---:|:---|:---:|
+| 3장 | `Study-01` | 손글씨 인식 프로그램 | [🎯 라이브 데모](https://vibecoding-ch03.vercel.app) |
+| 4장 | `Study-02` | 할 일 관리 앱 | [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-02/) |
+| 5장 | `Study-03-basic` | 상식 퀴즈 게임 (기본) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic) |
+| 5장 | `Study-03-advanced` | 상식 퀴즈 게임 (고급) | [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/) |
+| 6장 | `Study-04` | 냉장고를 부탁해 (AI 레시피 추천) | [🎯 라이브 데모](https://vibecoding-ch06.vercel.app) |
+| 7장 | `Study-05` | 공감 AI 다이어리 | [🎯 라이브 데모](https://vibecoding-ch07.vercel.app) |
+| 7장 | `Study-05` | PDF 문서 요약 AI | [🎯 라이브 데모](https://vibecoding-ch07.vercel.app/pdf) |
+| 8장 | `Study-06` | 쇼핑 리스트 앱 (데이터베이스 연동) | [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app) |
 
 ---
 
