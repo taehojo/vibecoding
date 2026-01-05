@@ -41,7 +41,7 @@
 
 ## 📖 목차
 
-**1장: 나의 첫 바이브 코딩** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=n6xAUiTTrZU) [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#01장-나의-첫-바이브-코딩)
+**1장: 나의 첫 바이브 코딩** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=n6xAUiTTrZU) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#01장-나의-첫-바이브-코딩)
 - 01-1 나의 코딩 파트너, AI 어시스턴트
   - 바이브 코딩
   - AI 통합 도구의 등장
@@ -55,7 +55,7 @@
 >
 > **예제**: 나만의 첫 웹페이지 - 날씨, 뉴스, 시계, 검색 기능을 포함한 개인 시작 페이지 (Claude Artifacts 사용)
 
-**2장: 효과적인 프롬프트로 AI 200% 활용하기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=n6xAUiTTrZU) [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#02장-효과적인-프롬프트로-ai-200-활용하기)
+**2장: 효과적인 프롬프트로 AI 200% 활용하기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=n6xAUiTTrZU) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#02장-효과적인-프롬프트로-ai-200-활용하기)
 - 02-1 AI를 깨우는 프롬프트의 비밀
   - 프롬프트의 중요성
   - 제품 기획서 초안 작성하기
@@ -68,7 +68,7 @@
 
 > **예제**: 마케팅 포트폴리오 웹사이트 - 채용 담당자가 30초 안에 역량 파악 가능한 포트폴리오 (히어로 섹션, 요약 섹션, 포트폴리오 섹션 단계별 구현)
 
-**3장: 클로드 코드 시작하기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=i6ND1uIRF_g) [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#03장-클로드-코드-시작하기)
+**3장: 클로드 코드 시작하기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=i6ND1uIRF_g) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#03장-클로드-코드-시작하기)
 - 03-1 클로드 코드 설치하기
   - 실습 환경 준비하기
   - 터미널 실행하기
@@ -82,7 +82,7 @@
 >
 > **예제**: 손글씨 인식 프로그램 [🎯 라이브 데모](https://vibecoding-ch03.vercel.app) - MNIST 데이터셋을 활용한 숫자 인식 데스크톱 앱 + 웹 버전 확장 (계층적 폴더 구조 사용)
 
-**4장: 클로드 코드 실전 활용** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=EOnUXdUIXqQ) [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#04장-클로드-코드-실전-활용)
+**4장: 클로드 코드 실전 활용** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=EOnUXdUIXqQ) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#04장-클로드-코드-실전-활용)
 - 04-1 단계별 프롬프트와 함께 클로드 코드 명령어 익히기
   - 단계별 프롬프트 작성하기
   - 단계별 프롬프트 실행하기
@@ -97,7 +97,7 @@
 
 > **예제**: 할 일 관리 앱 [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-02/) - 할 일 추가/수정/삭제, 카테고리 분류, 진행률 대시보드, 다크 모드 (웹 + PC 버전)
 
-**5장: 게임 제작으로 배우는 체계적인 개발과 관리** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=v4kZ4ErsxlU) [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#05장-게임-제작으로-배우는-체계적인-개발과-관리)
+**5장: 게임 제작으로 배우는 체계적인 개발과 관리** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=v4kZ4ErsxlU) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#05장-게임-제작으로-배우는-체계적인-개발과-관리)
 - 05-1 할루시네이션 없는 AI 콘텐츠 만들기
   - 1단계: 퀴즈 게임 구현하기
   - 할루시네이션 해결하기
@@ -114,7 +114,7 @@
 
 > **예제**: 상식 퀴즈 게임 [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/) - 4지선다 객관식, 카테고리별 모드, 점수 시스템, 리더보드 (할루시네이션 검증 가이드라인 적용, 커스텀 명령어 자동화)
 
-**6장: 클로드 코드에 API 날개 달기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=bPTzqCIp-uc) [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#06장-클로드-코드에-api-날개-달기)
+**6장: 클로드 코드에 API 날개 달기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=bPTzqCIp-uc) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#06장-클로드-코드에-api-날개-달기)
 - 06-1 클로드 코드에서 API 설정하기
   - API의 개념과 활용 방법
   - AI 모델 선택하기
@@ -127,7 +127,7 @@
 
 > **예제**: 냉장고를 부탁해 앱 [🎯 라이브 데모](https://vibecoding-ch06.vercel.app) - 냉장고 사진 업로드 ([📥 입력예제](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/냉장고2.jpg)) → 재료 인식 → 레시피 추천 → 사용자 프로필/저장 기능 (3단계 구현)
 
-**7장: 클로드 코드 AI 에이전트로 개발팀 구성하기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=_kKX2kqBD58) [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#07장-클로드-코드-ai-에이전트로-개발팀-구성하기)
+**7장: 클로드 코드 AI 에이전트로 개발팀 구성하기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=_kKX2kqBD58) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#07장-클로드-코드-ai-에이전트로-개발팀-구성하기)
 - 07-1 클로드 코드의 AI 에이전트 이해하기
   - 나의 첫 에이전트, 코드 리뷰어
   - 최적화 에이전트
@@ -143,7 +143,7 @@
 > - AI 공감 다이어리 앱 [🎯 라이브 데모](https://vibecoding-ch07.vercel.app): 하루 일기 입력 → 감정 분석 → 공감 메시지 생성 (에이전트 협업: 백엔드, 프론트, QA)
 > - PDF 문서 요약 AI [🎯 라이브 데모](https://vibecoding-ch07.vercel.app/pdf): PDF 업로드 ([📥 입력예제](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/한글맞춤법.pdf)) → 텍스트 추출 → 요약/분석 (5 에이전트 협업: 기획, 백엔드, AI 통합, 프론트, QA)
 
-**8장: MCP로 클로드 코드의 한계 넘어서기** (▶️ 유튜브 강의 준비중) [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#08장-mcp로-클로드-코드의-한계-넘어서기)
+**8장: MCP로 클로드 코드의 한계 넘어서기** (▶️ 유튜브 강의 준비중) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#08장-mcp로-클로드-코드의-한계-넘어서기)
 - 08-1 MCP 이해하고 클로드 코드와 연결하기
   - MCP가 열어준 AI의 무한 확장 가능성
   - 클로드 코드와 노션 연결하기
