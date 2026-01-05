@@ -1,7 +1,7 @@
 <h1 align="center">혼자 공부하는 바이브코딩 with 클로드코드</h1>
 
 <div align="center">
-  <img src="https://image.yes24.com/goods/167573138/XL" alt="혼자 공부하는 바이브코딩 with 클로드코드" width="300">
+  <a href="https://www.yes24.com/product/goods/167573138"><img src="https://image.yes24.com/goods/167573138/XL" alt="혼자 공부하는 바이브코딩 with 클로드코드" width="300"></a>
 
   <p>AI와 대화하며 코딩하는 새로운 개발 방식, <strong>바이브 코딩</strong>을 배워보세요.<br>
   클로드 코드와 함께 프롬프트만으로 웹 애플리케이션을 만들 수 있습니다.</p>
