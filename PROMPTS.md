@@ -836,7 +836,7 @@ claude mcp add supabase -s local -e SUPABASE_ACCESS_TOKEN=<Supabase API 토큰> 
 
 Windows PowerShell에서 실행하는 경우:
 ```powershell
-claude mcp add --scope project --transport http supabase "https://mcp.supabase.com/mcp"
+claude mcp add --transport http supabase "https://mcp.supabase.com/mcp"
 ```
 
 ```
