@@ -1,4 +1,4 @@
-# 혼자 공부하는 바이브코딩 with 클로드코드
+<h1 align="center">혼자 공부하는 바이브코딩 with 클로드코드</h1>
 
 <div align="center">
   <img src="https://image.yes24.com/goods/167573138/XL" alt="혼자 공부하는 바이브코딩 with 클로드코드" width="300">
