@@ -7,13 +7,9 @@
   클로드 코드와 함께 프롬프트만으로 웹 애플리케이션을 만들 수 있습니다.</p>
 
   <p>
-    <a href="https://www.yes24.com/product/goods/167573138"><img src="https://img.shields.io/badge/예스24-구매하기-blue?style=for-the-badge" alt="예스24"></a>
-    <a href="https://product.kyobobook.co.kr/detail/S000218728879"><img src="https://img.shields.io/badge/교보문고-구매하기-blue?style=for-the-badge" alt="교보문고"></a>
-    <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ISBN=K902033034"><img src="https://img.shields.io/badge/알라딘-구매하기-blue?style=for-the-badge" alt="알라딘"></a>
-  </p>
-
-  <p>
-    <a href="https://www.youtube.com/playlist?list=PLwVlmsyd5oN5zmup3eAuCbKlu9TRXImA6"><img src="https://img.shields.io/badge/▶️_유튜브_강의-전체_재생목록-red?style=for-the-badge" alt="유튜브 강의"></a>
+    <a href="https://www.yes24.com/product/goods/167573138"><img src="https://img.shields.io/badge/예스24-0078FF?style=for-the-badge&logo=bookstack&logoColor=white" alt="예스24"></a>
+    <a href="https://product.kyobobook.co.kr/detail/S000218728879"><img src="https://img.shields.io/badge/교보문고-003366?style=for-the-badge&logo=bookstack&logoColor=white" alt="교보문고"></a>
+    <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ISBN=K902033034"><img src="https://img.shields.io/badge/알라딘-FF6B35?style=for-the-badge&logo=bookstack&logoColor=white" alt="알라딘"></a>
   </p>
 </div>
 
@@ -51,6 +47,8 @@
 </div>
 
 ---
+
+▶️ **[유튜브 강의 전체 재생목록](https://www.youtube.com/playlist?list=PLwVlmsyd5oN5zmup3eAuCbKlu9TRXImA6)** - 책과 함께 보는 무료 강의
 
 📝 **[전체 프롬프트 모음 보기](PROMPTS.md)** - 교재의 안내에 따라 프롬프트를 사용하세요.
 
