@@ -1,6 +1,25 @@
 # 혼자 공부하는 바이브코딩 with 클로드코드
 
 <div align="center">
+  <img src="https://image.yes24.com/goods/167573138/XL" alt="혼자 공부하는 바이브코딩 with 클로드코드" width="300">
+
+  <p>AI와 대화하며 코딩하는 새로운 개발 방식, <strong>바이브 코딩</strong>을 배워보세요.<br>
+  클로드 코드와 함께 프롬프트만으로 웹 애플리케이션을 만들 수 있습니다.</p>
+
+  <p>
+    <a href="https://www.yes24.com/product/goods/167573138"><img src="https://img.shields.io/badge/예스24-구매하기-blue?style=for-the-badge" alt="예스24"></a>
+    <a href="https://product.kyobobook.co.kr/detail/S000218728879"><img src="https://img.shields.io/badge/교보문고-구매하기-blue?style=for-the-badge" alt="교보문고"></a>
+    <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ISBN=K902033034"><img src="https://img.shields.io/badge/알라딘-구매하기-blue?style=for-the-badge" alt="알라딘"></a>
+  </p>
+
+  <p>
+    <a href="https://www.youtube.com/playlist?list=PLwVlmsyd5oN5zmup3eAuCbKlu9TRXImA6"><img src="https://img.shields.io/badge/▶️_유튜브_강의-전체_재생목록-red?style=for-the-badge" alt="유튜브 강의"></a>
+  </p>
+</div>
+
+---
+
+<div align="center">
   <h3>📱 실습 결과 일부 미리보기</h3>
   <p><em>이미지를 클릭하면 라이브 데모를 바로 실행할 수 있습니다</em></p>
 
