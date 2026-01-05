@@ -838,6 +838,7 @@ Windows PowerShell에서 실행하는 경우:
 claude mcp add --scope project --transport http supabase "https://mcp.supabase.com/mcp"
 ```
 
+```
 Supabase mcp를 이용해서 우리의 쇼핑 리스트 앱을 데이터베이스와 연동해 줘. shopping_items라는 테이블을 만들고, 현재 로컬 스토리지에 저장되던 데이터를 Supabase 데이터베이스에 저장하도록 코드를 수정해 줘. 수정이 완료되면 깃허브에 commit하고 push해 줘.
 ```
 
