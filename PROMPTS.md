@@ -828,6 +828,7 @@ claude mcp add --transport http github https://api.githubcopilot.com/mcp -H 'Aut
 ```
 
 **Supabase MCP:**
+
 Windows 명령 프롬프트(cmd)에서 실행하는 경우:
 ```cmd
 claude mcp add supabase -s local -e SUPABASE_ACCESS_TOKEN=<Supabase API 토큰> -- cmd /c npx -y @supabase/mcp-server-supabase@latest
