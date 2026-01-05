@@ -63,3 +63,9 @@ logs/
 *.temp
 temp/
 tmp/
+
+# Excel temp files
+~$*
+
+# Local only
+정오표.xlsx
