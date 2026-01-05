@@ -9,7 +9,7 @@
   <p>
     <a href="https://www.yes24.com/product/goods/167573138"><img src="https://img.shields.io/badge/예스24-0078FF?style=for-the-badge&logo=bookstack&logoColor=white" alt="예스24"></a>
     <a href="https://product.kyobobook.co.kr/detail/S000218728879"><img src="https://img.shields.io/badge/교보문고-003366?style=for-the-badge&logo=bookstack&logoColor=white" alt="교보문고"></a>
-    <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ISBN=K902033034"><img src="https://img.shields.io/badge/알라딘-FF6B35?style=for-the-badge&logo=bookstack&logoColor=white" alt="알라딘"></a>
+    <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ISBN=K902033034"><img src="https://img.shields.io/badge/알라딘-7952B3?style=for-the-badge&logo=bookstack&logoColor=white" alt="알라딘"></a>
   </p>
 </div>
 
