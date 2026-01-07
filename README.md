@@ -160,7 +160,7 @@
 > - AI 공감 다이어리 앱 [🎯 라이브 데모](https://vibecoding-ch07.vercel.app): 하루 일기 입력 → 감정 분석 → 공감 메시지 생성 (에이전트 협업: 백엔드, 프론트, QA)
 > - PDF 문서 요약 AI [🎯 라이브 데모](https://vibecoding-ch07.vercel.app/pdf): PDF 업로드 ([📥 입력예제](https://raw.githubusercontent.com/taehojo/vibecoding/master/입력예제/한글맞춤법.pdf)) → 텍스트 추출 → 요약/분석 (5 에이전트 협업: 기획, 백엔드, AI 통합, 프론트, QA)
 
-**8장: MCP로 클로드 코드의 한계 넘어서기** (▶️ 유튜브 강의 준비중) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#08장-mcp로-클로드-코드의-한계-넘어서기)
+**8장: MCP로 클로드 코드의 한계 넘어서기** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=owhCgXcax_o) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#08장-mcp로-클로드-코드의-한계-넘어서기)
 - 08-1 MCP 이해하고 클로드 코드와 연결하기
   - MCP가 열어준 AI의 무한 확장 가능성
   - 클로드 코드와 노션 연결하기
