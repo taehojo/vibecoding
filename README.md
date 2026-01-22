@@ -52,7 +52,13 @@
 
 📝 **[전체 프롬프트 모음 보기](PROMPTS.md)** - 교재의 안내에 따라 프롬프트를 사용하세요.
 
-📋 **[정오표 보기](https://raw.githubusercontent.com/taehojo/vibecoding/master/정오표.pdf)**
+📋 **[정오표 보기](https://raw.githubusercontent.com/taehojo/vibecoding/master/정오표-20260120.pdf)**
+
+🆕 **[책 이후의 업데이트 - 플러그인(/plugin) 활용하기](책이후의-업데이트-01/)**
+
+🆕 **[책 이후의 업데이트 - 마켓플레이스(marketplace) 설치하고 사용하기](책이후의-업데이트-02/)** (작성중)
+
+🆕 **[책 이후의 업데이트 - 스킬(/skills)을 이용한 바이브코딩](책이후의-업데이트-03/)** (작성중)
 
 ---
 
@@ -200,8 +206,8 @@
 
 교재의 Windows 환경이 아닌 분들을 위한 설치 방법입니다.
 
-- **[macOS 설치 가이드](INSTALL-MAC.md)** - Mac 사용자를 위한 설치 안내
-- **[Linux 설치 가이드](INSTALL-LINUX.md)** - Linux 사용자를 위한 설치 안내
+- **[macOS 설치 가이드](설치가이드/INSTALL-MAC.md)** - Mac 사용자를 위한 설치 안내
+- **[Linux 설치 가이드](설치가이드/INSTALL-LINUX.md)** - Linux 사용자를 위한 설치 안내
 
 ---
 
