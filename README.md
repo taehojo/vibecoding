@@ -52,9 +52,9 @@
 
 📝 **[전체 프롬프트 모음 보기](PROMPTS.md)** - 교재의 안내에 따라 프롬프트를 사용하세요.
 
-📋 **[정오표 보기](https://raw.githubusercontent.com/taehojo/vibecoding/master/정오표-20260120.pdf)**
+📋 **[정오표 보기](https://raw.githubusercontent.com/taehojo/vibecoding/master/정오표-20260120.pdf)** - 2026.1.20 업데이트
 
-🆕 **[책 이후의 업데이트 - 플러그인(/plugin) 활용하기](책이후의-업데이트-01/)**
+✨ **[책 이후의 업데이트 - 플러그인(/plugin) 활용하기](책이후의-업데이트-01/)**
 
 ---
 
