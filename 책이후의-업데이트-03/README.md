@@ -82,7 +82,7 @@ npx skills add https://github.com/ovachiever/droid-tings --skill gwas-database
 
 ## 핵심 포인트
 
-- **/skills 명령어**: 현재 설치된 스킬 목록을 확인할 수 있습니다
+- **/skills** 명령어: 현재 설치된 스킬 목록을 확인할 수 있습니다
 - **skills.sh**: 수천개 이상의 스킬들을 검색하고 설치할 수 있는 사이트입니다
 - **npx skills add**: 터미널에서 스킬을 설치하는 명령어입니다
 - **자동 호출**: 스킬은 클로드 코드가 필요하다고 판단할 때 자동으로 불러와 사용합니다
