@@ -215,6 +215,10 @@
 
 ---
 
-## 📖 더 알아보기
+## 📢 소식 & 활동
 
-**[혼공 바이브코딩 집필 에피소드](https://www.hanbit.co.kr/channel/view.html?cmscode=CMS3592606738)**
+**[혼공 바이브코딩 집필 에피소드 (저자 인터뷰)](https://www.hanbit.co.kr/channel/view.html?cmscode=CMS3592606738)**
+
+**[[6주 과정] 혼자 공부하는 바이브 코딩 완독 챌린지](https://www.inflearn.com/challenge/6%EC%A3%BC-%EA%B3%BC%EC%A0%95-%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EB%B0%94%EC%9D%B4%EB%B8%8C-%EC%BD%94%EB%94%A9)** - 기초부터 자동화까지 15가지 바이브 코딩 프로젝트를 경험합니다. (진행중)
+
+**[조태호 저자와 함께하는 바이브 코딩 AI 프로젝트 실전 특강](https://event-us.kr/hanbitn/event/118798)** - 클로드 코드 설치부터 에이전트, MCP, 스킬까지 바이브 코딩 전 과정 안내 (행사 종료, 한빛⁺에서 강의 영상 제공 예정)
