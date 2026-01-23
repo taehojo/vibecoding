@@ -22,8 +22,6 @@
 
 <img src="figures/update-03-03.png" width="500">
 
-<img src="figures/update-03-04.png" width="500">
-
 GWAS(Genome-wide association study)는 유전체에 대한 연관성을 분석하는 연구방법입니다. 검색하면 이를 지원하게 해주는 스킬들이 수십개 이상 검색됩니다. 이중 gwas-database를 선택해 보겠습니다.
 
 그러면 해당 스킬의 설치를 위한 명령어가 아래와 같이 보입니다.
@@ -31,6 +29,8 @@ GWAS(Genome-wide association study)는 유전체에 대한 연관성을 분석�
 ```
 npx skills add https://github.com/ovachiever/droid-tings --skill gwas-database
 ```
+
+<img src="figures/update-03-04.png" width="500">
 
 ## Step 3: 스킬 설치하기
 
