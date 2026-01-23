@@ -38,13 +38,19 @@ npx skills add https://github.com/ovachiever/droid-tings --skill gwas-database
 
 <img src="figures/update-03-05.png" width="500">
 
-<img src="figures/update-03-06.png" width="500">
 
 그러면 스킬을 설치하기 위한 안내화면이 나옵니다. 지금 선택한 스킬이 무엇이고 어떤 범위로 설치할지를 선택하게 합니다. Project를 선택해 현재 프로젝트에서만 사용하게끔 하겠습니다.
 
+<img src="figures/update-03-06.png" width="500">
+
+
+
+심볼릭 링크를 만들지, 아니면 직접 다운받아 복사할지를 선택해야 합니다. 
+
 <img src="figures/update-03-07.png" width="500">
 
-심볼릭 링크를 만들지, 아니면 직접 다운받아 복사할지를 선택해야 합니다. 추천하는 대로 심볼릭 링크를 선택하겠습니다. 설치가 완료되면 아래와 같이 나옵니다.
+
+추천하는 대로 심볼릭 링크를 선택하겠습니다. 설치가 완료되면 아래와 같이 나옵니다.
 
 <img src="figures/update-03-08.png" width="500">
 
