@@ -68,6 +68,6 @@ tmp/
 ~$*
 
 # Local only
+back/
 정오표*.xlsx
-정오표-20260120.pdf
 /CLAUDE.md

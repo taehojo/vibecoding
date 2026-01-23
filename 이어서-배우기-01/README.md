@@ -70,7 +70,7 @@ index-new.html이 지금 설치한 플러그인을 통해 수정완료 되었음
 
 ## 라이브 데모
 
-🎯 **[리디자인된 쇼핑 리스트 보기](https://taehojo.github.io/vibecoding/책이후의-업데이트-01/)**
+🎯 **[리디자인된 쇼핑 리스트 보기](https://taehojo.github.io/vibecoding/이어서-배우기-01/)**
 
 ## 핵심 포인트
 
