@@ -221,4 +221,4 @@
 
 **[혼자 공부하는 바이브 코딩 인프런 완독 챌린지](https://www.inflearn.com/challenge/6%EC%A3%BC-%EA%B3%BC%EC%A0%95-%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EB%B0%94%EC%9D%B4%EB%B8%8C-%EC%BD%94%EB%94%A9)** - 모집 마감, 현재 진행중
 
-**[혼자 공부하는 바이브코딩 집필 에피소드](https://www.hanbit.co.kr/channel/view.html?cmscode=CMS3592606738)**
+**[혼자 공부하는 바이브코딩 집필 에피소드](https://www.hanbit.co.kr/channel/view.html?cmscode=CMS3592606738)** - 한빛 채널H 저자 인터뷰
