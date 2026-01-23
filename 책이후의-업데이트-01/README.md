@@ -50,7 +50,7 @@
 
 이제 이 플러그인을 이용해서 쇼핑리스트 앱의 디자인을 수정하겠습니다.
 
-<img src="figures/2026-01-22_17-46-40.png" width="500">
+<img src="figures/update-01-09.png" width="500">
 
 실행시키면 아래와 같이 frontend-design 이 활성화되어 작업을 시작합니다. 이때 frontend-design이 다음 절에서 배울 '스킬(skills)'로 동작한다는 것을 알 수 있습니다.
 
