@@ -52,17 +52,31 @@
 
 📝 **[전체 프롬프트 모음 보기](PROMPTS.md)** - 교재의 안내에 따라 프롬프트를 사용하세요.
 
-📋 **[정오표 보기](https://raw.githubusercontent.com/taehojo/vibecoding/master/정오표-20260123.pdf)** - 2026.1.23 업데이트
+📋 **[정오표 보기](https://raw.githubusercontent.com/taehojo/vibecoding/master/정오표-20260123.pdf)**
 
 ---
 
-✨ **이어서 배우기 - 책 이후의 업데이트**
+✨ **책과 함께 보면 좋은 추가 자료**
 
 [01 플러그인(Plugin) 활용해서 디자인 수정하기](이어서-배우기-01/)
 
 [02 마켓플레이스(Marketplaces)로 플러그인 설치하고 나만의 스킬 만들기](이어서-배우기-02/)
 
 [03 스킬(Skill)로 업그레이드하는 바이브코딩](이어서-배우기-03/)
+
+---
+
+🎁 **독자님들을 위한 선물 - 모든 바이브코딩 자료를 한곳에 모았습니다**
+
+<div align="center">
+  <a href="https://www.vibeindex.ai/">
+    <img src="images/vibeindex.png" alt="Vibe Index" width="700">
+  </a>
+</div>
+
+바이브 코딩에 필요한 **스킬, 플러그인, MCP 서버**를 실시간으로 수집하고, 한글 요약과 함께 카테고리별로 정리해 제공합니다.
+
+👉 **[Vibe Index 바로가기](https://www.vibeindex.ai/)**
 
 ---
 
