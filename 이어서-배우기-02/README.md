@@ -16,17 +16,17 @@
 
 ## Step 2: 마켓플레이스 검색하기
 
-내게 필요한 마켓플레이스를 구글에서 찾아 보겠습니다. 검색창에 claude marketplace를 넣고 검색하면 이와 관련된 웹사이트들이 검색됩니다.
+내게 필요한 마켓플레이스를 혼자 공부하는 바이브코딩을 위해 준비된 Vibe Index 자료실에서 찾아보겠습니다. https://www.vibeindex.ai/ 에 접속합니다.
 
-<img src="figures/update-02-03.png" width="500">
+<img src="figures/update-02-22.png" width="500">
 
-그중 https://claudemarketplaces.com/에 접속해 보겠습니다.
+Vibe Ranking에 있는 여러 자료들 중 우리 프로젝트에 맞는 자료가 있는지 살펴보겠습니다.
 
-<img src="figures/update-02-04.png" width="500">
+<img src="figures/update-02-23.png" width="500">
 
-맨 처음에 나오는 f/awesome-chatgpt-prompts를 설치해 보겠습니다. 프롬프트를 여러 사용자들이 모아서 공유하는 서비스를 쓰게 해 주는 플러그인입니다.
+이중 f/awesome-chatgpt-prompts를 설치해 보겠습니다. 프롬프트를 여러 사용자들이 모아서 공유하는 서비스를 쓰게 해 주는 플러그인입니다.
 
-<img src="figures/update-02-05.png" width="500">
+<img src="figures/update-02-24.png" width="500">
 
 ## Step 3: 마켓플레이스 설치하기
 
