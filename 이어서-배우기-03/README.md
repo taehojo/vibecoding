@@ -86,3 +86,5 @@ npx skills add https://github.com/ovachiever/droid-tings --skill gwas-database
 - **skills.sh**: 수천개 이상의 스킬들을 검색하고 설치할 수 있는 사이트입니다
 - **npx skills add**: 터미널에서 스킬을 설치하는 명령어입니다
 - **자동 호출**: 스킬은 클로드 코드가 필요하다고 판단할 때 자동으로 불러와 사용합니다
+
+💡 《혼자 공부하는 바이브코딩》독자들을 위해, 바이브 코딩에 필요한 MCP 서버, 스킬, 마켓플레이스와 플러그인 등의 자료를 한곳에서 검색할 수 있게 준비했습니다. [Vibe Index](https://www.vibeindex.ai/)에 방문하셔서 자신에게 필요한 자료를 검색하고 활용해 보세요.
