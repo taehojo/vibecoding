@@ -24,7 +24,7 @@ Vibe Ranking에 있는 여러 자료들 중 우리 프로젝트에 맞는 자료
 
 <img src="figures/update-02-23.png" width="700">
 
-이중 f/awesome-chatgpt-prompts를 설치해 보겠습니다. 프롬프트를 여러 사용자들이 모아서 공유하는 서비스를 쓰게 해 주는 플러그인입니다.
+이중 f/prompts.chat를 설치해 보겠습니다. 프롬프트를 여러 사용자들이 모아서 공유하는 서비스를 쓰게 해 주는 플러그인입니다.
 
 <img src="figures/update-02-24.png" width="700">
 
@@ -33,10 +33,10 @@ Vibe Ranking에 있는 여러 자료들 중 우리 프로젝트에 맞는 자료
 설치 명령어 부분을 복사합니다.
 
 ```
-/plugin marketplace add f/awesome-chatgpt-prompts
+/plugin marketplace add f/prompts.chat
 ```
 
-이것을 그대로 클로드 코드의 프롬프트에 입력하면 설치가 됩니다. 아래와 같이 이미 Add Marketplace에 들어와 있다면, 아래와 같이 f/awesome-chatgpt-prompts 부분만 입력합니다.
+이것을 그대로 클로드 코드의 프롬프트에 입력하면 설치가 됩니다. 아래와 같이 이미 Add Marketplace에 들어와 있다면, 아래와 같이 f/prompts.chat 부분만 입력합니다.
 
 <img src="figures/update-02-06.png" width="500">
 
