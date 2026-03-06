@@ -140,7 +140,7 @@
 
 **5장: 게임 제작으로 배우는 체계적인 개발과 관리** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=v4kZ4ErsxlU) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#05장-게임-제작으로-배우는-체계적인-개발과-관리)
 - 05-1 할루시네이션 없는 AI 콘텐츠 만들기
-  - 1단계: 퀴즈 게임 구현하기
+  - 1단계: 퀴즈 게임 구현하기 [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic)
   - 할루시네이션 해결하기
 - 05-2 자동화로 개발 효율 높이기
   - 2단계: 게임 확장하기
