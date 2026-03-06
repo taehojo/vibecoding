@@ -224,8 +224,7 @@
 
 교재의 Windows 환경이 아닌 분들을 위한 설치 방법입니다.
 
-- **[macOS 설치 가이드](설치가이드/INSTALL-MAC.md)** - Mac 사용자를 위한 설치 안내
-- **[Linux 설치 가이드](설치가이드/INSTALL-LINUX.md)** - Linux 사용자를 위한 설치 안내
+- **[macOS / Linux 설치 가이드](설치가이드/INSTALL.md)**
 
 ---
 
