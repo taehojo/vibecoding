@@ -20,7 +20,7 @@ git --version
 curl -fsSL https://claude.ai/install.sh | zsh
 ```
 
-> **Note**: 필요한 경우 명령어 끝의 `zsh`를 `bash`로 바꿔주세요. `zsh`와 `bash`는 자신의 운영체제의 기본 셸(shell)을 가리킵니다.
+> **Note**: 필요한 경우 명령어 끝의 `zsh`를 `bash`로 바꿔주세요. `zsh`와 `bash`는 자신의 운영체제의 기본 셸(shell)을 가리킵니다. (macOS는 zsh, Linux는 대부분 bash입니다.)
 
 **4.** 클로드 코드 설치 완료 안내가 나오면, `Command + Q`로 터미널을 종료한 뒤, 다시 터미널을 엽니다. 이제 명령 프롬프트에 `claude`라고 입력해 클로드를 실행할 수 있습니다.
 
