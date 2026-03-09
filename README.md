@@ -56,7 +56,11 @@
 
 ---
 
-✨ **책과 함께 보면 좋은 추가 자료**
+✨ **최신 버전에 맞춰 따라하기**
+
+[윈도우 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_윈도우_설치가이드.pdf)
+
+[macOS/리눅스 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_맥OS리눅스_설치가이드.pdf)
 
 [01 플러그인(Plugin) 활용해서 디자인 수정하기](이어서-배우기-01/)
 
@@ -217,14 +221,6 @@
 | 7장 | `Study-05` | 공감 AI 다이어리 | [🎯 라이브 데모](https://vibecoding-ch07.vercel.app) |
 | 7장 | `Study-05` | PDF 문서 요약 AI | [🎯 라이브 데모](https://vibecoding-ch07.vercel.app/pdf) |
 | 8장 | `Study-06` | 쇼핑 리스트 앱 (데이터베이스 연동) | [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app) |
-
----
-
-## 🛠️ 클로드 코드 설치 가이드 (맥, 리눅스)
-
-교재의 Windows 환경이 아닌 분들을 위한 설치 방법입니다.
-
-- **[macOS / Linux 설치 가이드](설치가이드/INSTALL.md)**
 
 ---
 
