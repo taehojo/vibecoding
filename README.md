@@ -56,7 +56,7 @@
 
 ---
 
-✨ **최신 버전에 맞춰 설치하기**
+✨ **업데이트된 설치 가이드**
 
 [윈도우 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_윈도우_설치가이드.pdf)
 
