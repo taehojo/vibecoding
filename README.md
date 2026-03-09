@@ -56,17 +56,21 @@
 
 ---
 
-✨ **최신 버전에 맞춰 따라하기**
+✨ **최신 버전에 맞춰 설치하기**
 
 [윈도우 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_윈도우_설치가이드.pdf)
 
 [macOS/리눅스 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_맥OS리눅스_설치가이드.pdf)
 
-[01 플러그인(Plugin) 활용해서 디자인 수정하기](이어서-배우기-01/)
+📚 **책에 이어서 배우기**
 
-[02 마켓플레이스(Marketplaces)로 플러그인 설치하고 나만의 스킬 만들기](이어서-배우기-02/)
+[01 바이브인덱스에서 MCP 찾고 노션 실행하기](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/1_바이브인덱스_MCP서버찾기-노션.pdf)
 
-[03 스킬(Skill)로 업그레이드하는 바이브코딩](이어서-배우기-03/)
+[02 스킬 알아보고 설치하기](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/2_스킬알아보고_설치하기.pdf)
+
+[03 플러그인으로 실행하는 웹사이트 자동 점검](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3_플러그인으로_웹사이트_자동점검.pdf)
+
+[04 마켓플레이스 추가하고 MS 오피스 문서 만들기](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/4_마켓플레이스_추가하고 MS오피스문서만들기.pdf)
 
 ---
 
