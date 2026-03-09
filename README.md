@@ -62,6 +62,8 @@
 
 [macOS/리눅스 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_맥OS리눅스_설치가이드.pdf)
 
+---
+
 📚 **책에 이어서 배우기**
 
 [01 바이브인덱스에서 MCP 찾고 노션 실행하기](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/1_바이브인덱스_MCP서버찾기-노션.pdf)
@@ -70,7 +72,7 @@
 
 [03 플러그인으로 실행하는 웹사이트 자동 점검](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3_플러그인으로_웹사이트_자동점검.pdf)
 
-[04 마켓플레이스 추가하고 MS 오피스 문서 만들기](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/4_마켓플레이스_추가하고 MS오피스문서만들기.pdf)
+[04 마켓플레이스 추가하고 MS 오피스 문서 만들기](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/4_마켓플레이스_추가하고%20MS오피스문서만들기.pdf)
 
 ---
 
