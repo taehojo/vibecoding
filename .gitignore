@@ -70,4 +70,9 @@ tmp/
 # Local only
 back/
 정오표*.xlsx
+설치가이드/*.docx
+설치가이드/1_*.pdf
+설치가이드/2_*.pdf
+설치가이드/3_플러그인*.pdf
+설치가이드/4_*.pdf
 /CLAUDE.md
