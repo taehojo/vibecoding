@@ -33,7 +33,8 @@
 <div align="center">
   <img src="images/ch01-artifact-start.png" alt="아티팩트 처음부터 시작하기" width="700">
 </div>
-다음과 같이 첫 프롬프트 입력
+
+대체 프롬프트:
 
 ```
 오늘의 날짜와 시간, 검색창이 있는 나만의 시작 홈페이지를 만들고 싶어
