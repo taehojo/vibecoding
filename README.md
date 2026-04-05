@@ -52,7 +52,7 @@
 
 📝 **[전체 프롬프트 모음 보기](PROMPTS.md)** - 교재의 안내에 따라 프롬프트를 사용하세요.
 
-📋 **[정오표 보기](https://raw.githubusercontent.com/taehojo/vibecoding/master/정오표-20260226.pdf)**
+📋 **[정오표 보기](https://raw.githubusercontent.com/taehojo/vibecoding/master/정오표-20260405.pdf)**
 
 💡 **[1장 예제 안내](1장-예제-안내.md)** - 클로드 아티팩트 정책 변경으로 날씨/뉴스 대신 대체 프롬프트 사용
 
