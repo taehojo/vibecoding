@@ -54,7 +54,7 @@
 
 📋 **[정오표 보기](https://raw.githubusercontent.com/taehojo/vibecoding/master/정오표-20260226.pdf)**
 
-💡 **[1장 예제 안내](1장-예제-안내.md)** - Claude Artifacts 정책 변경으로 날씨/뉴스 대신 대체 프롬프트 사용
+💡 **[1장 예제 안내](1장-예제-안내.md)** - 클로드 아티팩트 정책 변경으로 날씨/뉴스 대신 대체 프롬프트 사용
 
 ---
 
