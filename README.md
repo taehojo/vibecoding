@@ -244,9 +244,9 @@
 
 ## 📢 소식 & 활동
 
-🆕 **[Vix Code 베타 출시](https://www.vibeindex.ai/vixcode)** - 클로드 코드와 유사한 환경에서 무료로 바이브 코딩을 실습할 수 있는 도구입니다. 브라우저 버전과 CLI 버전을 제공합니다.
+**[Vix Code 베타 출시](https://www.vibeindex.ai/vixcode)** - 클로드 코드와 유사한 환경에서 무료로 바이브 코딩을 실습할 수 있는 도구입니다. 브라우저 버전과 CLI 버전을 제공합니다.
 
-🆕 **[Vibe Index](https://www.vibeindex.ai)** - 바이브 코딩에 필요한 스킬, 플러그인, MCP 서버를 한눈에 검색할 수 있는 디렉토리입니다. 매 시간 GitHub과 동기화합니다.
+**[Vibe Index](https://www.vibeindex.ai)** - 바이브 코딩에 필요한 스킬, 플러그인, MCP 서버를 한눈에 검색할 수 있는 디렉토리입니다. 매 시간 GitHub과 동기화합니다.
 
 **[바이브 코딩 저자 무료 세미나 1, 2, 3차](https://www.vibeindex.ai/seminar)** - 클로드 코드 설치부터 앱 제작, API 연동, AI 에이전트 및 Vibe Index 활용까지 한 시간에 체험하는 바이브 코딩 입문 세미나입니다. (모집 마감)
 
