@@ -50,14 +50,29 @@
 
 ## 📖 자신의 쇄에 맞는 안내
 
-책 표지를 보고 자신의 쇄를 확인한 후 해당 항목을 클릭하세요.
+자신의 책 표지를 확인한 후, 아래 해당 항목을 클릭해 주세요.
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="책표지/1-2쇄.png" alt="1-2쇄 표지" width="180">
+      <br><strong>📕 1-2쇄</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="책표지/3쇄.png" alt="3쇄 표지" width="180">
+      <br><strong>📗 3쇄</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="책표지/4쇄.jpg" alt="4쇄 표지" width="180">
+      <br><strong>📘 4쇄</strong>
+    </td>
+  </tr>
+</table>
 
 <details>
 <summary><b>📕 1-2쇄 독자분은 꼭 읽어 주세요</b></summary>
 
 <br>
-
-<img src="책표지/1-2쇄.png" alt="1-2쇄 표지" width="200">
 
 **✨ 업데이트된 설치 가이드**
 - [윈도우 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_윈도우_설치가이드.pdf)
@@ -78,8 +93,6 @@
 
 <br>
 
-<img src="책표지/3쇄.png" alt="3쇄 표지" width="200">
-
 **💡 1장 예제 안내**
 - 클로드 아티팩트 정책 변경으로 날씨/뉴스 대신 [대체 프롬프트](1장-예제-안내.md) 사용
 
@@ -89,8 +102,6 @@
 <summary><b>📘 4쇄 독자분께 (별도 안내 없음)</b></summary>
 
 <br>
-
-<img src="책표지/4쇄.jpg" alt="4쇄 표지" width="200">
 
 추가 안내 사항이 없습니다. 책 본문대로 학습하시면 됩니다.
 
