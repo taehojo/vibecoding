@@ -278,7 +278,7 @@
 클로드 코드와 유사한 환경에서 무료로 실습할 수 있는 **Vix Code**를 만들었습니다.
 
 <a href="https://www.vibeindex.ai/vixcode">
-  <img src="images/vixcode-cli.png" alt="Vix Code CLI 스크린샷" width="600">
+  <img src="images/vixcode-cli.png" alt="Vix Code CLI 스크린샷" width="360">
 </a>
 
 ⌨️ **Vix Code CLI** — Claude Code와 동일 인터페이스 · 파일 직접 편집 · 터미널/Git 통합
