@@ -114,7 +114,7 @@
 <tr>
 <td align="center" valign="top" width="600">
 
-<img src="images/vibeindex-logo.png" alt="Vibe Index" width="240">
+<img src="images/vibeindex-logo.png" alt="Vibe Index" width="200">
 
 **모든 바이브코딩 자료를 한곳에**
 
@@ -147,7 +147,7 @@
 <tr>
 <td align="center" valign="top" width="600">
 
-### Vix Code
+<img src="images/vixcode-logo.svg" alt="Vix Code" width="200">
 
 **토큰이 부족할 때 쓰는 무료 도구**
 
