@@ -165,7 +165,7 @@
 
 <img src="images/vixcode-logo.svg" alt="Vix Code" width="200">
 
-**바이브 코딩 무료 도구**
+**학습자를 위한 바이브 코딩 무료 도구**
 
 <a href="https://www.vibeindex.ai/vixcode">
   <img src="images/vixcode-cli.png" alt="Vix Code CLI" width="380">
