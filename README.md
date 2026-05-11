@@ -129,14 +129,13 @@
 
 <br><br>
 
-**클로드 코드 + 14만 무료 도구, 한번에 내 것으로!**<br>
-영상으로 Vibe Index 활용법을 익혀보세요.
+**영상으로 Vibe Index 활용법을 익혀보세요.**
 
 <a href="https://www.youtube.com/watch?v=D48rWCQOuO4">
   <img src="images/youtube-vibeindex-tutorial.jpg" alt="Vibe Index 활용법 영상" width="380">
 </a>
 
-👉 **[영상으로 Vibe Index 활용법을 익혀보세요.](https://www.youtube.com/watch?v=D48rWCQOuO4)**
+👉 **[유튜브 영상 바로가기](https://www.youtube.com/watch?v=D48rWCQOuO4)**
 
 </td>
 </tr>
