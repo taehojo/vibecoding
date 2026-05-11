@@ -108,6 +108,8 @@
 
 ---
 
+## 📢 소식 & 활동
+
 🎁 **독자님들을 위한 선물 - 모든 바이브코딩 자료를 한곳에 모았습니다**
 
 <div align="center">
@@ -283,16 +285,3 @@
 | 7장 | `Study-05` | PDF 문서 요약 AI | [🎯 라이브 데모](https://vibecoding-ch07.vercel.app/pdf) |
 | 8장 | `Study-06` | 쇼핑 리스트 앱 (데이터베이스 연동) | [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app) |
 
----
-
-## 📢 소식 & 활동
-
-**[Vibe Index](https://www.vibeindex.ai)** - 바이브 코딩에 필요한 스킬, 플러그인, MCP 서버를 한눈에 검색할 수 있는 디렉토리입니다. 매 시간 GitHub과 동기화합니다.
-
-**[바이브 코딩 저자 무료 세미나 1, 2, 3차](https://www.vibeindex.ai/seminar)** - 클로드 코드 설치부터 앱 제작, API 연동, AI 에이전트 및 Vibe Index 활용까지 한 시간에 체험하는 바이브 코딩 입문 세미나입니다. (모집 마감)
-
-**[저자와 함께하는 바이브 코딩 AI 프로젝트 실전 특강](https://event-us.kr/hanbitn/event/118798)** (행사 종료)
-
-**[혼자 공부하는 바이브 코딩 인프런 완독 챌린지](https://www.inflearn.com/challenge/6%EC%A3%BC-%EA%B3%BC%EC%A0%95-%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EB%B0%94%EC%9D%B4%EB%B8%8C-%EC%BD%94%EB%94%A9)** (모집 마감)
-
-**[혼자 공부하는 바이브코딩 집필 에피소드](https://www.hanbit.co.kr/channel/view.html?cmscode=CMS3592606738)** - 한빛 채널H 저자 인터뷰
