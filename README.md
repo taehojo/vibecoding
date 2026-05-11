@@ -110,16 +110,16 @@
 
 ## 📢 소식 & 활동
 
-<table>
+<table align="center">
 <tr>
-<td width="50%" align="center" valign="top">
+<td align="center" valign="top" width="600">
 
 ### Vibe Index
 
 **모든 바이브코딩 자료를 한곳에**
 
 <a href="https://www.vibeindex.ai/">
-  <img src="images/vibeindex.png" alt="Vibe Index" width="320">
+  <img src="images/vibeindex.png" alt="Vibe Index" width="380">
 </a>
 
 스킬·플러그인·MCP 서버를 실시간 수집,<br>
@@ -127,17 +127,31 @@
 
 <a href="https://www.vibeindex.ai/"><img src="https://img.shields.io/badge/vibeindex.ai-바로가기-3CB371?style=for-the-badge" alt="vibeindex.ai 바로가기"></a>
 
-<a href="https://www.youtube.com/watch?v=D48rWCQOuO4"><img src="https://img.shields.io/badge/활용법-영상_보기-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="활용법 영상 보기"></a>
+<br><br>
+
+**클로드 코드 + 14만 무료 도구, 한번에 내 것으로!**<br>
+영상으로 Vibe Index 활용법을 익혀보세요.
+
+<a href="https://www.youtube.com/watch?v=D48rWCQOuO4">
+  <img src="images/youtube-vibeindex-tutorial.jpg" alt="Vibe Index 활용법 영상" width="380">
+</a>
 
 </td>
-<td width="50%" align="center" valign="top">
+</tr>
+</table>
+
+<br>
+
+<table align="center">
+<tr>
+<td align="center" valign="top" width="600">
 
 ### Vix Code
 
 **토큰이 부족할 때 쓰는 무료 도구**
 
 <a href="https://www.vibeindex.ai/vixcode">
-  <img src="images/vixcode-cli.png" alt="Vix Code CLI" width="320">
+  <img src="images/vixcode-cli.png" alt="Vix Code CLI" width="380">
 </a>
 
 Claude Code와 동일한 인터페이스로 무료 실습.<br>
