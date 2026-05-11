@@ -48,21 +48,61 @@
 
 ---
 
+## 📖 자신의 쇄에 맞는 안내
+
+책 표지를 보고 자신의 쇄를 확인한 후 해당 항목을 클릭하세요.
+
+<details>
+<summary><b>📕 1-2쇄 독자분은 꼭 읽어 주세요</b></summary>
+
+<br>
+
+<img src="책표지/1-2쇄.png" alt="1-2쇄 표지" width="200">
+
+**✨ 업데이트된 설치 가이드**
+- [윈도우 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_윈도우_설치가이드.pdf)
+- [macOS/리눅스 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_맥OS리눅스_설치가이드.pdf)
+
+**💡 1장 예제 안내**
+- 클로드 아티팩트 정책 변경으로 날씨/뉴스 대신 [대체 프롬프트](1장-예제-안내.md) 사용
+
+**📚 책에 이어서 배우기**
+- 01 [플러그인(Plugin) 활용해서 디자인 수정하기](이어서-배우기-01/)
+- 02 [마켓플레이스(Marketplaces)로 플러그인 설치하고 나만의 스킬 만들기](이어서-배우기-02/)
+- 03 [스킬(Skill)로 업그레이드하는 바이브코딩](이어서-배우기-03/)
+
+</details>
+
+<details>
+<summary><b>📗 3쇄 독자분은 꼭 읽어 주세요</b></summary>
+
+<br>
+
+<img src="책표지/3쇄.png" alt="3쇄 표지" width="200">
+
+**💡 1장 예제 안내**
+- 클로드 아티팩트 정책 변경으로 날씨/뉴스 대신 [대체 프롬프트](1장-예제-안내.md) 사용
+
+</details>
+
+<details>
+<summary><b>📘 4쇄 독자분께 (별도 안내 없음)</b></summary>
+
+<br>
+
+<img src="책표지/4쇄.jpg" alt="4쇄 표지" width="200">
+
+추가 안내 사항이 없습니다. 책 본문대로 학습하시면 됩니다.
+
+</details>
+
+---
+
 ▶️ **[유튜브 강의 전체 재생목록](https://www.youtube.com/playlist?list=PLwVlmsyd5oN5zmup3eAuCbKlu9TRXImA6)** - 책과 함께 보는 무료 강의
 
 📝 **[전체 프롬프트 모음 보기](PROMPTS.md)** - 교재의 안내에 따라 프롬프트를 사용하세요.
 
 📋 **[정오표 보기](https://raw.githubusercontent.com/taehojo/vibecoding/master/정오표-20260405.pdf)**
-
-💡 **[1장 예제 안내](1장-예제-안내.md)** - 클로드 아티팩트 정책 변경으로 날씨/뉴스 대신 대체 프롬프트 사용
-
----
-
-✨ **업데이트된 설치 가이드**
-
-[윈도우 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_윈도우_설치가이드.pdf)
-
-[macOS/리눅스 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_맥OS리눅스_설치가이드.pdf)
 
 ---
 
@@ -75,16 +115,6 @@
 
 아직 베타 버전이지만, 필요하신 분들께 도움이 되었으면 합니다.
 사용 후기는 hongongvibe@gmail.com으로 보내주세요.
-
----
-
-📚 **책에 이어서 배우기**
-
-[01 플러그인(Plugin) 활용해서 디자인 수정하기](이어서-배우기-01/)
-
-[02 마켓플레이스(Marketplaces)로 플러그인 설치하고 나만의 스킬 만들기](이어서-배우기-02/)
-
-[03 스킬(Skill)로 업그레이드하는 바이브코딩](이어서-배우기-03/)
 
 ---
 
