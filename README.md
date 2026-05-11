@@ -114,7 +114,7 @@
 <tr>
 <td align="center" valign="top" width="600">
 
-### Vibe Index
+<img src="images/vibeindex-logo.png" alt="Vibe Index" width="240">
 
 **모든 바이브코딩 자료를 한곳에**
 
