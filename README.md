@@ -70,7 +70,7 @@
 </table>
 
 <details>
-<summary><b>📕 1-2쇄 독자분은 꼭 읽어 주세요</b></summary>
+<summary><b>📕 1-2쇄 독자라면</b></summary>
 
 <br>
 
@@ -89,7 +89,7 @@
 </details>
 
 <details>
-<summary><b>📗 3쇄 독자분은 꼭 읽어 주세요</b></summary>
+<summary><b>📗 3쇄 독자라면</b></summary>
 
 <br>
 
@@ -99,7 +99,7 @@
 </details>
 
 <details>
-<summary><b>📘 4쇄 독자분께 (별도 안내 없음)</b></summary>
+<summary><b>📘 4쇄 독자라면 (별도 안내 없음)</b></summary>
 
 <br>
 
