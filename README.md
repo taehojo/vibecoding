@@ -113,6 +113,25 @@
 클로드 코드의 토큰이 예상보다 빨리 소진되어 실습을 이어가기 어려운 경우, 
 클로드 코드와 유사한 환경에서 무료로 실습할 수 있는 **Vix Code**를 만들었습니다.
 
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <h3>🌐 브라우저 버전</h3>
+      <a href="https://www.vibeindex.ai/vixcode">
+        <img src="images/vixcode-web.png" alt="Vix Code Web 스크린샷" width="100%">
+      </a>
+      <p>설치 없이 바로 실습 · 실시간 미리보기 · 문서 생성(DOCX/PDF/XLSX/PPTX)</p>
+    </td>
+    <td align="center" width="50%">
+      <h3>⌨️ CLI 버전</h3>
+      <a href="https://www.vibeindex.ai/vixcode">
+        <img src="images/vixcode-cli.png" alt="Vix Code CLI 스크린샷" width="100%">
+      </a>
+      <p>Claude Code와 동일 인터페이스 · 파일 직접 편집 · 터미널/Git 통합</p>
+    </td>
+  </tr>
+</table>
+
 👉 [Vix Code 사용해보기](https://www.vibeindex.ai/vixcode)
 
 아직 베타 버전이지만, 필요하신 분들께 도움이 되었으면 합니다.
