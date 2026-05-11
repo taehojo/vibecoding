@@ -143,8 +143,6 @@
 
 👉 **[Vibe Index 바로가기](https://www.vibeindex.ai/)**
 
-<br><br>
-
 <img src="images/youtube-icon.svg" alt="YouTube" width="22"> **영상으로 Vibe Index 활용법을 익혀보세요.**
 
 <a href="https://www.youtube.com/watch?v=D48rWCQOuO4">
