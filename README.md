@@ -48,15 +48,13 @@
 
 ---
 
-## 📖 자신의 쇄에 맞는 안내
-
-자신의 책 표지를 확인한 후, 아래 해당 항목을 클릭해 주세요.
+## 📖 어느 쇄를 보고 계신가요?
 
 <table>
   <tr>
     <td align="center" width="33%">
-      <img src="책표지/1-2쇄.png" alt="1-2쇄 표지" width="180">
-      <br><strong>📕 1-2쇄</strong>
+      <img src="책표지/1-2쇄.png" alt="1·2쇄 표지" width="180">
+      <br><strong>📕 1·2쇄</strong>
     </td>
     <td align="center" width="33%">
       <img src="책표지/3쇄.png" alt="3쇄 표지" width="180">
@@ -70,7 +68,7 @@
 </table>
 
 <details>
-<summary><b>📕 1-2쇄 독자라면</b></summary>
+<summary><b>📕 1·2쇄 독자 안내</b></summary>
 
 <br>
 
@@ -89,7 +87,7 @@
 </details>
 
 <details>
-<summary><b>📗 3쇄 독자라면</b></summary>
+<summary><b>📗 3쇄 독자 안내</b></summary>
 
 <br>
 
@@ -98,14 +96,7 @@
 
 </details>
 
-<details>
-<summary><b>📘 4쇄 독자라면 (별도 안내 없음)</b></summary>
-
-<br>
-
-추가 안내 사항이 없습니다. 책 본문대로 학습하시면 됩니다.
-
-</details>
+📘 **4쇄 최신 인쇄본이라 별도 안내가 없습니다**
 
 ---
 
