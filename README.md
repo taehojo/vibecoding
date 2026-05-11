@@ -125,7 +125,7 @@
 스킬·플러그인·MCP 서버를 실시간 수집,<br>
 한글 요약과 카테고리별 정리로 제공합니다.
 
-<a href="https://www.vibeindex.ai/"><img src="https://img.shields.io/badge/vibeindex.ai-바로가기-3CB371?style=for-the-badge" alt="vibeindex.ai 바로가기"></a>
+👉 **[Vibe Index 바로가기](https://www.vibeindex.ai/)**
 
 <br><br>
 
@@ -157,7 +157,7 @@
 Claude Code와 동일한 인터페이스로 무료 실습.<br>
 파일 직접 편집 · 터미널 · Git 통합 지원.
 
-<a href="https://www.vibeindex.ai/vixcode"><img src="https://img.shields.io/badge/Vix_Code-사용해보기-007EC6?style=for-the-badge" alt="Vix Code 사용해보기"></a>
+👉 **[Vix Code 사용해보기](https://www.vibeindex.ai/vixcode)**
 
 </td>
 </tr>
