@@ -96,7 +96,15 @@
 
 </details>
 
-📘 **4쇄 최신 인쇄본이라 별도 안내가 없습니다**
+<details>
+<summary><b>📘 4쇄 독자 안내</b></summary>
+
+<br>
+
+최신 인쇄본이라 별도 안내 사항이 없습니다.<br>
+책 본문대로 학습하시면 됩니다.
+
+</details>
 
 ---
 
@@ -110,7 +118,7 @@
 
 ## 📢 소식
 
-<p align="center"><em>이 두 소식 모두 &lt;혼공 바이브 클로드코드&gt; 독자분들을 위해 만들었습니다.</em></p>
+<p align="center"><em>&lt;혼공 바이브 클로드코드&gt; 독자분들을 위해 만들었습니다.</em></p>
 
 <table align="center">
 <tr>
