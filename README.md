@@ -129,7 +129,7 @@
 
 <br><br>
 
-**영상으로 Vibe Index 활용법을 익혀보세요.**
+<img src="images/youtube-icon.svg" alt="YouTube" width="22"> **영상으로 Vibe Index 활용법을 익혀보세요.**
 
 <a href="https://www.youtube.com/watch?v=D48rWCQOuO4">
   <img src="images/youtube-vibeindex-tutorial.jpg" alt="Vibe Index 활용법 영상" width="380">
