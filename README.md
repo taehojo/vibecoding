@@ -110,6 +110,8 @@
 
 ## 📢 소식
 
+<p align="center"><em>이 두 소식 모두 &lt;혼공 바이브 클로드코드&gt; 독자분들을 위해 만들었습니다.</em></p>
+
 <table align="center">
 <tr>
 <td align="center" valign="top" width="600">
@@ -149,7 +151,7 @@
 
 <img src="images/vixcode-logo.svg" alt="Vix Code" width="200">
 
-**토큰이 부족할 때 쓰는 무료 도구**
+**클로드 코드 토큰이 부족할때 쓰는 바이브 코딩 무료 도구**
 
 <a href="https://www.vibeindex.ai/vixcode">
   <img src="images/vixcode-cli.png" alt="Vix Code CLI" width="380">
