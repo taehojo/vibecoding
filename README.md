@@ -108,24 +108,6 @@
 
 ---
 
-💡 **클로드 코드 토큰이 부족할 때**
-
-클로드 코드의 토큰이 예상보다 빨리 소진되어 실습을 이어가기 어려운 경우, 
-클로드 코드와 유사한 환경에서 무료로 실습할 수 있는 **Vix Code**를 만들었습니다.
-
-<a href="https://www.vibeindex.ai/vixcode">
-  <img src="images/vixcode-cli.png" alt="Vix Code CLI 스크린샷" width="600">
-</a>
-
-⌨️ **Vix Code CLI** — Claude Code와 동일 인터페이스 · 파일 직접 편집 · 터미널/Git 통합
-
-👉 [Vix Code 사용해보기](https://www.vibeindex.ai/vixcode)
-
-아직 베타 버전이지만, 필요하신 분들께 도움이 되었으면 합니다.
-사용 후기는 hongongvibe@gmail.com으로 보내주세요.
-
----
-
 🎁 **독자님들을 위한 선물 - 모든 바이브코딩 자료를 한곳에 모았습니다**
 
 <div align="center">
@@ -290,7 +272,21 @@
 
 ## 📢 소식 & 활동
 
-**[Vix Code 베타 출시](https://www.vibeindex.ai/vixcode)** - 클로드 코드와 유사한 환경에서 무료로 바이브 코딩을 실습할 수 있는 도구입니다. 브라우저 버전과 CLI 버전을 제공합니다.
+💡 **클로드 코드 토큰이 부족할 때**
+
+클로드 코드의 토큰이 예상보다 빨리 소진되어 실습을 이어가기 어려운 경우, 
+클로드 코드와 유사한 환경에서 무료로 실습할 수 있는 **Vix Code**를 만들었습니다.
+
+<a href="https://www.vibeindex.ai/vixcode">
+  <img src="images/vixcode-cli.png" alt="Vix Code CLI 스크린샷" width="600">
+</a>
+
+⌨️ **Vix Code CLI** — Claude Code와 동일 인터페이스 · 파일 직접 편집 · 터미널/Git 통합
+
+👉 [Vix Code 사용해보기](https://www.vibeindex.ai/vixcode)
+
+아직 베타 버전이지만, 필요하신 분들께 도움이 되었으면 합니다.
+사용 후기는 hongongvibe@gmail.com으로 보내주세요.
 
 **[Vibe Index](https://www.vibeindex.ai)** - 바이브 코딩에 필요한 스킬, 플러그인, MCP 서버를 한눈에 검색할 수 있는 디렉토리입니다. 매 시간 GitHub과 동기화합니다.
 
