@@ -110,40 +110,44 @@
 
 ## 📢 소식 & 활동
 
-🎁 **독자님들을 위한 선물 - 모든 바이브코딩 자료를 한곳에 모았습니다**
+<table>
+<tr>
+<td width="50%" align="center" valign="top">
 
-<div align="center">
-  <a href="https://www.vibeindex.ai/">
-    <img src="images/vibeindex.png" alt="Vibe Index" width="700">
-  </a>
-</div>
+### Vibe Index
 
-바이브 코딩에 필요한 **스킬, 플러그인, MCP 서버**를 실시간으로 수집하고, 한글 요약과 함께 카테고리별로 정리해 제공합니다.
+**모든 바이브코딩 자료를 한곳에**
 
-👉 **[Vibe Index 바로가기](https://www.vibeindex.ai/)**
-
-<br>
-
-<img src="images/youtube-icon.svg" alt="YouTube" width="22"> **[클로드 코드 + 14만 무료 도구, 한번에 내 것으로! 영상으로 Vibe Index 활용법을 익혀보세요.](https://www.youtube.com/watch?v=D48rWCQOuO4)**
-
-<a href="https://www.youtube.com/watch?v=D48rWCQOuO4">
-  <img src="images/youtube-vibeindex-tutorial.jpg" alt="Vibe Index 활용법 영상" width="300">
+<a href="https://www.vibeindex.ai/">
+  <img src="images/vibeindex.png" alt="Vibe Index" width="320">
 </a>
 
----
+스킬·플러그인·MCP 서버를 실시간 수집,<br>
+한글 요약과 카테고리별 정리로 제공합니다.
 
-💡 **클로드 코드 토큰이 부족할 때**
+<a href="https://www.vibeindex.ai/"><img src="https://img.shields.io/badge/vibeindex.ai-바로가기-3CB371?style=for-the-badge" alt="vibeindex.ai 바로가기"></a>
 
-클로드 코드의 토큰이 예상보다 빨리 소진되어 실습을 이어가기 어려운 경우, 
-클로드 코드와 유사한 환경에서 무료로 실습할 수 있는 **Vix Code**를 만들었습니다.
+<a href="https://www.youtube.com/watch?v=D48rWCQOuO4"><img src="https://img.shields.io/badge/활용법-영상_보기-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="활용법 영상 보기"></a>
+
+</td>
+<td width="50%" align="center" valign="top">
+
+### Vix Code
+
+**토큰이 부족할 때 쓰는 무료 도구**
 
 <a href="https://www.vibeindex.ai/vixcode">
-  <img src="images/vixcode-cli.png" alt="Vix Code CLI 스크린샷" width="360">
+  <img src="images/vixcode-cli.png" alt="Vix Code CLI" width="320">
 </a>
 
-⌨️ **Vix Code CLI** — Claude Code와 동일 인터페이스 · 파일 직접 편집 · 터미널/Git 통합
+Claude Code와 동일한 인터페이스로 무료 실습.<br>
+파일 직접 편집 · 터미널 · Git 통합 지원.
 
-👉 [Vix Code 사용해보기](https://www.vibeindex.ai/vixcode)
+<a href="https://www.vibeindex.ai/vixcode"><img src="https://img.shields.io/badge/Vix_Code-사용해보기-007EC6?style=for-the-badge" alt="Vix Code 사용해보기"></a>
+
+</td>
+</tr>
+</table>
 
 ---
 
