@@ -70,7 +70,7 @@
 <details>
 <summary><b>📕 1·2쇄 독자 안내</b></summary>
 
-<br>
+<table><tr><td>
 
 **✨ 업데이트된 설치 가이드**
 - [윈도우 설치 가이드 (업데이트)](https://raw.githubusercontent.com/taehojo/vibecoding/master/설치가이드/3장_윈도우_설치가이드.pdf)
@@ -84,25 +84,31 @@
 - 02 [마켓플레이스(Marketplaces)로 플러그인 설치하고 나만의 스킬 만들기](이어서-배우기-02/)
 - 03 [스킬(Skill)로 업그레이드하는 바이브코딩](이어서-배우기-03/)
 
+</td></tr></table>
+
 </details>
 
 <details>
 <summary><b>📗 3쇄 독자 안내</b></summary>
 
-<br>
+<table><tr><td>
 
 **💡 1장 예제 안내**
 - 클로드 아티팩트 정책 변경으로 날씨/뉴스 대신 [대체 프롬프트](1장-예제-안내.md) 사용
+
+</td></tr></table>
 
 </details>
 
 <details>
 <summary><b>📘 4쇄 독자 안내</b></summary>
 
-<br>
+<table><tr><td>
 
 최신 인쇄본이라 별도 안내 사항이 없습니다.<br>
 책 본문대로 학습하시면 됩니다.
+
+</td></tr></table>
 
 </details>
 
@@ -159,7 +165,7 @@
 
 <img src="images/vixcode-logo.svg" alt="Vix Code" width="200">
 
-**클로드 코드 토큰이 부족할때 쓰는 바이브 코딩 무료 도구**
+**바이브 코딩 무료 도구**
 
 <a href="https://www.vibeindex.ai/vixcode">
   <img src="images/vixcode-cli.png" alt="Vix Code CLI" width="380">
