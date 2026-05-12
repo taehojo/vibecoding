@@ -54,15 +54,15 @@
   <tr>
     <td align="center" width="33%">
       <img src="책표지/1-2쇄.png" alt="1·2쇄 표지" width="180">
-      <br><img src="images/caption-1-2.svg" alt="📕 1·2쇄" height="22">
+      <br><strong>🟪 1·2쇄</strong>
     </td>
     <td align="center" width="33%">
       <img src="책표지/3쇄.png" alt="3쇄 표지" width="180">
-      <br><img src="images/caption-3.svg" alt="📗 3쇄" height="22">
+      <br><strong>🟨 3쇄</strong>
     </td>
     <td align="center" width="33%">
       <img src="책표지/4쇄.jpg" alt="4쇄 표지" width="180">
-      <br><img src="images/caption-4.svg" alt="📘 4쇄" height="22">
+      <br><strong>🟥 4쇄</strong>
     </td>
   </tr>
 </table>
@@ -196,7 +196,7 @@ Claude Code와 동일한 인터페이스로 무료 실습.<br>
   - 커스터마이즈 기능으로 개성 더하기
   - 클로드 구독으로 더 강력한 AI 파트너 만들기
 >
-> **예제**: 나만의 첫 웹페이지 - 날씨, 뉴스, 시계, 검색 기능을 포함한 개인 시작 페이지 (Claude Artifacts 사용)
+> **예제**: 나만의 첫 웹페이지 - 날짜, 시계, 검색 기능을 포함한 개인 시작 페이지 (Claude Artifacts 사용)
 
 **2장: 효과적인 프롬프트로 AI 200% 활용하기** [▶️ 유튜브 강의](https://youtu.be/n6xAUiTTrZU?si=SyUDw3tdkJWbv7LA&t=832) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#02장-효과적인-프롬프트로-ai-200-활용하기)
 - 02-1 AI를 깨우는 프롬프트의 비밀
