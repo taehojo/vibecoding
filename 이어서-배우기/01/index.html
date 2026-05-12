@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑 리스트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #8b7355;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+            font-family: 'Gaegu', cursive;
+        }
+
+        .notebook {
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+        }
+
+        /* 스프링 바인딩 */
+        .spring {
+            position: absolute;
+            top: 0;
+            left: 28px;
+            width: 20px;
+            height: 100%;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding-top: 30px;
+        }
+
+        .spring-ring {
+            width: 20px;
+            height: 14px;
+            border: 2.5px solid #888;
+            border-radius: 50%;
+            background: linear-gradient(to bottom, #ccc, #999);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* 노트 페이지 */
+        .page {
+            background: #fffef5;
+            border-radius: 3px 8px 8px 3px;
+            box-shadow:
+                3px 3px 8px rgba(0,0,0,0.25),
+                -1px 0 2px rgba(0,0,0,0.05),
+                inset 0 0 40px rgba(0,0,0,0.02);
+            padding: 35px 30px 35px 60px;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 빨간 세로줄 */
+        .page::before {
+            content: '';
+            position: absolute;
+            left: 52px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(220, 80, 80, 0.35);
+        }
+
+        /* 줄무늬 배경 */
+        .page::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(
+                transparent,
+                transparent 31px,
+                #c8e0f0 31px,
+                #c8e0f0 32px
+            );
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .page-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 6px;
+            line-height: 38px;
+            padding-top: 2px;
+        }
+
+        .date {
+            font-size: 1.1em;
+            color: #888;
+            margin-bottom: 24px;
+            font-weight: 400;
+            line-height: 32px;
+        }
+
+        /* 입력 영역 */
+        .input-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            line-height: 32px;
+        }
+
+        #itemInput {
+            flex: 1;
+            border: none;
+            border-bottom: 1.5px dashed #aaa;
+            background: transparent;
+            font-family: 'Gaegu', cursive;
+            font-size: 1.4em;
+            color: #222;
+            font-weight: 700;
+            padding: 4px 2px;
+            line-height: 36px;
+        }
+
+        #itemInput:focus {
+            outline: none;
+            border-bottom-color: #4a7c59;
+        }
+
+        #itemInput::placeholder {
+            color: #999;
+        }
+
+        #addBtn {
+            background: none;
+            border: 2px solid #4a7c59;
+            color: #4a7c59;
+            font-family: 'Gaegu', cursive;
+            font-size: 1.3em;
+            font-weight: 700;
+            padding: 2px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            line-height: 36px;
+            transition: all 0.15s;
+        }
+
+        #addBtn:hover {
+            background: #4a7c59;
+            color: white;
+        }
+
+        #addBtn:active {
+            transform: scale(0.95);
+        }
+
+        /* 리스트 */
+        #shoppingList {
+            list-style: none;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 38px;
+            padding: 2px 2px;
+            position: relative;
+            animation: write 0.3s ease both;
+        }
+
+        @keyframes write {
+            from {
+                opacity: 0;
+                clip-path: inset(0 100% 0 0);
+            }
+            to {
+                opacity: 1;
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        .list-item .bullet {
+            width: 6px;
+            height: 6px;
+            background: #333;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .list-item.checked .bullet {
+            background: #4a7c59;
+        }
+
+        .item-text {
+            flex: 1;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #222;
+            cursor: pointer;
+            padding: 2px 0;
+            transition: color 0.2s;
+            user-select: none;
+        }
+
+        .list-item.checked .item-text {
+            color: #888;
+            text-decoration: line-through;
+            text-decoration-color: #e74c3c;
+            text-decoration-thickness: 2px;
+        }
+
+        .delete-btn {
+            opacity: 0;
+            background: none;
+            border: none;
+            color: #ccc;
+            font-family: 'Gaegu', cursive;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0 6px;
+            transition: all 0.15s;
+            line-height: 38px;
+        }
+
+        .list-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .delete-btn:hover {
+            color: #e74c3c;
+        }
+
+        /* 빈 상태 */
+        .empty-state {
+            color: #aaa;
+            font-size: 1.3em;
+            font-weight: 700;
+            text-align: center;
+            padding: 60px 0;
+            line-height: 36px;
+        }
+
+        /* 삭제 애니메이션 */
+        .list-item.removing {
+            animation: erase 0.3s ease forwards;
+        }
+
+        @keyframes erase {
+            to {
+                opacity: 0;
+                transform: translateX(10px);
+                height: 0;
+                line-height: 0;
+                overflow: hidden;
+            }
+        }
+
+        /* 페이지 하단 너덜너덜 */
+        .page-bottom {
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #fffef5;
+            filter: url(#torn);
+            z-index: 2;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 20px 12px; }
+            .page { padding: 30px 20px 30px 50px; }
+            .page::before { left: 42px; }
+            .spring { left: 20px; }
+            .title { font-size: 1.5em; }
+            .list-item .delete-btn { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 찢어진 효과용 SVG 필터 -->
+    <svg style="position:absolute;width:0;height:0;">
+        <filter id="torn">
+            <feTurbulence baseFrequency="0.04" numOctaves="4" type="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" scale="4"/>
+        </filter>
+    </svg>
+
+    <div class="notebook">
+        <div class="spring" id="springContainer"></div>
+        <div class="page">
+            <div class="page-content">
+                <div class="title">장보기 메모</div>
+                <div class="date" id="todayDate"></div>
+
+                <div class="input-row">
+                    <input
+                        type="text"
+                        id="itemInput"
+                        placeholder="여기에 적으세요..."
+                        autofocus
+                    >
+                    <button id="addBtn">추가</button>
+                </div>
+
+                <ul id="shoppingList">
+                    <div class="empty-state">아직 아무것도 없어요 ✏️</div>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'shopping-list-items';
+        const itemInput = document.getElementById('itemInput');
+        const addBtn = document.getElementById('addBtn');
+        const shoppingList = document.getElementById('shoppingList');
+
+        // 오늘 날짜 표시
+        const today = new Date();
+        const dateStr = `${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일`;
+        document.getElementById('todayDate').textContent = dateStr;
+
+        // 스프링 생성
+        const springContainer = document.getElementById('springContainer');
+        const ringCount = Math.floor(window.innerHeight / 36);
+        for (let i = 0; i < Math.max(ringCount, 16); i++) {
+            const ring = document.createElement('div');
+            ring.className = 'spring-ring';
+            springContainer.appendChild(ring);
+        }
+
+        function getItems() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveItems(items) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+        }
+
+        function loadItems() {
+            const items = getItems();
+            shoppingList.innerHTML = '';
+
+            if (items.length === 0) {
+                shoppingList.innerHTML = '<div class="empty-state">아직 아무것도 없어요 ✏️</div>';
+                return;
+            }
+
+            items.forEach((item, index) => {
+                addItemToDOM(item.name, item.completed, item.id, index);
+            });
+        }
+
+        function addItemToDOM(text, checked, id, index = 0) {
+            const li = document.createElement('li');
+            li.className = `list-item ${checked ? 'checked' : ''}`;
+            li.style.animationDelay = `${index * 0.05}s`;
+
+            const bullet = document.createElement('div');
+            bullet.className = 'bullet';
+
+            const span = document.createElement('span');
+            span.className = 'item-text';
+            span.textContent = text;
+            span.addEventListener('click', () => toggleItem(id));
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = '×';
+            deleteBtn.addEventListener('click', () => deleteItem(id, li));
+
+            li.appendChild(bullet);
+            li.appendChild(span);
+            li.appendChild(deleteBtn);
+            shoppingList.appendChild(li);
+        }
+
+        function addItem() {
+            const text = itemInput.value.trim();
+            if (text === '') return;
+
+            const items = getItems();
+            items.push({
+                id: Date.now().toString(),
+                name: text,
+                completed: false
+            });
+            saveItems(items);
+            itemInput.value = '';
+            loadItems();
+        }
+
+        function toggleItem(id) {
+            const items = getItems();
+            const item = items.find(i => i.id === id);
+            if (item) {
+                item.completed = !item.completed;
+                saveItems(items);
+                loadItems();
+            }
+        }
+
+        async function deleteItem(id, element) {
+            element.classList.add('removing');
+            await new Promise(resolve => setTimeout(resolve, 280));
+            const items = getItems().filter(i => i.id !== id);
+            saveItems(items);
+            loadItems();
+        }
+
+        addBtn.addEventListener('click', addItem);
+        itemInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addItem();
+        });
+
+        loadItems();
+    </script>
+</body>
+</html>
