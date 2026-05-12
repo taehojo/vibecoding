@@ -54,15 +54,15 @@
   <tr>
     <td align="center" width="33%">
       <img src="책표지/1-2쇄.png" alt="1·2쇄 표지" width="180">
-      <br><strong style="color:#5B21B6">📕 1·2쇄</strong>
+      <br><img src="images/caption-1-2.svg" alt="📕 1·2쇄" height="22">
     </td>
     <td align="center" width="33%">
       <img src="책표지/3쇄.png" alt="3쇄 표지" width="180">
-      <br><strong style="color:#CA8A04">📗 3쇄</strong>
+      <br><img src="images/caption-3.svg" alt="📗 3쇄" height="22">
     </td>
     <td align="center" width="33%">
       <img src="책표지/4쇄.jpg" alt="4쇄 표지" width="180">
-      <br><strong style="color:#DC2626">📘 4쇄</strong>
+      <br><img src="images/caption-4.svg" alt="📘 4쇄" height="22">
     </td>
   </tr>
 </table>
