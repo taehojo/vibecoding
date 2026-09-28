@@ -119,7 +119,7 @@
 
 <img src="images/vibeindex-logo.png" alt="Vibe Index" width="200">
 
-**모든 바이브코딩 자료를 한곳에**
+**8장에서 사용하는 자료 디렉터리**
 
 <a href="https://www.vibeindex.ai/">
   <img src="images/vibeindex.png" alt="Vibe Index" width="380">
@@ -128,40 +128,11 @@
 스킬·플러그인·MCP 서버를 실시간 수집,<br>
 한글 요약과 카테고리별 정리로 제공합니다.
 
+3쇄 이후 책의 8장에서 노션·깃허브 MCP 서버,<br>
+<code>vibeindex</code> 스킬, <code>anthropics-skills</code> 마켓플레이스와 플러그인을 설치할 때 사용합니다.<br>
+1·2쇄 독자는 위 안내의 8장 이어서 배우기 자료에서 사용합니다.
+
 👉 **[Vibe Index 바로가기](https://www.vibeindex.ai/)**
-
-<br>
-
-**영상으로 Vibe Index 활용법을 익혀보세요.**
-
-<a href="https://www.youtube.com/watch?v=D48rWCQOuO4">
-  <img src="images/youtube-vibeindex-tutorial.jpg" alt="Vibe Index 활용법 영상" width="380">
-</a>
-
-<img src="images/youtube-icon.svg" alt="YouTube" width="22"> **[유튜브 영상 바로가기](https://www.youtube.com/watch?v=D48rWCQOuO4)**
-
-</td>
-</tr>
-</table>
-
-<br>
-
-<table align="center">
-<tr>
-<td align="center" valign="top" width="600">
-
-<img src="images/vixcode-logo.svg" alt="Vix Code" width="200">
-
-**학습자를 위한 무료 바이브코딩 도구**
-
-<a href="https://www.vibeindex.ai/vixcode">
-  <img src="images/vixcode-cli.png" alt="Vix Code CLI" width="380">
-</a>
-
-Claude Code와 동일한 인터페이스로 무료 실습.<br>
-파일 직접 편집 · 터미널 · Git 통합 지원.
-
-👉 **[Vix Code 사용해보기](https://www.vibeindex.ai/vixcode)**
 
 </td>
 </tr>
@@ -289,6 +260,8 @@ Claude Code와 동일한 인터페이스로 무료 실습.<br>
   - 쇼핑 리스트 앱 진짜 서비스로 업그레이드하기
 
 > **예제**: 쇼핑 리스트 앱 [🎯 라이브 데모](https://shopping-list-app-chi-blush.vercel.app) - Playwright 자동 테스트 → 깃허브 업로드 → Vercel 배포 → Supabase 데이터베이스 연동으로 완성도 높은 실전 서비스 구축
+>
+> **함께 쓰는 사이트**: [Vibe Index](https://www.vibeindex.ai/), 이 장에서 MCP 서버·스킬·플러그인을 찾고 설치하는 곳 (3쇄 이후)
 
 ---
 
