@@ -23,7 +23,7 @@
     <tr>
       <td align="center">
         <a href="https://vibecoding-ch03.vercel.app/">
-          <img src="images/ch03.jpg" alt="3장 예제: 손글씨 인식" width="250">
+          <img src="images/preview-ch03.jpg" alt="3장 예제: 손글씨 인식" width="250">
         </a>
         <br>
         <strong>3장 예제: 손글씨 인식</strong>
