@@ -91,6 +91,7 @@
 <details>
 <summary><b>📘 4쇄 이후 독자 안내</b></summary>
 
+- [1장 예제 대체 프롬프트](1장-예제-안내.md) &nbsp;<sub>아티팩트 정책 변경</sub>
 - [7장 새로운 에이전트 만드는 법](https://raw.githubusercontent.com/taehojo/vibecoding/master/7장-서브에이전트-보완자료.pdf) &nbsp;<sub>2.1.198부터 적용</sub>
 
 그 밖에는 별도 안내 사항이 없습니다. 책 본문대로 학습하시면 됩니다.
