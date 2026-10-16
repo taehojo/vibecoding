@@ -1,4 +1,7 @@
+const QUESTIONS_PER_GAME = 10;
+
 // 게임 상태 관리
+let activeQuestions = [];
 let gameState = {
     currentQuestionIndex: 0,
     score: 0,
@@ -10,20 +13,41 @@ let gameState = {
         "과학": { correct: 0, total: 0 },
         "예술과 문화": { correct: 0, total: 0 }
     },
-    isAnswered: false
+    isAnswered: false,
+    selectedCategory: null
 };
 
 // DOM 요소들
 const startScreen = document.getElementById('startScreen');
 const quizScreen = document.getElementById('quizScreen');
 const resultScreen = document.getElementById('resultScreen');
-const startBtn = document.getElementById('startBtn');
+const categoryButtons = document.querySelectorAll('.category-chip[data-category]');
 const nextBtn = document.getElementById('nextBtn');
 const restartBtn = document.getElementById('restartBtn');
 const feedbackModal = document.getElementById('feedbackModal');
 
+// 카테고리에서 10문제 추출 (랜덤)
+function pickQuestions(category) {
+    const pool = quizQuestions.filter(q => q.category === category);
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    const picked = shuffled.slice(0, QUESTIONS_PER_GAME);
+
+    // 세계지리는 "세계에서 가장 긴 강은?" 문제를 항상 첫 문제로 고정
+    if (category === "세계지리") {
+        const pinned = pool.find(q => q.question === "세계에서 가장 긴 강은?");
+        if (pinned) {
+            const rest = picked.filter(q => q.id !== pinned.id);
+            return [pinned, ...rest].slice(0, QUESTIONS_PER_GAME);
+        }
+    }
+
+    return picked;
+}
+
 // 게임 초기화
-function initGame() {
+function initGame(category) {
+    activeQuestions = pickQuestions(category);
+
     gameState = {
         currentQuestionIndex: 0,
         score: 0,
@@ -35,7 +59,8 @@ function initGame() {
             "과학": { correct: 0, total: 0 },
             "예술과 문화": { correct: 0, total: 0 }
         },
-        isAnswered: false
+        isAnswered: false,
+        selectedCategory: category
     };
 
     // 화면 전환
@@ -50,7 +75,7 @@ function initGame() {
 
 // 문제 로드 및 표시
 function loadQuestion() {
-    const question = quizQuestions[gameState.currentQuestionIndex];
+    const question = activeQuestions[gameState.currentQuestionIndex];
 
     // 진행률 업데이트
     updateProgress();
@@ -91,7 +116,7 @@ function handleAnswer(selectedIndex) {
 
     gameState.isAnswered = true;
 
-    const question = quizQuestions[gameState.currentQuestionIndex];
+    const question = activeQuestions[gameState.currentQuestionIndex];
     const isCorrect = selectedIndex === question.correctAnswer;
 
     // 카테고리별 점수 업데이트
@@ -155,7 +180,7 @@ function nextQuestion() {
     feedbackModal.classList.remove('show');
     gameState.currentQuestionIndex++;
 
-    if (gameState.currentQuestionIndex < quizQuestions.length) {
+    if (gameState.currentQuestionIndex < activeQuestions.length) {
         loadQuestion();
     } else {
         endGame();
@@ -179,10 +204,10 @@ function displayResults() {
 
     // 정답 개수
     document.getElementById('correctCount').textContent =
-        `${gameState.correctAnswers} / ${quizQuestions.length}`;
+        `${gameState.correctAnswers} / ${activeQuestions.length}`;
 
     // 정답률
-    const accuracy = Math.round((gameState.correctAnswers / quizQuestions.length) * 100);
+    const accuracy = Math.round((gameState.correctAnswers / activeQuestions.length) * 100);
     document.getElementById('accuracyRate').textContent = `${accuracy}%`;
 
     // 카테고리별 결과
@@ -212,7 +237,7 @@ function displayResults() {
 // 진행률 업데이트
 function updateProgress() {
     const current = gameState.currentQuestionIndex + 1;
-    const total = quizQuestions.length;
+    const total = activeQuestions.length;
 
     const currentQuestionEl = document.getElementById('currentQuestion');
     const totalQuestionsEl = document.getElementById('totalQuestions');
@@ -237,8 +262,10 @@ function restartGame() {
 }
 
 // 이벤트 리스너
-startBtn.addEventListener('click', () => {
-    initGame();
+categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        initGame(btn.dataset.category);
+    });
 });
 
 nextBtn.addEventListener('click', nextQuestion);

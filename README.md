@@ -201,7 +201,7 @@
 
 **5장: 게임 제작으로 배우는 체계적인 개발과 관리** [▶️ 유튜브 강의](https://www.youtube.com/watch?v=v4kZ4ErsxlU) &nbsp; [📝 프롬프트](https://github.com/taehojo/vibecoding/blob/master/PROMPTS.md#05장-게임-제작으로-배우는-체계적인-개발과-관리)
 - 05-1 할루시네이션 없는 AI 콘텐츠 만들기
-  - 1단계: 퀴즈 게임 구현하기 [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic)
+  - 1단계: 퀴즈 게임 구현하기 [📥 다운로드](https://github.com/taehojo/vibecoding/raw/master/Study-03/Study-03-basic.zip)
   - 할루시네이션 해결하기
 - 05-2 자동화로 개발 효율 높이기
   - 2단계: 게임 확장하기
@@ -274,7 +274,7 @@
 |:---:|:---:|:---|:---:|
 | 3장 | `Study-01` | 손글씨 인식 프로그램 | [🎯 라이브 데모](https://vibecoding-ch03.vercel.app) |
 | 4장 | `Study-02` | 할 일 관리 앱 | [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-02/) |
-| 5장 | `Study-03-basic` | 상식 퀴즈 게임 (기본) | [📥 다운로드](https://download-directory.github.io/?url=https://github.com/taehojo/vibecoding/tree/master/Study-03/Study-03-basic) |
+| 5장 | `Study-03-basic` | 상식 퀴즈 게임 (기본) | [📥 다운로드](https://github.com/taehojo/vibecoding/raw/master/Study-03/Study-03-basic.zip) |
 | 5장 | `Study-03-advanced` | 상식 퀴즈 게임 (고급) | [🎯 라이브 데모](https://taehojo.github.io/vibecoding/Study-03/Study-03-advanced/) |
 | 6장 | `Study-04` | 냉장고를 부탁해 (AI 레시피 추천) | [🎯 라이브 데모](https://vibecoding-ch06.vercel.app) |
 | 7장 | `Study-05` | 공감 AI 다이어리 | [🎯 라이브 데모](https://vibecoding-ch07.vercel.app) |

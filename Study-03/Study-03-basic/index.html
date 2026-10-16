@@ -12,14 +12,13 @@
         <div id="startScreen" class="screen active">
             <div class="start-content">
                 <h1 class="title">🎯 퀴즈 게임</h1>
-                <p class="subtitle">4개 카테고리, 40개의 도전적인 문제</p>
+                <p class="subtitle">카테고리를 선택하면 10문제가 출제됩니다</p>
                 <div class="categories-preview">
-                    <div class="category-chip">🏛️ 한국사</div>
-                    <div class="category-chip">🌍 세계지리</div>
-                    <div class="category-chip">🔬 과학</div>
-                    <div class="category-chip">🎨 예술과 문화</div>
+                    <button class="category-chip" data-category="한국사">🏛️ 한국사</button>
+                    <button class="category-chip" data-category="세계지리">🌍 세계지리</button>
+                    <button class="category-chip" data-category="과학">🔬 과학</button>
+                    <button class="category-chip" data-category="예술과 문화">🎨 예술과 문화</button>
                 </div>
-                <button id="startBtn" class="btn btn-primary">게임 시작</button>
             </div>
         </div>
 
@@ -27,7 +26,7 @@
         <div id="quizScreen" class="screen">
             <div class="quiz-header">
                 <div class="progress-info">
-                    <span id="currentQuestion">1</span> / <span id="totalQuestions">40</span>
+                    <span id="currentQuestion">1</span> / <span id="totalQuestions">10</span>
                 </div>
                 <div class="score-info">
                     점수: <span id="currentScore">0</span>
